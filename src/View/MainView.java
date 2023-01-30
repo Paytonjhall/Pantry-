@@ -15,6 +15,9 @@ public class MainView extends JFrame{
     setSize(1400, 600);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
+
+    //RecipeList.add();
+
   }
 
 }
