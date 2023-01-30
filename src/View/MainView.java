@@ -1,5 +1,5 @@
 package View;
-
+import User.*;
 import javax.swing.*;
 
 public class MainView extends JFrame{
@@ -9,7 +9,7 @@ public class MainView extends JFrame{
   private JPanel MainViewPanel;
 
   //Load main view
-  public MainView() {
+  public MainView( User user ) {
     setContentPane(MainViewPanel);
     setTitle("Pantry Manager");
     setSize(1400, 600);

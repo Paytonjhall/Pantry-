@@ -8,6 +8,14 @@ public class User {
   Stock stock;
   RecipeBook recipeBook;
 
+  //Register
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.stock = new Stock();
+        this.recipeBook = new RecipeBook();
+    }
+
   //TODO: Functions to write
     // add to stock
     // remove from stock

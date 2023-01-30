@@ -1,5 +1,6 @@
 package View;
 
+import User.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +42,9 @@ public class LoginView extends JFrame{
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         if(usernameField.getText().equals("admin") && passwordField.getText().equals("admin")){
           System.out.println("Login Successful");
-          MainView view = new MainView();
+          //Need to write code to accept a new user here. Either from AWS or saved locally.
+          //Set that User object here as user.
+          //MainView view = new MainView(user);
           dispose();
         }
         else{
@@ -52,15 +55,21 @@ public class LoginView extends JFrame{
 
     registerButton.addActionListener(e -> {
       //add Register code
+      if(!usernameField.getText().equals("") && !passwordField.getText().equals("")){
+        System.out.println("Register Successful");
+        User user = new User(usernameField.getText(), passwordField.getText());
+        MainView view = new MainView(user);
+        dispose();
+      }
+      else{
+        System.out.println("Register Failed");
+      }
     });
-
   }
 
     public static void main(String[] args) {
         LoginView view = new LoginView();
     }
-
-
 
 
   //Used to make images on the panel
