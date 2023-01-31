@@ -36,7 +36,8 @@ public class JsonConverter {
 
     public User checkUserFile(String username, String password) {
       Gson gson = new Gson();
-      try (Reader reader = new FileReader("src/Files/Users/" + username + ".json")) {
+      try {
+        Reader reader = new FileReader("src/Files/Users/" + username + ".json");
         User user = gson.fromJson(reader, User.class);
         if (user.getPassword().equals(password)) {
           return user;

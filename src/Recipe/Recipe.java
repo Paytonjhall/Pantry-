@@ -1,6 +1,7 @@
 package Recipe;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Recipe {
     //This class will be what we use to keep track of all the recipes
@@ -9,9 +10,9 @@ public class Recipe {
     String name;
     String instructions;
     String time;
-    ArrayList<String> ingredients;
+    List<String> ingredients;
 
-    public Recipe(String name, String instructions, String time, ArrayList<String> ingredients) {
+    public Recipe(String name, String instructions, String time, List<String> ingredients) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
@@ -29,7 +30,7 @@ public class Recipe {
         return time;
     }
 
-    public ArrayList<String> getIngredients() {
+    public List<String> getIngredients() {
         return ingredients;
     }
 }

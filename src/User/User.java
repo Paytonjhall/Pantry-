@@ -7,6 +7,7 @@ public class User {
   String password;
   Stock stock;
   RecipeBook recipeBook;
+  Boolean subscribed; //Paying customer
 
   //Register
     public User(String username, String password) {
@@ -14,6 +15,7 @@ public class User {
         this.password = password;
         this.stock = new Stock();
         this.recipeBook = new RecipeBook();
+        this.subscribed = false;
     }
 
   //TODO: Functions to write
@@ -57,5 +59,13 @@ public class User {
 
   public void setRecipeBook(RecipeBook recipeBook) {
     this.recipeBook=recipeBook;
+  }
+
+  public Boolean getSubscribed() {
+    return subscribed;
+  }
+
+  public void setSubscribed(Boolean subscribed) {
+    this.subscribed=subscribed;
   }
 }
