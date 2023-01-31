@@ -24,7 +24,7 @@ public class LoginView extends JFrame{
   public LoginView() throws HeadlessException {
     //Make Panel:
     setContentPane(loginPanel);
-    setTitle("Pantry Manager");
+    setTitle("Pantry ++");
     setSize(500, 300);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     //Make leaf icon
