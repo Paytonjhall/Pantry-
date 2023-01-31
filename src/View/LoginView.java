@@ -19,6 +19,7 @@ public class LoginView extends JFrame{
   private JLabel leafLabel;
   private JLabel userNameText;
   private JLabel passwordText;
+  JsonConverter jsonConverter = new JsonConverter();
 
   public LoginView() throws HeadlessException {
     //Make Panel:
@@ -40,26 +41,28 @@ public class LoginView extends JFrame{
 
     loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
-        if(usernameField.getText().equals("admin") && passwordField.getText().equals("admin")){
+        User user = jsonConverter.checkUserFile(usernameField.getText(), passwordField.getText());
+        if(user != null) {
           System.out.println("Login Successful");
-          //Need to write code to accept a new user here. Either from AWS or saved locally.
-          //Set that User object here as user.
-          //MainView view = new MainView(user);
+          MainView view = new MainView(user);
           dispose();
         }
-        else{
+        else {
           System.out.println("Login Failed");
-        }
-      }
-    });
+        }}});
 
     registerButton.addActionListener(e -> {
       //add Register code
       if(!usernameField.getText().equals("") && !passwordField.getText().equals("")){
         System.out.println("Register Successful");
         User user = new User(usernameField.getText(), passwordField.getText());
-        MainView view = new MainView(user);
-        dispose();
+        MainView view;
+        if(jsonConverter.addUserToFile(user)){
+          view = new MainView(user);
+          dispose();
+        } else {
+          //display information saying that the username is already taken
+        }
       }
       else{
         System.out.println("Register Failed");
