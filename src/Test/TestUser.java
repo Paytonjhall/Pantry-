@@ -1,5 +1,6 @@
 package Test;
 
+import Pantry.Ingredient;
 import Recipe.*;
 import User.User;
 import View.MainView;
@@ -17,11 +18,12 @@ public static void main(String[] args) {
 
   public static void testUserRecipe(){
     User user = new User("test", "test");
-    List<String> ingredients = new ArrayList<String>();
-    ingredients.add("apple");
+    List<Ingredient> ingredients = new ArrayList<Ingredient>();
+    ingredients.add(new Ingredient("apple", 1));
+
     Recipe recipe = new Recipe("hot apple", "boil apple in water", "5 minutes", ingredients);
     Recipe recipe2 = new Recipe("cold apple", "freeze apple", "5 minutes", ingredients);
-    Recipe recipe3 = new Recipe("hot potato", "boil potato in water", "5 minutes", ingredients);
+    Recipe recipe3 = new Recipe("apple", "just an apple", "0 minutes", ingredients);
 
 
     RecipeBook recipeBook = new RecipeBook();

@@ -3,12 +3,13 @@ package User;
 import Pantry.FoodItem;
 import Recipe.Recipe;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.*;
 
 
 public class JsonConverter {
-  Gson gson = new Gson();
+  Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
   public String convertRecipeToJson(Recipe recipe) {
     return gson.toJson(recipe);
@@ -52,6 +53,7 @@ public class JsonConverter {
       File file = new File("src/Files/Users/" + user.getUsername() + ".json");
       try (FileWriter writer = new FileWriter(file);) {
         gson.toJson(user, writer);
+
         return true;
       } catch (IOException e) {
         System.out.println("Error saving game");
