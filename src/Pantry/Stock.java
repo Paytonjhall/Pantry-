@@ -71,5 +71,4 @@ public class Stock {
 
     return -1;
   }
-
 }

@@ -26,6 +26,7 @@ public class MainView extends JFrame{
   private JList RecipeIngredientList;
   private JButton deleteRecipeButton;
   private JButton editRecipeButton;
+  private JTextField SearchBox;
 
   //Load main view
   public MainView( User user ) {
@@ -51,14 +52,26 @@ public class MainView extends JFrame{
           List<String> ingredientList = user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getIngredientsNames();
           RecipeIngredientList.setListData(ingredientList.toArray());
         }
-        //RecipePanel.add(recipe);
-        //RecipePanel.revalidate();
         deleteRecipeButton.setVisible(true);
         editRecipeButton.setVisible(true);
         RecipePanel.repaint();
       }
     });
 
+//    SearchBox.addActionListener(new java.awt.event.ActionListener() {
+//      public void actionPerformed(java.awt.event.ActionEvent evt) {
+//        if (SearchBox.getText() != null) {
+//          String search=SearchBox.getText();
+//          List<Recipe> searchList=new ArrayList<Recipe>();
+//          for (int i=0; i < user.getRecipeBook().getRecipeList().size(); i++) {
+//            if (user.getRecipeBook().getRecipeList().get(i).getName().contains(search)) {
+//              searchList.add(user.getRecipeBook().getRecipeList().get(i));
+//            }
+//          }
+//          RecipeList.setListData(searchList.toArray());
+//        }
+//      }
+//    });
 
     //Save Button --> Complete: Done
     saveButton.addActionListener(e -> {
@@ -110,13 +123,6 @@ public class MainView extends JFrame{
 
         int option = JOptionPane.showConfirmDialog(null, message, "Add Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon);
         if (option == JOptionPane.OK_OPTION) {
-//          Recipe recipe = new Recipe(recipeName.getText(), recipeInstructions.getText(), recipeIngredients.getText());
-//          user.getRecipeBook().addRecipe(recipe);
-//          RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
-            System.out.println("Recipe Added");
-            System.out.println(recipeName.getText());
-            System.out.println(recipeInstructions.getText());
-            System.out.println(recipeIngredients.getText());
             Recipe recipe = new Recipe(recipeName.getText(), recipeInstructions.getText(), cookTime.getText(), ingredients);
             user.getRecipeBook().addRecipe(recipe);
             RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());

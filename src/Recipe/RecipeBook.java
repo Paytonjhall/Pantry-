@@ -7,12 +7,6 @@ public class RecipeBook {
 
   ArrayList<Recipe> recipeList;
 
-  //TODO: Functions to implement
-  // add to recipe list
-  // remove from recipe list
-  // edit from recipe list
-  // search from recipe list
-
 
   public ArrayList<Recipe> getRecipeList() {
     return recipeList;
@@ -45,6 +39,14 @@ public class RecipeBook {
     List<String> recipeNames = new ArrayList<String>();
     for(Recipe recipe: recipeList){
       recipeNames.add(recipe.getName());
+    }
+    return recipeNames;
+  }
+
+  public List<String> searchRecipe(String search){
+    List<String> recipeNames = new ArrayList<String>();
+    for(Recipe recipe: recipeList){
+      if(recipe.getName().contains(search))recipeNames.add(recipe.getName());
     }
     return recipeNames;
   }
