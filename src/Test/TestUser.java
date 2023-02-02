@@ -3,6 +3,7 @@ package Test;
 import Pantry.Ingredient;
 import Recipe.*;
 import User.User;
+import View.LoginView;
 import View.MainView;
 
 import java.util.ArrayList;
@@ -33,5 +34,9 @@ public static void main(String[] args) {
 
     user.setRecipeBook(recipeBook);
     MainView mainView = new MainView(user);
+  }
+
+  public static void testUser(){
+    LoginView loginView = new LoginView();
   }
 }

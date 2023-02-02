@@ -21,24 +21,32 @@ public class LoginView extends JFrame{
   private JLabel passwordText;
   JsonConverter jsonConverter = new JsonConverter();
 
+  //Main metod that runs program
+  public static void main(String[] args) {
+    LoginView view = new LoginView();
+  }
+
+  //Login View constructor, creates the login view
   public LoginView() throws HeadlessException {
     //Make Panel:
     setContentPane(loginPanel);
     setTitle("Pantry ++");
     setSize(500, 300);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     //Make leaf icon
-    Image dimg = getImage("src/Assets/leaf.png").getScaledInstance(75, 75,
-            Image.SCALE_SMOOTH);
+    Image dimg = getImage("src/Assets/leaf.png").getScaledInstance(75, 75, Image.SCALE_SMOOTH);
     ImageIcon imageIcon = new ImageIcon(dimg);
     leafLabel.setIcon(imageIcon);
-    System.out.println("username: " + usernameField.getText());
-    System.out.println("password: " + passwordField.getText());
+
     //Make panel visible
     setVisible(true);
+
     //Add buttons
+    //Exit button: Closes program
     exitButton.addActionListener(e -> System.exit(0));
 
+    //Login Button: Checks if user exists, if so, opens main view
     loginButton.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         User user = jsonConverter.checkUserFile(usernameField.getText(), passwordField.getText());
@@ -51,6 +59,7 @@ public class LoginView extends JFrame{
           System.out.println("Login Failed");
         }}});
 
+    //Register Button: If username doesn't already exist, creates a new user.
     registerButton.addActionListener(e -> {
       //add Register code
       if(!usernameField.getText().equals("") && !passwordField.getText().equals("")){
@@ -70,11 +79,6 @@ public class LoginView extends JFrame{
     });
   }
 
-    public static void main(String[] args) {
-        LoginView view = new LoginView();
-    }
-
-
   //Used to make images on the panel
   private Image getImage(String iconPath) {
     BufferedImage img = null;
@@ -85,5 +89,4 @@ public class LoginView extends JFrame{
     }
     return img;
   }
-
 }
