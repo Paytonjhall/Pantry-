@@ -43,4 +43,20 @@ public class Recipe {
         }
         return ingredientNames;
     }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setName(String name) {
+        this.name=name;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions=instructions;
+    }
+
+    public void setTime(String time) {
+        this.time=time;
+    }
 }

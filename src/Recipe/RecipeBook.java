@@ -30,6 +30,17 @@ public class RecipeBook {
     }
   }
 
+    public void removeRecipe(Recipe recipe) {
+        if(recipeList!=null)recipeList.remove(recipe);
+    }
+
+    public void editRecipe(Recipe oldRecipe, Recipe newRecipe) {
+        if(recipeList!=null) {
+            recipeList.remove(oldRecipe);
+            recipeList.add(newRecipe);
+        }
+    }
+
   public List<String> getRecipeStringList(){
     List<String> recipeNames = new ArrayList<String>();
     for(Recipe recipe: recipeList){
