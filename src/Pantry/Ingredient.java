@@ -1,8 +1,8 @@
 package Pantry;
 
 public class Ingredient {
-    String foodName;
-    int quantity; //int or string?
+    private String foodName;
+    private int quantity; //int or string?
 
     public Ingredient(String foodName, int quantity) {
         this.foodName=foodName;
