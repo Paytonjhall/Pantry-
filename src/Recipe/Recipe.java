@@ -2,6 +2,7 @@ package Recipe;
 
 import Pantry.Ingredient;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +14,25 @@ public class Recipe {
     String instructions;
     String time;
     List<Ingredient> ingredients;
+    String image;
 
     public Recipe(String name, String instructions, String time, List<Ingredient> ingredients) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
+        this.time = time;
+    }
+
+    public Recipe(String name, String instructions, String time, List<Ingredient> ingredients, String image) {
+        this.name = name;
+        this.instructions = instructions;
+        this.ingredients = ingredients;
+        this.time = time;
+        this.image = image;
+    }
+
+    public Recipe(){
+
     }
 
     public String getName() {
@@ -58,5 +73,13 @@ public class Recipe {
 
     public void setTime(String time) {
         this.time=time;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
