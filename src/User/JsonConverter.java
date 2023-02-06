@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.io.*;
+import java.nio.file.Files;
 
 
 public class JsonConverter {
@@ -38,7 +39,7 @@ public class JsonConverter {
     public User checkUserFile(String username, String password) {
       Gson gson = new Gson();
       try {
-        Reader reader = new FileReader("src/Files/Users/" + username + ".json");
+        Reader reader = new FileReader("src/User/Users/" + username + ".json");
         User user = gson.fromJson(reader, User.class);
         if (user.getPassword().equals(password)) {
           return user;
@@ -50,7 +51,7 @@ public class JsonConverter {
     }
 
     public boolean addUserToFile(User user) {
-      File file = new File("src/Files/Users/" + user.getUsername() + ".json");
+      File file = new File("src/User/Users/" + user.getUsername() + ".json");
       try (FileWriter writer = new FileWriter(file);) {
         gson.toJson(user, writer);
 
@@ -61,5 +62,16 @@ public class JsonConverter {
         //File might exist already.
         return false;
       }
+    }
+
+    public boolean addPhotoToFile(String oldFilePath, String newFilePath) {
+      try {
+        Files.copy(new File(oldFilePath).toPath(), new File(newFilePath).toPath());
+        return true;
+      } catch (IOException e) {
+        e.printStackTrace();
+        return false;
+      }
+
     }
 }
