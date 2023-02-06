@@ -66,9 +66,13 @@ public class MainView extends JFrame{
           RecipeIngredientList.setListData(ingredientList.toArray());
         }
         if(recipeSelected.getImage() != null){
-          RecipePhoto.setIcon(new ImageIcon(recipeSelected.getImage()));
+          Image dimg = getImage(recipeSelected.getImage()).getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+          ImageIcon imageIcon = new ImageIcon(dimg);
+          RecipePhoto.setIcon(imageIcon);
+          //RecipePhoto.setIcon(new ImageIcon(recipeSelected.getImage()));
         }
         else{
+
           RecipePhoto.setIcon(new ImageIcon("src/Assets/no-images.png"));
           RecipePhoto.setToolTipText("No image found");
         }
@@ -186,8 +190,10 @@ public class MainView extends JFrame{
 
     //Delete Recipe Button --> Complete: Done
     deleteRecipeButton.addActionListener(e -> {
-      File file = new File(user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getImage());
-      file.delete();
+      if (user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getImage() != null) {
+        File file=new File(user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getImage());
+        file.delete();
+      }
       user.getRecipeBook().removeRecipe(user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()));
       RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
       RecipeLabel.setText("Recipe: ");

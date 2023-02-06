@@ -24,7 +24,7 @@ public static void main(String[] args) {
 
     Recipe recipe = new Recipe("apple cider", "I don't actually know how to make apple cider", "15 minutes", ingredients);
     Recipe recipe2 = new Recipe("sliced apples", "cut apples into 8 equal pieces, serve with peanut butter.", "5 minutes", ingredients);
-    Recipe recipe3 = new Recipe("apple pie", "Cook the whole apple inside of a pie crust, super easy, kids love it. ", "45 minutes", ingredients);
+    Recipe recipe3 = new Recipe("apple pie", "Cook the whole apple inside of a pie crust, super easy, kids love it. ", "45 minutes", ingredients, "src/Recipe/Photos/leaf.png");
 
 
     RecipeBook recipeBook = new RecipeBook();
