@@ -54,6 +54,9 @@ public class User {
   }
 
   public RecipeBook getRecipeBook() {
+      if(recipeBook == null) {
+          recipeBook = new RecipeBook();
+      }
     return recipeBook;
   }
 

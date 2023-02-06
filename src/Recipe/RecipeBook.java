@@ -37,8 +37,10 @@ public class RecipeBook {
 
   public List<String> getRecipeStringList(){
     List<String> recipeNames = new ArrayList<String>();
-    for(Recipe recipe: recipeList){
-      recipeNames.add(recipe.getName());
+    if(recipeList!=null) {
+      for (Recipe recipe : recipeList) {
+        recipeNames.add(recipe.getName());
+      }
     }
     return recipeNames;
   }
