@@ -22,9 +22,9 @@ public static void main(String[] args) {
     List<Ingredient> ingredients = new ArrayList<Ingredient>();
     ingredients.add(new Ingredient("apple", 1));
 
-    Recipe recipe = new Recipe("hot apple", "boil apple in water", "5 minutes", ingredients);
-    Recipe recipe2 = new Recipe("cold apple", "freeze apple", "5 minutes", ingredients);
-    Recipe recipe3 = new Recipe("apple", "just an apple", "0 minutes", ingredients);
+    Recipe recipe = new Recipe("apple cider", "I don't actually know how to make apple cider", "15 minutes", ingredients);
+    Recipe recipe2 = new Recipe("sliced apples", "cut apples into 8 equal pieces, serve with peanut butter.", "5 minutes", ingredients);
+    Recipe recipe3 = new Recipe("apple pie", "Cook the whole apple inside of a pie crust, super easy, kids love it. ", "45 minutes", ingredients);
 
 
     RecipeBook recipeBook = new RecipeBook();

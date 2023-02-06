@@ -63,9 +63,10 @@
           <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font name="Droid Sans Mono Slashed" size="20"/>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
-          <text value="Welcome to Recipe Finder"/>
+          <text value="Pantry ++"/>
         </properties>
       </component>
       <component id="c24f2" class="javax.swing.JLabel" binding="leafLabel">

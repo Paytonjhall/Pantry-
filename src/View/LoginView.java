@@ -28,6 +28,7 @@ public class LoginView extends JFrame{
 
   //Login View constructor, creates the login view
   public LoginView() throws HeadlessException {
+
     //Make Panel:
     setContentPane(loginPanel);
     setTitle("Pantry ++");
@@ -37,7 +38,9 @@ public class LoginView extends JFrame{
     //Make leaf icon
     Image dimg = getImage("src/Assets/leaf.png").getScaledInstance(75, 75, Image.SCALE_SMOOTH);
     ImageIcon imageIcon = new ImageIcon(dimg);
+    setIconImage(Toolkit.getDefaultToolkit().getImage("src/Assets/leaf.png"));
     leafLabel.setIcon(imageIcon);
+    //mainframe.setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icon.jpg")));
 
     //Make panel visible
     setVisible(true);
