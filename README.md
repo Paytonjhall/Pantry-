@@ -1,4 +1,8 @@
 TODO:
-1 - Add a recipe repo : where we pull existing recipes from, add new ones, etc.
-2 - pantry: We can add items we have in our pantry, list of items. I have a few ideas for this. 
-3 - work on gui
+1. Write functions to convert liquids: oz to ml, ml to oz, to gallon, etc. add to Functions file
+2. Write functions to convert weights: oz to g, g to oz, to lbs etc. add to Functions file
+3. Write a really good, really pretty README. (Here)
+4. 
+
+
+
