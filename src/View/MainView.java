@@ -2,20 +2,17 @@ package View;
 import Pantry.Ingredient;
 import Recipe.Recipe;
 import User.*;
-import com.google.gson.Gson;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MainView extends JFrame{
   private JsonConverter jsonConverter = new JsonConverter();
@@ -34,6 +31,12 @@ public class MainView extends JFrame{
   private JPanel FoodPanel;
   private JLabel RecipePhoto;
   private JLabel RecipeCookTime;
+  private JList PantryList;
+  private JLabel RecipeListText;
+  private JLabel PantryListText;
+  private JButton makeRecipeButton;
+  private JPanel RecipesListPanel;
+  private JPanel SaveLogoutPanel;
   private JTextField SearchBox;
 
   //Load main view
@@ -50,6 +53,7 @@ public class MainView extends JFrame{
     RecipePhoto.setVisible(false);
     deleteRecipeButton.setVisible(false);
     editRecipeButton.setVisible(false);
+    makeRecipeButton.setVisible(false);
     setVisible(true);
 
     //Select Recipe action listener
@@ -79,6 +83,7 @@ public class MainView extends JFrame{
         RecipePhoto.setVisible(true);
         deleteRecipeButton.setVisible(true);
         editRecipeButton.setVisible(true);
+        makeRecipeButton.setVisible(true);
         RecipePanel.repaint();
       }
     });
@@ -203,6 +208,7 @@ public class MainView extends JFrame{
       deleteRecipeButton.setVisible(false);
       editRecipeButton.setVisible(false);
       RecipePhoto.setVisible(false);
+      makeRecipeButton.setVisible(false);
 
     });
 
