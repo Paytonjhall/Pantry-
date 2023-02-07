@@ -1,4 +1,5 @@
 package User;
+import Pantry.FoodItem;
 import Pantry.Stock;
 import Recipe.RecipeBook;
 
@@ -70,5 +71,12 @@ public class User {
 
   public void setSubscribed(Boolean subscribed) {
     this.subscribed=subscribed;
+  }
+
+  public void addToStock(FoodItem item) {
+      if(stock == null) {
+          stock = new Stock();
+      }
+      stock.addItem(item);
   }
 }

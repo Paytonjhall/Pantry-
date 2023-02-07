@@ -43,9 +43,10 @@ public class MainView extends JFrame{
   public MainView( User user ) {
     //Create frame
     setContentPane(MainViewPanel);
-    setTitle("Pantry ++");
+    setTitle("Pantry++");
     setSize(1200, 550);
     RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
+    PantryList.setListData(user.getStock().getFoodNames().toArray());
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setIconImage(Toolkit.getDefaultToolkit().getImage("src/Assets/leaf.png"));
     //Set buttons to invisible, only visible when a recipe is selected
@@ -76,7 +77,6 @@ public class MainView extends JFrame{
           //RecipePhoto.setIcon(new ImageIcon(recipeSelected.getImage()));
         }
         else{
-
           RecipePhoto.setIcon(new ImageIcon("src/Assets/no-images.png"));
           RecipePhoto.setToolTipText("No image found");
         }

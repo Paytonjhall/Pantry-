@@ -1,5 +1,6 @@
 package Test;
 
+import Pantry.FoodItem;
 import Pantry.Ingredient;
 import Recipe.*;
 import User.User;
@@ -26,6 +27,8 @@ public static void main(String[] args) {
     Recipe recipe2 = new Recipe("sliced apples", "cut apples into 8 equal pieces, serve with peanut butter.", "5 minutes", ingredients);
     Recipe recipe3 = new Recipe("apple pie", "Cook the whole apple inside of a pie crust, super easy, kids love it. ", "45 minutes", ingredients, "src/Recipe/Photos/leaf.png");
 
+    FoodItem apple = new FoodItem("apple", 5);
+    user.addToStock(apple);
 
     RecipeBook recipeBook = new RecipeBook();
     recipeBook.addRecipe(recipe);

@@ -1,5 +1,6 @@
 package Pantry;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Stock {
@@ -20,6 +21,9 @@ public class Stock {
    * @param newItem - food item to add
    */
   public void addItem(FoodItem newItem) {
+    if(foodList == null) {
+            foodList = new ArrayList<FoodItem>();
+        }
       foodList.add(newItem);
   }
 
@@ -46,7 +50,6 @@ public class Stock {
       if (index >= 0) {
           return true;
       }
-
       return false;
   }
 
@@ -68,7 +71,15 @@ public class Stock {
             return i;
         }
     }
-
     return -1;
+  }
+
+  public List<String> getFoodNames() {
+    List<String> foodNames = new ArrayList<String>();
+    if(foodList == null) foodList = new ArrayList<FoodItem>();
+    for (FoodItem item : foodList) {
+      foodNames.add(item.getName());
+    }
+    return foodNames;
   }
 }

@@ -131,7 +131,9 @@
                 <preferred-size width="150" height="50"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <font name="Droid Sans Mono Slashed" size="16"/>
+            </properties>
           </component>
         </children>
       </grid>
@@ -152,7 +154,7 @@
           <component id="7b23e" class="javax.swing.JList" binding="RecipeList">
             <constraints border-constraint="Center"/>
             <properties>
-              <font name="Droid Sans Mono Slashed" size="20"/>
+              <font name="Droid Sans Mono Slashed" size="16"/>
               <layoutOrientation value="0"/>
               <selectionMode value="2"/>
             </properties>
