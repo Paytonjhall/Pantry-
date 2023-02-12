@@ -20,14 +20,14 @@ Now you need to configure JDK *openjdk-18*. You will either see a popup saying *
 need to navigate to the *Project Structure*.
 
 3. If you see the following popup
-![](../../../../ConfigurePopup.png)
+   ![ConfigurePopup](images/ConfigurePopup.png)
 click *Configure* and select JDK 18.
 
 4. If you don't see the popup shown in step 3, navigate to *File > Project Structure*.
 
 5. Select the SDK dropdown and click on JDK 18.
 (If you dont have JDK 18 downloaded you can select *Add SDK > Download JDK...* and select version 18.)
-![](../../../../ProjectStructure.png)
+   ![ProjectStructure](images/ProjectStructure.png)
 
 ### JUnit5
 
@@ -38,9 +38,9 @@ bulb.
 
 8. Click on *Add 'JUnit5.8.1' to classpath*. (The version might be slightly different, but just make sure it starts with 
 JUnit5).
-![](../../../../JUnit5.png)
+   ![JUnit5](images/JUnit5.png)
 
 ## Usage
 
 To run the application, navigate to *Pantry- > src > Test > TestUser* and click the play button next to the class to *Run 'TestUser.main()'*.
-![](../../../../RunProgram.png)
+![RunProgram](images/RunProgram.png)
