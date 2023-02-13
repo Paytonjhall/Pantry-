@@ -29,6 +29,11 @@ public static void main(String[] args) {
 
     FoodItem apple = new FoodItem("apple", 5);
     user.addToStock(apple);
+    FoodItem banana = new FoodItem("banana", 15);
+    user.addToStock(banana);
+    FoodItem orange = new FoodItem("orange", 25);
+    user.addToStock(orange);
+
 
     RecipeBook recipeBook = new RecipeBook();
     recipeBook.addRecipe(recipe);

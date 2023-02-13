@@ -82,4 +82,13 @@ public class Stock {
     }
     return foodNames;
   }
+
+  public List<String> getFoodNamesWithQuantity() {
+    List<String> foodNames = new ArrayList<String>();
+    if(foodList == null) foodList = new ArrayList<FoodItem>();
+    for (FoodItem item : foodList) {
+      foodNames.add(item.getName() + " (" + item.getQuantity() + ")");
+    }
+    return foodNames;
+  }
 }

@@ -1,4 +1,5 @@
 package View;
+import Pantry.FoodItem;
 import Pantry.Ingredient;
 import Recipe.Recipe;
 import User.*;
@@ -37,6 +38,8 @@ public class MainView extends JFrame{
   private JButton makeRecipeButton;
   private JPanel RecipesListPanel;
   private JPanel SaveLogoutPanel;
+  private JButton editStockButton;
+  private JButton addToPantryButton;
   private JTextField SearchBox;
 
   //Load main view
@@ -46,7 +49,8 @@ public class MainView extends JFrame{
     setTitle("Pantry++");
     setSize(1200, 550);
     RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
-    PantryList.setListData(user.getStock().getFoodNames().toArray());
+    PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
+    System.out.println(user.getStock().getFoodNamesWithQuantity());
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setIconImage(Toolkit.getDefaultToolkit().getImage("src/Assets/leaf.png"));
     //Set buttons to invisible, only visible when a recipe is selected
@@ -55,7 +59,35 @@ public class MainView extends JFrame{
     deleteRecipeButton.setVisible(false);
     editRecipeButton.setVisible(false);
     makeRecipeButton.setVisible(false);
+    editStockButton.setVisible(false);
     setVisible(true);
+
+    PantryList.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        editStockButton.setVisible(true);
+      }
+    });
+
+    editStockButton.addActionListener(e -> {
+      // add dialogue box for editing food items
+    });
+
+    addToPantryButton.addActionListener(e -> {
+      // add dialogue box for adding food items
+      String foodName = "";
+      int foodQuantity = 0;
+      // Add metric for food measurement here;
+      Object[] message = {
+              "Food Name:", foodName,
+              "Food Quantity", foodQuantity,
+      };
+      int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+      if (output == JOptionPane.OK_OPTION) {
+            FoodItem foodItem = new FoodItem(foodName, foodQuantity);
+            user.addToStock(foodItem);
+            PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
+        }
+    });
 
     //Select Recipe action listener
     RecipeList.addMouseListener(new java.awt.event.MouseAdapter() {
