@@ -43,7 +43,7 @@ public class MainView extends JFrame{
   private JTextField SearchBox;
 
   //Load main view
-  public MainView( User user ) {
+  public MainView( User user )  {
     //Create frame
     setContentPane(MainViewPanel);
     setTitle("Pantry++");
@@ -62,30 +62,56 @@ public class MainView extends JFrame{
     editStockButton.setVisible(false);
     setVisible(true);
 
+    // When you click on an item in your pantry, the edit stock button should show up
     PantryList.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         editStockButton.setVisible(true);
       }
     });
 
+    // edit button for pantry
     editStockButton.addActionListener(e -> {
       // add dialogue box for editing food items
-    });
-
-    addToPantryButton.addActionListener(e -> {
-      // add dialogue box for adding food items
+      FoodItem item = user.getStock().getStock().get(PantryList.getSelectedIndex());
+      JTextField foodNameField = new JTextField();
+      JTextField foodQuantityField = new JTextField();
       String foodName = "";
       int foodQuantity = 0;
       // Add metric for food measurement here;
       Object[] message = {
-              "Food Name:", foodName,
-              "Food Quantity", foodQuantity,
+              "Food Name:", foodNameField,
+              "Food Quantity", foodQuantityField,
       };
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
       if (output == JOptionPane.OK_OPTION) {
-            FoodItem foodItem = new FoodItem(foodName, foodQuantity);
+        foodName = foodNameField.getText();
+        foodQuantity = Integer.parseInt(foodQuantityField.getText());
+        FoodItem newItem = new FoodItem(foodName, foodQuantity);
+        user.getStock().editFoodItem(item, newItem);
+        PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
+        editStockButton.setVisible(false);
+
+      }
+    });
+
+    // add button for pantry
+    addToPantryButton.addActionListener(e -> {
+      // add dialogue box for adding food items
+      JTextField foodNameField = new JTextField();
+      JTextField foodQuantityField = new JTextField();
+      String foodName = "";
+      int foodQuantity = 0;
+      // Add metric for food measurement here;
+      Object[] message = {
+              "Food Name:", foodNameField,
+              "Food Quantity", foodQuantityField,
+      };
+      int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null);
+      if (output == JOptionPane.OK_OPTION) {
+            FoodItem foodItem = new FoodItem(foodNameField.getText(), Integer.parseInt(foodQuantityField.getText()));
             user.addToStock(foodItem);
             PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
+
         }
     });
 

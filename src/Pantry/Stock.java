@@ -91,4 +91,11 @@ public class Stock {
     }
     return foodNames;
   }
+
+  public void editFoodItem(FoodItem item, FoodItem newItem) {
+      int index = findItem(item);
+      if (index >= 0) {
+          foodList.set(index, newItem);
+      }
+  }
 }
