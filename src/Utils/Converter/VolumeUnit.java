@@ -1,6 +1,6 @@
 package Utils.Converter;
 
-public enum VolumeUnit {
+public enum VolumeUnit implements IBaseUnit {
     GALLON (128.0),
     LITER (33.814),
     QUART (32.0),
@@ -9,7 +9,8 @@ public enum VolumeUnit {
     FLUID_OUNCE (1),
     TABLESPOON (0.5),
     TEASPOON (0.16667),
-    MILLILITER (0.033814);
+    MILLILITER (0.033814),
+    UNKNOWN(-1);
 
     private final double conversionFactor; // conversion to fl. oz.
 
@@ -18,6 +19,7 @@ public enum VolumeUnit {
     }
 
     public static double convertToFlOz(VolumeUnit unit, int quantity) {
-        return quantity * unit.conversionFactor;
+        return Math.floor((quantity * unit.conversionFactor) * 100) / 100;
     }
+
 }

@@ -5,23 +5,23 @@ import java.util.Arrays;
 
 public class VolumeConverter {
 
-    public static double convert(VolumeUnit unit, int quantity) {
-        return VolumeUnit.convertToFlOz(unit, quantity);
+    public static double convert(VolumeUnit unit, int unitSize) {
+        return VolumeUnit.convertToFlOz(unit, unitSize);
     }
 
-    public static double convert(String unit, int quantity) {
+    public static double convert(String unit, int unitSize) {
         VolumeUnit normalUnit = stringToUnit(unit);
-        return convert(normalUnit, quantity);
+        return convert(normalUnit, unitSize);
     }
 
     public static VolumeUnit stringToUnit(String unit) {
         String currentUnit = unit.toLowerCase();
         int stringEnd = currentUnit.length() - 1;
         if (currentUnit.charAt(stringEnd) == 's') {
-            currentUnit = currentUnit.substring(0, stringEnd - 1);
+            currentUnit = currentUnit.substring(0, stringEnd);
         }
 
-        VolumeUnit type = VolumeUnit.FLUID_OUNCE;
+        VolumeUnit type = null;
 
         // most units can have multiple abbreviations, so this tests
         // for the most common ones
@@ -60,14 +60,18 @@ public class VolumeConverter {
             case "ml":
                 type = VolumeUnit.MILLILITER;
                 break;
-            case "fluid ounces":
+            case "fluid ounce":
             case "fl. oz.":
             case "fl oz":
             case "oz":
             case "oz.":
-            case "ounces":
+            case "ounce":
                 type = VolumeUnit.FLUID_OUNCE;
                 break;
+            default:
+                type = VolumeUnit.UNKNOWN;
+                break;
+
         }
 
         return type;
