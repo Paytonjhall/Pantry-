@@ -20,8 +20,8 @@ public static void main(String[] args) {
 
   public static void testUserRecipe(){
     User user = new User("test", "test");
-    List<Ingredient> ingredients = new ArrayList<Ingredient>();
-    ingredients.add(new Ingredient("apple", 1));
+    List<FoodItem> ingredients = new ArrayList<FoodItem>();
+    ingredients.add(new FoodItem("apple", 1));
 
     Recipe recipe = new Recipe("apple cider", "I don't actually know how to make apple cider", "15 minutes", ingredients);
     Recipe recipe2 = new Recipe("sliced apples", "cut apples into 8 equal pieces, serve with peanut butter.", "5 minutes", ingredients);

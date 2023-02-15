@@ -1,7 +1,12 @@
 package User;
 import Pantry.FoodItem;
+import Pantry.Ingredient;
 import Pantry.Stock;
+import Recipe.Recipe;
 import Recipe.RecipeBook;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
   String username;
@@ -78,5 +83,18 @@ public class User {
           stock = new Stock();
       }
       stock.addItem(item);
+  }
+
+  public List<Recipe> getRecipesUserCanMake() {
+      List<Recipe> recipes = new ArrayList<Recipe>();
+      for(Recipe recipe : recipeBook.getRecipeList()) {
+            for(FoodItem ingredient : recipe.getIngredients()) {
+                if(!stock.inStock(ingredient)) {
+                    break;
+                }
+                recipes.add(recipe);
+            }
+      }
+      return recipes;
   }
 }

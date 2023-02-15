@@ -1,5 +1,6 @@
 package Recipe;
 
+import Pantry.FoodItem;
 import Pantry.Ingredient;
 
 import java.awt.*;
@@ -13,17 +14,17 @@ public class Recipe {
     String name;
     String instructions;
     String time;
-    List<Ingredient> ingredients;
+    List<FoodItem> ingredients;
     String image;
 
-    public Recipe(String name, String instructions, String time, List<Ingredient> ingredients) {
+    public Recipe(String name, String instructions, String time, List<FoodItem> ingredients) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.time = time;
     }
 
-    public Recipe(String name, String instructions, String time, List<Ingredient> ingredients, String image) {
+    public Recipe(String name, String instructions, String time, List<FoodItem> ingredients, String image) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
@@ -47,19 +48,19 @@ public class Recipe {
         return time;
     }
 
-    public List<Ingredient> getIngredients() {
+    public List<FoodItem> getIngredients() {
         return ingredients;
     }
 
     public List<String> getIngredientsNames() {
         List<String> ingredientNames = new ArrayList<String>();
-        for (Ingredient ingredient : ingredients) {
-            ingredientNames.add(ingredient.getFoodName() + ": " + ingredient.getQuantity());
+        for (FoodItem ingredient : ingredients) {
+            ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity());
         }
         return ingredientNames;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(List<FoodItem> ingredients) {
         this.ingredients = ingredients;
     }
 

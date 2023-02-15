@@ -200,10 +200,10 @@ public class MainView extends JFrame{
             "Cook Time:", cookTime,
             "Upload Photo:", uploadPhoto
         };
-        List<Ingredient> ingredients = new ArrayList<>();
+        List<FoodItem> ingredients = new ArrayList<>();
 
         addIngredientButton.addActionListener(e1 -> {
-          ingredients.add(new Ingredient(recipeIngredients.getText(), ingredientCount.getValue()));
+          ingredients.add(new FoodItem(recipeIngredients.getText(), ingredientCount.getValue()));
           recipeIngredients.setText("");
           ingredientCount.setValue(1);
         });
@@ -296,10 +296,10 @@ public class MainView extends JFrame{
 
       };
 
-      List<Ingredient> ingredients = new ArrayList<>();
+      List<FoodItem> ingredients = new ArrayList<>();
 
       addIngredientButton.addActionListener(e1 -> {
-        ingredients.add(new Ingredient(recipeIngredients.getText(), ingredientCount.getValue()));
+        ingredients.add(new FoodItem(recipeIngredients.getText(), ingredientCount.getValue()));
         recipeIngredients.setText("");
         ingredientCount.setValue(1);
       });
