@@ -61,6 +61,9 @@ public class FoodItem {
   }
 
   public int getQuantity() {
+    if(quantity < 0) {
+      quantity = 0;
+    }
     return quantity;
   }
 

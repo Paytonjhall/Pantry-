@@ -16,6 +16,7 @@ public class Recipe {
     String time;
     List<FoodItem> ingredients;
     String image;
+    List<String> tags;
 
     public Recipe(String name, String instructions, String time, List<FoodItem> ingredients) {
         this.name = name;
@@ -30,6 +31,15 @@ public class Recipe {
         this.ingredients = ingredients;
         this.time = time;
         this.image = image;
+    }
+
+    public Recipe(String name, String instructions, String time, List<FoodItem> ingredients, String image, List<String> tags) {
+        this.name = name;
+        this.instructions = instructions;
+        this.ingredients = ingredients;
+        this.time = time;
+        this.image = image;
+        this.tags = tags;
     }
 
     public Recipe(){
@@ -82,5 +92,21 @@ public class Recipe {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public List<String> getTags() {
+        if (tags == null) {
+            tags = new ArrayList<String>();
+        }
+        return tags;
+    }
+
+    public void setTags(List<String> tags) { this.tags = tags; }
+
+    public void addTag(String tag) {
+        if (tags == null) {
+            tags = new ArrayList<String>();
+        }
+        tags.add(tag);
     }
 }

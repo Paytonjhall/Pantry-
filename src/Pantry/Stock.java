@@ -2,6 +2,7 @@ package Pantry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Stock {
   //This class will be what we use to keep track of all the items in the pantry
@@ -65,9 +66,9 @@ public class Stock {
    * @param item - food item to find
    * @return index in the list if it exists, -1 otherwise
    */
-  private int findItem(FoodItem item) {
+  public int findItem(FoodItem item) {
     for (int i = 0; i < foodList.size(); i++) {
-        if (foodList.get(i) == item) {
+        if (Objects.equals(foodList.get(i).getName(), item.getName())) {
             return i;
         }
     }
@@ -97,5 +98,14 @@ public class Stock {
       if (index >= 0) {
           foodList.set(index, newItem);
       }
+  }
+
+  public FoodItem getFoodItem(String name) {
+      for (FoodItem item : foodList) {
+          if (item.getName().equals(name)) {
+              return item;
+          }
+      }
+      return null;
   }
 }
