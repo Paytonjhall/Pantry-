@@ -2,6 +2,8 @@ package View;
 import Pantry.Ingredient;
 import Recipe.Recipe;
 import User.*;
+import Utils.Converter.IBaseUnit;
+import Utils.Converter.VolumeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
