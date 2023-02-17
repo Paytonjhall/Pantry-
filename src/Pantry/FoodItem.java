@@ -15,6 +15,14 @@ public class FoodItem {
     this.quantity = quantity;
   }
 
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
+
   /**
    * Update the quantity of the food item
    * @param newQuantity the additional quantity to add
@@ -53,6 +61,9 @@ public class FoodItem {
   }
 
   public int getQuantity() {
+    if(quantity < 0) {
+      quantity = 0;
+    }
     return quantity;
   }
 

@@ -1,5 +1,5 @@
 package View;
-import Pantry.Ingredient;
+import Pantry.FoodItem;
 import Recipe.Recipe;
 import User.*;
 import Utils.Converter.IBaseUnit;
@@ -39,25 +39,87 @@ public class MainView extends JFrame{
   private JButton makeRecipeButton;
   private JPanel RecipesListPanel;
   private JPanel SaveLogoutPanel;
+  private JButton editStockButton;
+  private JButton addToPantryButton;
   private JTextField SearchBox;
 
   //Load main view
-  public MainView( User user ) {
+  public MainView( User user )  {
     //Create frame
     setContentPane(MainViewPanel);
     setTitle("Pantry++");
     setSize(1200, 550);
     RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
-    PantryList.setListData(user.getStock().getFoodNames().toArray());
+    PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
+    System.out.println(user.getStock().getFoodNamesWithQuantity());
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setIconImage(Toolkit.getDefaultToolkit().getImage("src/Assets/leaf.png"));
+    setIconImage(Toolkit.getDefaultToolkit().getImage("images/pantryLogoBackground.png"));
     //Set buttons to invisible, only visible when a recipe is selected
     RecipePhoto.setIcon(new ImageIcon("src/Assets/no-images.png"));
     RecipePhoto.setVisible(false);
     deleteRecipeButton.setVisible(false);
     editRecipeButton.setVisible(false);
     makeRecipeButton.setVisible(false);
+    editStockButton.setVisible(false);
     setVisible(true);
+
+    // When you click on an item in your pantry, the edit stock button should show up
+    PantryList.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        editStockButton.setVisible(true);
+      }
+    });
+
+    // edit button for pantry
+    editStockButton.addActionListener(e -> {
+      // add dialogue box for editing food items
+      FoodItem item = user.getStock().getStock().get(PantryList.getSelectedIndex());
+      JTextField foodNameField = new JTextField();
+      foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
+      foodNameField.setPreferredSize(new Dimension(150, 20));
+      JTextField foodQuantityField = new JTextField();
+      String foodName = "";
+      int foodQuantity = 0;
+      // Add metric for food measurement here;
+      Object[] message = {
+              "Food Name:", foodNameField,
+              "Food Quantity", foodQuantityField,
+      };
+      int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
+      if (output == JOptionPane.OK_OPTION) {
+        foodName = foodNameField.getText();
+        foodQuantity = Integer.parseInt(foodQuantityField.getText());
+        FoodItem newItem = new FoodItem(foodName, foodQuantity);
+        user.getStock().editFoodItem(item, newItem);
+        PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
+        editStockButton.setVisible(false);
+
+      }
+    });
+
+    // add button for pantry
+    addToPantryButton.addActionListener(e -> {
+      // add dialogue box for adding food items
+      JTextField foodNameField = new JTextField();
+      foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
+      foodNameField.setPreferredSize(new Dimension(150, 20));
+      JTextField foodQuantityField = new JTextField();
+
+      String foodName = "";
+      int foodQuantity = 0;
+      // Add metric for food measurement here;
+      Object[] message = {
+              "Food Name:", foodNameField,
+              "Food Quantity", foodQuantityField,
+      };
+      int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
+      if (output == JOptionPane.OK_OPTION) {
+            FoodItem foodItem = new FoodItem(foodNameField.getText(), Integer.parseInt(foodQuantityField.getText()));
+            user.addToStock(foodItem);
+            PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
+
+        }
+    });
 
     //Select Recipe action listener
     RecipeList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -69,8 +131,9 @@ public class MainView extends JFrame{
         RecipeLabelInfo.setText("Instructions: \n" + recipeSelected.getInstructions());
         RecipeCookTime.setText("Cook Time: " + recipeSelected.getTime());
         for(int i = 0; i < recipeSelected.getIngredients().size(); i++){
-          List<String> ingredientList = user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getIngredientsNames();
+          List<String> ingredientList = user.getIngredientStringList(recipeSelected);
           RecipeIngredientList.setListData(ingredientList.toArray());
+
         }
         if(recipeSelected.getImage() != null){
           Image dimg = getImage(recipeSelected.getImage()).getScaledInstance(150, 150, Image.SCALE_SMOOTH);
@@ -144,10 +207,10 @@ public class MainView extends JFrame{
             "Cook Time:", cookTime,
             "Upload Photo:", uploadPhoto
         };
-        List<Ingredient> ingredients = new ArrayList<>();
+        List<FoodItem> ingredients = new ArrayList<>();
 
         addIngredientButton.addActionListener(e1 -> {
-          ingredients.add(new Ingredient(recipeIngredients.getText(), ingredientCount.getValue()));
+          ingredients.add(new FoodItem(recipeIngredients.getText(), ingredientCount.getValue()));
           recipeIngredients.setText("");
           ingredientCount.setValue(1);
         });
@@ -178,10 +241,7 @@ public class MainView extends JFrame{
           }
         });
 
-      Image dimg = getImage("src/Assets/leaf.png").getScaledInstance(75, 75, Image.SCALE_SMOOTH);
-      ImageIcon imageIcon = new ImageIcon(dimg);
-
-        int option = JOptionPane.showConfirmDialog(null, message, "Add Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon);
+        int option = JOptionPane.showConfirmDialog(null, message, "Add Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
         if (option == JOptionPane.OK_OPTION) {
           finalRecipe.setIngredients(ingredients);
           finalRecipe.setName(recipeName.getText());
@@ -240,18 +300,15 @@ public class MainView extends JFrame{
 
       };
 
-      List<Ingredient> ingredients = new ArrayList<>();
+      List<FoodItem> ingredients = new ArrayList<>();
 
       addIngredientButton.addActionListener(e1 -> {
-        ingredients.add(new Ingredient(recipeIngredients.getText(), ingredientCount.getValue()));
+        ingredients.add(new FoodItem(recipeIngredients.getText(), ingredientCount.getValue()));
         recipeIngredients.setText("");
         ingredientCount.setValue(1);
       });
 
-      Image dimg = getImage("src/Assets/leaf.png").getScaledInstance(75, 75, Image.SCALE_SMOOTH);
-      ImageIcon imageIcon = new ImageIcon(dimg);
-
-      int option = JOptionPane.showConfirmDialog(null, message, "Edit Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, imageIcon);
+      int option = JOptionPane.showConfirmDialog(null, message, "Edit Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
 
       if (option == JOptionPane.OK_OPTION) {
         Recipe newRecipe = new Recipe(recipeName.getText(), recipeInstructions.getText(), cookTime.getText(), ingredients);
@@ -276,5 +333,10 @@ public class MainView extends JFrame{
       e.printStackTrace();
     }
     return img;
+  }
+
+  private ImageIcon getLogo() {
+    Image dimg = getImage("images/pantryLogoNoBackground.png").getScaledInstance(135, 135, Image.SCALE_SMOOTH);
+    return new ImageIcon(dimg);
   }
 }

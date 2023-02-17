@@ -1,7 +1,12 @@
 package User;
 import Pantry.FoodItem;
+import Pantry.Ingredient;
 import Pantry.Stock;
+import Recipe.Recipe;
 import Recipe.RecipeBook;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class User {
   String username;
@@ -78,5 +83,62 @@ public class User {
           stock = new Stock();
       }
       stock.addItem(item);
+  }
+
+  public List<Recipe> getRecipesUserCanMake() {
+      List<Recipe> recipes = new ArrayList<Recipe>();
+      for(Recipe recipe : recipeBook.getRecipeList()) {
+          boolean makeable = true;
+            for(FoodItem ingredient : recipe.getIngredients()) {
+                if(!stock.inStock(ingredient) || !(stock.getFoodItem(ingredient.getName()).getQuantity() >= ingredient.getQuantity())) {
+                    makeable = false;
+                }
+            }
+          if(makeable) recipes.add(recipe);
+      }
+      return recipes;
+  }
+
+  public void addRecipe(Recipe recipe) {
+      if(recipeBook == null) {
+          recipeBook = new RecipeBook();
+      }
+      recipeBook.addRecipe(recipe);
+  }
+
+  public List<String> getIngredientStringList(Recipe recipe){
+        List<String> ingredientNames = new ArrayList<String>();
+        if(recipe.getIngredients()!=null) {
+            for (FoodItem ingredient : recipe.getIngredients()) {
+            if (haveIngredient(ingredient)) {
+                ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity() + " (in stock : " + stock.getFoodItem(ingredient.getName()).getQuantity() + ")");
+            }
+            else {
+                ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity() + " (not in stock)");
+            }
+
+            }
+        }
+        return ingredientNames;
+    }
+
+
+  public boolean haveIngredient(FoodItem ingredient) {
+      if(stock == null) {
+          stock = new Stock();
+      }
+      if(stock.inStock(ingredient) &&
+              stock.getFoodItem(ingredient.getName()).getQuantity() >= ingredient.getQuantity())
+            return true;
+      return false;
+  }
+
+  public int haveIngredientQuantity(FoodItem ingredient) {
+      if(stock == null) {
+          stock = new Stock();
+      }
+      if(stock.inStock(ingredient))
+            return stock.getFoodItem(ingredient.getName()).getQuantity();
+      return 0;
   }
 }
