@@ -5,16 +5,19 @@ import java.util.Arrays;
 
 public class VolumeConverter {
 
-    public static double convert(VolumeUnit unit, int unitSize) {
+    public static double convert(VolumeUnit unit, double unitSize) {
         return VolumeUnit.convertToFlOz(unit, unitSize);
     }
 
-    public static double convert(String unit, int unitSize) {
+    public static double convert(String unit, double unitSize) {
         VolumeUnit normalUnit = stringToUnit(unit);
         return convert(normalUnit, unitSize);
     }
 
     public static VolumeUnit stringToUnit(String unit) {
+        if (unit == null) {
+            return VolumeUnit.UNKNOWN;
+        }
         String currentUnit = unit.toLowerCase();
         int stringEnd = currentUnit.length() - 1;
         if (currentUnit.charAt(stringEnd) == 's') {

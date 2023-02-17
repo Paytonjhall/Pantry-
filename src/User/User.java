@@ -1,6 +1,5 @@
 package User;
 import Pantry.FoodItem;
-import Pantry.Ingredient;
 import Pantry.Stock;
 import Recipe.Recipe;
 import Recipe.RecipeBook;
@@ -111,10 +110,12 @@ public class User {
         if(recipe.getIngredients()!=null) {
             for (FoodItem ingredient : recipe.getIngredients()) {
             if (haveIngredient(ingredient)) {
-                ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity() + " (in stock : " + stock.getFoodItem(ingredient.getName()).getQuantity() + ")");
+                ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity() + " " + ingredient.getAbbreviation() +
+                        " (in stock : " + stock.getFoodItem(ingredient.getName()).getQuantity() + ")");
             }
             else {
-                ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity() + " (not in stock)");
+                ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity() + " " + ingredient.getAbbreviation() +
+                        " (not in stock)");
             }
 
             }
@@ -133,7 +134,7 @@ public class User {
       return false;
   }
 
-  public int haveIngredientQuantity(FoodItem ingredient) {
+  public double haveIngredientQuantity(FoodItem ingredient) {
       if(stock == null) {
           stock = new Stock();
       }

@@ -8,7 +8,7 @@ public interface IBaseUnit {
      * @param unitSize size of the unit (ex: 3 gallons)
      * @return the normalized unit quantity
      */
-    static double convertUnits(IBaseUnit unit, int unitSize) {
+    static double convertUnits(IBaseUnit unit, double unitSize) {
         if (unit instanceof VolumeUnit) {
             return VolumeConverter.convert((VolumeUnit) unit, unitSize);
         }
@@ -25,4 +25,6 @@ public interface IBaseUnit {
 
         // TODO: update weight conversions here too so it can convert from string to unit
     }
+
+    String getUnitString();
 }

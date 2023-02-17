@@ -68,7 +68,7 @@ public class Stock {
    */
   public int findItem(FoodItem item) {
     for (int i = 0; i < foodList.size(); i++) {
-        if (Objects.equals(foodList.get(i).getName(), item.getName())) {
+        if (Objects.equals(foodList.get(i).getName().toLowerCase(), item.getName().toLowerCase())) {
             return i;
         }
     }
@@ -102,7 +102,7 @@ public class Stock {
 
   public FoodItem getFoodItem(String name) {
       for (FoodItem item : foodList) {
-          if (item.getName().equals(name)) {
+          if (item.getName().equalsIgnoreCase(name)) {
               return item;
           }
       }

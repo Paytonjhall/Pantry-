@@ -1,26 +1,56 @@
 package Pantry;
 
+import Utils.Converter.IBaseUnit;
+import Utils.Converter.VolumeUnit;
+
 public class FoodItem {
   //Basic FoodItem Class
 
   private String name;
-  private int quantity = 0;
+  private double quantity = 0;
+
+  private String quantityUnit;
 
   public FoodItem() {
 
   }
 
-  public FoodItem(String name, int quantity) {
-    this.name = name;
+  public FoodItem(String name, double quantity) {
+    this.name = cleanupName(name);
     this.quantity = quantity;
+    quantityUnit = "Unknown";
+  }
+
+  public FoodItem(String name, double quantity, String quantityUnit) {
+    this.name = cleanupName(name);
+    this.quantity = quantity;
+    this.quantityUnit = quantityUnit;
+  }
+
+  public String cleanupName(String name) {
+    String cleanUp = name.strip();
+    String fullyClean = cleanUp.substring(0, 1).toUpperCase() + cleanUp.substring(1);
+    return fullyClean;
   }
 
   public void setName(String name) {
-    this.name = name;
+    this.name = cleanupName(name);
   }
 
-  public void setQuantity(int quantity) {
+  public void setQuantity(double quantity) {
     this.quantity = quantity;
+  }
+
+  /**
+   * Get the total quantity of the food item in the standardized unit
+   * For volume, the quantity returned is in fluid ounces.
+   */
+  public double getBaseUnitQuantity() {
+    return IBaseUnit.convertUnits(IBaseUnit.stringToUnit(quantityUnit), quantity);
+  }
+
+  public String getAbbreviation() {
+    return IBaseUnit.stringToUnit(quantityUnit).getUnitString();
   }
 
   /**
@@ -60,7 +90,7 @@ public class FoodItem {
       }
   }
 
-  public int getQuantity() {
+  public double getQuantity() {
     if(quantity < 0) {
       quantity = 0;
     }
@@ -86,7 +116,7 @@ public class FoodItem {
     FoodItem item = (FoodItem) o;
 
     // Check if the members are the same
-    if ((item.name.equals(this.name)) && (item.quantity == this.quantity)) {
+    if ((item.name.equals(this.name)) && (item.quantity == this.quantity) && (item.quantityUnit.equals(this.quantityUnit))) {
       return true;
     }
 
