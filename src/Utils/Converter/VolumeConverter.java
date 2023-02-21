@@ -15,7 +15,7 @@ public class VolumeConverter {
     }
 
     public static VolumeUnit stringToUnit(String unit) {
-        if (unit == null) {
+        if (unit == null|| unit.length() == 0) {
             return VolumeUnit.UNKNOWN;
         }
         String currentUnit = unit.toLowerCase();

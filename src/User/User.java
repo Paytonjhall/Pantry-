@@ -89,7 +89,7 @@ public class User {
       for(Recipe recipe : recipeBook.getRecipeList()) {
           boolean makeable = true;
             for(FoodItem ingredient : recipe.getIngredients()) {
-                if(!stock.inStock(ingredient) || !(stock.getFoodItem(ingredient.getName()).getQuantity() >= ingredient.getQuantity())) {
+                if(!stock.inStock(ingredient) || !(stock.getFoodItem(ingredient.getName()).getBaseUnitQuantity() >= ingredient.getBaseUnitQuantity())) {
                     makeable = false;
                 }
             }
@@ -110,11 +110,13 @@ public class User {
         if(recipe.getIngredients()!=null) {
             for (FoodItem ingredient : recipe.getIngredients()) {
             if (haveIngredient(ingredient)) {
-                ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity() + " " + ingredient.getAbbreviation() +
-                        " (in stock : " + stock.getFoodItem(ingredient.getName()).getQuantity() + ")");
+                String itemName = ingredient.getName();
+                FoodItem itemInStock = stock.getFoodItem(itemName);
+                ingredientNames.add(itemName + ": " + ingredient.getUnitSize() + " " + ingredient.getAbbreviation() +
+                        " (in stock : " + itemInStock.getQuantity() + " " + itemInStock.getAbbreviation() + ")");
             }
             else {
-                ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity() + " " + ingredient.getAbbreviation() +
+                ingredientNames.add(ingredient.getName() + ": " + ingredient.getUnitSize() + " " + ingredient.getAbbreviation() +
                         " (not in stock)");
             }
 
@@ -129,7 +131,7 @@ public class User {
           stock = new Stock();
       }
       if(stock.inStock(ingredient) &&
-              stock.getFoodItem(ingredient.getName()).getQuantity() >= ingredient.getQuantity())
+              stock.getFoodItem(ingredient.getName()).getBaseUnitQuantity() >= ingredient.getBaseUnitQuantity())
             return true;
       return false;
   }
@@ -139,7 +141,7 @@ public class User {
           stock = new Stock();
       }
       if(stock.inStock(ingredient))
-            return stock.getFoodItem(ingredient.getName()).getQuantity();
+            return stock.getFoodItem(ingredient.getName()).getUnitSize();
       return 0;
   }
 }

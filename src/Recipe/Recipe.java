@@ -1,9 +1,7 @@
 package Recipe;
 
 import Pantry.FoodItem;
-import Pantry.Ingredient;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,7 +63,7 @@ public class Recipe {
     public List<String> getIngredientsNames() {
         List<String> ingredientNames = new ArrayList<String>();
         for (FoodItem ingredient : ingredients) {
-            ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity());
+            ingredientNames.add(ingredient.getName() + ": " + ingredient.getUnitSize());
         }
         return ingredientNames;
     }

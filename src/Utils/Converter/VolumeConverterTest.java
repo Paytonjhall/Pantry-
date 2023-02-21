@@ -60,6 +60,21 @@ class VolumeConverterTest {
     }
 
     @Test
+    void convertToDestinationUnit() {
+        VolumeUnit currentUnit = VolumeUnit.CUP;
+        VolumeUnit destUnit = VolumeUnit.GALLON;
+        quantity = 20;
+        double newQuantity = VolumeUnit.convertToDestinationUnit(currentUnit, destUnit, quantity);
+        Assertions.assertEquals(1.25, newQuantity);
+
+        currentUnit = VolumeUnit.FLUID_OUNCE;
+        destUnit = VolumeUnit.LITER;
+        quantity = 33;
+        newQuantity = VolumeUnit.convertToDestinationUnit(currentUnit, destUnit, quantity);
+        Assertions.assertEquals(0.97, newQuantity);
+    }
+
+    @Test
     void stringToUnit() {
         String baseUnit;
         baseUnit = "gal";
