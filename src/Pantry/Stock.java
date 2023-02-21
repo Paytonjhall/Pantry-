@@ -22,10 +22,17 @@ public class Stock {
    * @param newItem - food item to add
    */
   public void addItem(FoodItem newItem) {
-    if(foodList == null) {
-            foodList = new ArrayList<FoodItem>();
-        }
-      foodList.add(newItem);
+      if (foodList == null) {
+          foodList = new ArrayList<FoodItem>();
+      }
+
+      int existingIndex = itemAlreadyInStock(newItem);
+      if (existingIndex == -1) {
+          foodList.add(newItem);
+      } else {
+          foodList.get(existingIndex).addQuantity(newItem.getNumUnits());
+      }
+
   }
 
   /**
@@ -68,7 +75,7 @@ public class Stock {
    */
   public int findItem(FoodItem item) {
     for (int i = 0; i < foodList.size(); i++) {
-        if (Objects.equals(foodList.get(i).getName(), item.getName())) {
+        if (Objects.equals(foodList.get(i).getName().toLowerCase(), item.getName().toLowerCase())) {
             return i;
         }
     }
@@ -88,7 +95,11 @@ public class Stock {
     List<String> foodNames = new ArrayList<String>();
     if(foodList == null) foodList = new ArrayList<FoodItem>();
     for (FoodItem item : foodList) {
-      foodNames.add(item.getName() + " (" + item.getQuantity() + ")");
+        if (Objects.equals(item.getUnitType(), "") || Objects.equals(item.getUnitType(), "unknown")) {
+            foodNames.add(item.getName() + " (" + item.getNumUnits() + ")");
+        } else {
+            foodNames.add(item.getName() + " (" + item.getNumUnits() + ")" + " - " + item.getUnitSize() + " " + item.getAbbreviation());
+        }
     }
     return foodNames;
   }
@@ -102,10 +113,21 @@ public class Stock {
 
   public FoodItem getFoodItem(String name) {
       for (FoodItem item : foodList) {
-          if (item.getName().equals(name)) {
+          if (item.getName().equalsIgnoreCase(name)) {
               return item;
           }
       }
       return null;
+  }
+
+  private int itemAlreadyInStock(FoodItem newItem) {
+      for (int i = 0; i < foodList.size(); i++) {
+          if (foodList.get(i).getName().equalsIgnoreCase(newItem.getName()) &&
+                  foodList.get(i).getUnitType().equalsIgnoreCase(newItem.getUnitType()) &&
+                  foodList.get(i).getUnitSize() == newItem.getUnitSize()) {
+              return i;
+          }
+      }
+      return -1;
   }
 }

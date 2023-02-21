@@ -1,26 +1,72 @@
 package Pantry;
 
+import Utils.Converter.IBaseUnit;
+
 public class FoodItem {
   //Basic FoodItem Class
 
   private String name;
-  private int quantity = 0;
+
+  private int numUnits = 0;
+  private double unitSize = 0;
+
+  private String unitType;
 
   public FoodItem() {
 
   }
 
-  public FoodItem(String name, int quantity) {
-    this.name = name;
-    this.quantity = quantity;
+  public FoodItem(String name, int numUnits) {
+    this(name, numUnits, 0, "Unknown");
+  }
+
+  public FoodItem(String name, double unitSize, String unitType) {
+    this(name, 1, unitSize, unitType);
+  }
+
+  public FoodItem(String name, int numUnits, double unitSize, String unitType) {
+    this.name = cleanupName(name);
+    this.unitSize = unitSize;
+    this.unitType = unitType;
+    this.numUnits = numUnits;
+  }
+
+  public String cleanupName(String name) {
+    String cleanUp = name.strip();
+    String fullyClean = cleanUp.substring(0, 1).toUpperCase() + cleanUp.substring(1);
+    return fullyClean;
   }
 
   public void setName(String name) {
-    this.name = name;
+    this.name = cleanupName(name);
   }
 
-  public void setQuantity(int quantity) {
-    this.quantity = quantity;
+  public void setUnitSize(double unitSize) {
+    this.unitSize = unitSize;
+  }
+
+  public int getNumUnits() {
+    return numUnits;
+  }
+
+  public String getUnitType() {
+    return unitType;
+  }
+
+  public double getQuantity() {
+    return unitSize * numUnits;
+  }
+
+  /**
+   * Get the total quantity of the food item in the standardized unit
+   * For volume, the quantity returned is in fluid ounces.
+   */
+  public double getBaseUnitQuantity() {
+    return numUnits * IBaseUnit.convertUnits(IBaseUnit.stringToUnit(unitType), unitSize);
+  }
+
+  public String getAbbreviation() {
+    return IBaseUnit.stringToUnit(unitType).getUnitString();
   }
 
   /**
@@ -28,7 +74,7 @@ public class FoodItem {
    * @param newQuantity the additional quantity to add
    */
   public void addQuantity(int newQuantity) {
-      quantity += newQuantity;
+      numUnits += newQuantity;
   }
 
   /**
@@ -36,7 +82,7 @@ public class FoodItem {
    * by 1
    */
   public void addQuantity() {
-    quantity += 1;
+    numUnits += 1;
   }
 
   /**
@@ -44,9 +90,9 @@ public class FoodItem {
    * @param newQuantity - the quantity to remove
    */
   public void removeQuantity(int newQuantity) {
-      quantity -= newQuantity;
-      if (quantity < 0) {
-        quantity = 0;
+      numUnits -= newQuantity;
+      if (numUnits < 0) {
+        numUnits = 0;
       }
   }
 
@@ -54,17 +100,17 @@ public class FoodItem {
    * Decrement the item quantity by 1
    */
   public void removeQuantity() {
-      quantity -= 1;
-      if (quantity < 0) {
-        quantity = 0;
+    numUnits -= 1;
+      if (numUnits < 0) {
+        numUnits = 0;
       }
   }
 
-  public int getQuantity() {
-    if(quantity < 0) {
-      quantity = 0;
+  public double getUnitSize() {
+    if(unitSize < 0) {
+      unitSize = 0;
     }
-    return quantity;
+    return unitSize;
   }
 
   public String getName() {
@@ -86,7 +132,7 @@ public class FoodItem {
     FoodItem item = (FoodItem) o;
 
     // Check if the members are the same
-    if ((item.name.equals(this.name)) && (item.quantity == this.quantity)) {
+    if ((item.name.equals(this.name)) && (item.unitSize == this.unitSize) && (item.unitType.equals(this.unitType))) {
       return true;
     }
 

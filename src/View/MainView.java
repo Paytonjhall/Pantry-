@@ -2,6 +2,8 @@ package View;
 import Pantry.FoodItem;
 import Recipe.Recipe;
 import User.*;
+import Utils.Converter.IBaseUnit;
+import Utils.Converter.VolumeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -76,18 +78,49 @@ public class MainView extends JFrame{
       foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
       foodNameField.setPreferredSize(new Dimension(150, 20));
       JTextField foodQuantityField = new JTextField();
-      String foodName = "";
-      int foodQuantity = 0;
+      SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
+      JSpinner numUnitsField = new JSpinner(model);
+      SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
+      JSpinner sizeOneUnitField = new JSpinner(sizeModel);
+      String possibleUnits[] = {
+              "", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
+      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
+
+      JComboBox<String> unitField = new JComboBox<>(possibleUnits);
+      unitField.setSelectedIndex(0);
+      String foodName = item.getName();
+      foodNameField.setText(foodName);
+      int foodQuantity = item.getNumUnits();
+      numUnitsField.setValue(foodQuantity);
+      double unitSize = item.getUnitSize();
+      sizeOneUnitField.setValue(unitSize);
+
+      String unitType = item.getUnitType();
+      int indexOfUnit = -1;
+      for (int i = 0; i < possibleUnits.length; i++) {
+        if (unitType.toUpperCase() == possibleUnits[i]) {
+          indexOfUnit = i;
+        }
+      }
+      if (indexOfUnit > -1) {
+        unitField.setSelectedIndex(indexOfUnit);
+      } else {
+        unitField.setSelectedIndex(0);
+      }
+
       // Add metric for food measurement here;
       Object[] message = {
               "Food Name:", foodNameField,
-              "Food Quantity", foodQuantityField,
+              "Number of units:", numUnitsField,
+              "Size of 1 unit:", sizeOneUnitField,
+              unitField
       };
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
       if (output == JOptionPane.OK_OPTION) {
         foodName = foodNameField.getText();
-        foodQuantity = Integer.parseInt(foodQuantityField.getText());
-        FoodItem newItem = new FoodItem(foodName, foodQuantity);
+        foodQuantity = (Integer) numUnitsField.getValue();
+        unitSize = (Double) sizeOneUnitField.getValue();
+        FoodItem newItem = new FoodItem(foodName, foodQuantity, unitSize, unitField.getItemAt(unitField.getSelectedIndex()));
         user.getStock().editFoodItem(item, newItem);
         PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
         editStockButton.setVisible(false);
@@ -102,17 +135,31 @@ public class MainView extends JFrame{
       foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
       foodNameField.setPreferredSize(new Dimension(150, 20));
       JTextField foodQuantityField = new JTextField();
+      SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
+      JSpinner numUnits = new JSpinner(model);
+
+      SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
+      JSpinner sizeOneUnit = new JSpinner(sizeModel);
+      String possibleUnits[] = {
+              "", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
+      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
+
+      JComboBox<String> unit = new JComboBox<>(possibleUnits);
+      unit.setSelectedIndex(0);
 
       String foodName = "";
       int foodQuantity = 0;
       // Add metric for food measurement here;
       Object[] message = {
               "Food Name:", foodNameField,
-              "Food Quantity", foodQuantityField,
+              "Number of units:", numUnits,
+              "Size of 1 unit:", sizeOneUnit,
+              unit
       };
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
       if (output == JOptionPane.OK_OPTION) {
-            FoodItem foodItem = new FoodItem(foodNameField.getText(), Integer.parseInt(foodQuantityField.getText()));
+            FoodItem foodItem = new FoodItem(foodNameField.getText(), (Integer) numUnits.getValue(),
+                    (Double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
             user.addToStock(foodItem);
             PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
 
@@ -187,20 +234,23 @@ public class MainView extends JFrame{
         JTextField recipeInstructions = new JTextField();
         JTextField recipeIngredients = new JTextField();
         JTextField cookTime = new JTextField();
-        JSlider ingredientCount = new JSlider();
+        String possibleUnits[] = {
+                "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
+                "TABLESPOON", "TEASPOON", "FLUID OUNCE"
+        }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
+
+        JComboBox<String> unit = new JComboBox<>(possibleUnits);
+        unit.setSelectedIndex(2);
+        SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
+        JSpinner ingredientSize = new JSpinner(model);
         Recipe recipe = new Recipe();
         JButton uploadPhoto = new JButton("Add Photo");
-        ingredientCount.setMinimum(1);
-        ingredientCount.setMaximum(10);
-        ingredientCount.setMajorTickSpacing(1);
-        ingredientCount.setPaintTicks(true);
-        ingredientCount.setPaintLabels(true);
         JButton addIngredientButton = new JButton("Add Ingredient");
         Object[] message = {
             "Recipe Name:", recipeName,
             "Recipe Instructions:", recipeInstructions,
-            "Recipe Ingredients:", recipeIngredients,
-            "Number of Ingredients:", ingredientCount,
+            "Recipe Ingredient:", recipeIngredients,
+            "Ingredient Quantity:", ingredientSize, unit,
                 addIngredientButton,
             "Cook Time:", cookTime,
             "Upload Photo:", uploadPhoto
@@ -208,9 +258,10 @@ public class MainView extends JFrame{
         List<FoodItem> ingredients = new ArrayList<>();
 
         addIngredientButton.addActionListener(e1 -> {
-          ingredients.add(new FoodItem(recipeIngredients.getText(), ingredientCount.getValue()));
+          ingredients.add(new FoodItem(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
           recipeIngredients.setText("");
-          ingredientCount.setValue(1);
+          ingredientSize.setValue(1);
+          unit.setSelectedIndex(2);
         });
 
       Recipe finalRecipe = new Recipe();
@@ -279,12 +330,14 @@ public class MainView extends JFrame{
       JTextField recipeInstructions = new JTextField(recipe.getInstructions());
       JTextField recipeIngredients = new JTextField();
       JTextField cookTime = new JTextField(recipe.getTime());
-      JSlider ingredientCount = new JSlider();
-      ingredientCount.setMinimum(1);
-      ingredientCount.setMaximum(10);
-      ingredientCount.setMajorTickSpacing(1);
-      ingredientCount.setPaintTicks(true);
-      ingredientCount.setPaintLabels(true);
+      String possibleUnits[] = {
+              "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
+              "TABLESPOON", "TEASPOON", "FLUID OUNCE"
+      };
+      JComboBox<String> unit = new JComboBox<>(possibleUnits);
+      unit.setSelectedIndex(2);
+      SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
+      JSpinner ingredientSize = new JSpinner(model);
 
 
       JButton addIngredientButton = new JButton("Add Ingredient");
@@ -292,7 +345,7 @@ public class MainView extends JFrame{
             "Recipe Name:", recipeName,
             "Recipe Instructions:", recipeInstructions,
             "Recipe Ingredients: (please re-enter all ingredients) ", recipeIngredients,
-            "Number of Ingredients:", ingredientCount,
+            "Ingredient Quantity:", ingredientSize, unit,
               addIngredientButton,
               "Cook Time:", cookTime
 
@@ -301,9 +354,10 @@ public class MainView extends JFrame{
       List<FoodItem> ingredients = new ArrayList<>();
 
       addIngredientButton.addActionListener(e1 -> {
-        ingredients.add(new FoodItem(recipeIngredients.getText(), ingredientCount.getValue()));
+        ingredients.add(new FoodItem(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
         recipeIngredients.setText("");
-        ingredientCount.setValue(1);
+        ingredientSize.setValue(1);
+        unit.setSelectedIndex(2);
       });
 
       int option = JOptionPane.showConfirmDialog(null, message, "Edit Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
