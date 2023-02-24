@@ -59,6 +59,7 @@ class StockTest {
         mockRecipe3.getIngredients().add(mockItem1);
         mockRecipe3.getIngredients().add(mockItem4);
 
+        //Add the recipes.
         mockUser.addRecipe(mockRecipe1);
         mockUser.addRecipe(mockRecipe2);
         mockUser.addRecipe(mockRecipe3);
