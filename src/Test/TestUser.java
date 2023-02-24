@@ -76,13 +76,13 @@ public static void main(String[] args) {
     Recipe recipe2 = new Recipe("Grilled Cheese", "Grill two slices of bread with cheese in between on griddle or pan. Apply butter generously.", "5 minutes", ingredients2);
 
     ingredients3.add(new FoodItem("chicken", 1));
-    ingredients3.add(new FoodItem("rice", 4));
-    ingredients3.add(new FoodItem("beans", 2));
+    ingredients3.add(new FoodItem("rice", 2));
+    ingredients3.add(new FoodItem("beans", 1));
     Recipe recipe3 = new Recipe("Chicken with rice and beans", "Cook each item individually and mix together with any spices you desire. Good for bulking.", "25 minutes", ingredients3, "src/Recipe/Photos/leaf.png");
 
     ingredients4.add(new FoodItem("tomatoes", 1));
-    ingredients4.add(new FoodItem("rice", 4));
-    ingredients4.add(new FoodItem("beans", 2));
+    ingredients4.add(new FoodItem("rice", 2));
+    ingredients4.add(new FoodItem("beans", 1));
     ingredients4.add(new FoodItem("chicken", 1));
     ingredients4.add(new FoodItem("pepper", 1));
     ingredients4.add(new FoodItem("salt", 1));
