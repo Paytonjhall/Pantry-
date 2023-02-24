@@ -2,8 +2,6 @@ package View;
 import Pantry.FoodItem;
 import Recipe.Recipe;
 import User.*;
-import Utils.Converter.IBaseUnit;
-import Utils.Converter.VolumeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -26,7 +24,7 @@ public class MainView extends JFrame{
   private JButton saveButton;
   private JPanel RecipePanel;
   private JLabel RecipeLabel;
-  private JLabel RecipeLabelInfo;
+  private JTextArea RecipeLabelInfo;
   private JList RecipeIngredientList;
   private JButton deleteRecipeButton;
   private JButton editRecipeButton;
@@ -41,10 +39,17 @@ public class MainView extends JFrame{
   private JPanel SaveLogoutPanel;
   private JButton editStockButton;
   private JButton addToPantryButton;
+  private JTabbedPane recipesTabPanel;
+  private JPanel makeableRecipes;
+  private JLabel makeableRecipesText;
+  private JList makeableRecipesList;
+  private JButton addRecipeButtonMakeable;
   private JTextField SearchBox;
+  //User user;
 
   //Load main view
   public MainView( User user )  {
+    //this.user = user;
     //Create frame
     setContentPane(MainViewPanel);
     setTitle("Pantry++");
@@ -62,6 +67,7 @@ public class MainView extends JFrame{
     makeRecipeButton.setVisible(false);
     editStockButton.setVisible(false);
     setVisible(true);
+    RecipeLabelInfo.setLineWrap(true);
 
     // When you click on an item in your pantry, the edit stock button should show up
     PantryList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,20 +172,41 @@ public class MainView extends JFrame{
         }
     });
 
-    //Select Recipe action listener
-    RecipeList.addMouseListener(new java.awt.event.MouseAdapter() {
+    recipesTabPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        int allRecipes = 0;
+        int makeableRecipes = 1;
+        System.out.println(recipesTabPanel.getSelectedIndex());
+        if(allRecipes == recipesTabPanel.getSelectedIndex()){
+          RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
+        } else if(makeableRecipes == recipesTabPanel.getSelectedIndex()){
+          makeableRecipesText.setText("Makeable Recipes");
+          makeableRecipesList.setVisible(true);
+          makeableRecipesList.setListData(user.getStringsUserCanMake().toArray());
+          makeRecipeButton.setVisible(true);
+        }
+      }
+    });
+
+    makeableRecipes.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        makeableRecipesText.setText("Makeable Recipes");
+        makeableRecipesList.setVisible(true);
+        makeableRecipesList.setListData(user.getStringsUserCanMake().toArray());
+        makeRecipeButton.setVisible(true);
+      }
+    });
+
+    makeableRecipesList.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         JLabel recipe = new JLabel();
-        Recipe recipeSelected = user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex());
+        Recipe recipeSelected = user.getRecipesUserCanMake().get(makeableRecipesList.getSelectedIndex());
         recipe.setText(recipeSelected.getName());
         RecipeLabel.setText("Recipe: " + recipeSelected.getName());
         RecipeLabelInfo.setText("Instructions: \n" + recipeSelected.getInstructions());
         RecipeCookTime.setText("Cook Time: " + recipeSelected.getTime());
-        for(int i = 0; i < recipeSelected.getIngredients().size(); i++){
-          List<String> ingredientList = user.getIngredientStringList(recipeSelected);
-          RecipeIngredientList.setListData(ingredientList.toArray());
-
-        }
+        RecipeIngredientList.removeAll();
+        RecipeIngredientList.setListData(user.getIngredientStringList(recipeSelected).toArray()); //Replaced for loop with this, should work
         if(recipeSelected.getImage() != null){
           Image dimg = getImage(recipeSelected.getImage()).getScaledInstance(150, 150, Image.SCALE_SMOOTH);
           ImageIcon imageIcon = new ImageIcon(dimg);
@@ -198,20 +225,34 @@ public class MainView extends JFrame{
       }
     });
 
-//    SearchBox.addActionListener(new java.awt.event.ActionListener() {
-//      public void actionPerformed(java.awt.event.ActionEvent evt) {
-//        if (SearchBox.getText() != null) {
-//          String search=SearchBox.getText();
-//          List<Recipe> searchList=new ArrayList<Recipe>();
-//          for (int i=0; i < user.getRecipeBook().getRecipeList().size(); i++) {
-//            if (user.getRecipeBook().getRecipeList().get(i).getName().contains(search)) {
-//              searchList.add(user.getRecipeBook().getRecipeList().get(i));
-//            }
-//          }
-//          RecipeList.setListData(searchList.toArray());
-//        }
-//      }
-//    });
+    //Select Recipe action listener
+    RecipeList.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        JLabel recipe = new JLabel();
+        Recipe recipeSelected = user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex());
+        recipe.setText(recipeSelected.getName());
+        RecipeLabel.setText("Recipe: " + recipeSelected.getName());
+        RecipeLabelInfo.setText("Instructions: \n" + recipeSelected.getInstructions());
+        RecipeCookTime.setText("Cook Time: " + recipeSelected.getTime());
+        RecipeIngredientList.removeAll();
+        RecipeIngredientList.setListData(user.getIngredientStringList(recipeSelected).toArray()); //Replaced for loop with this, should work
+        if(recipeSelected.getImage() != null){
+          Image dimg = getImage(recipeSelected.getImage()).getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+          ImageIcon imageIcon = new ImageIcon(dimg);
+          RecipePhoto.setIcon(imageIcon);
+          //RecipePhoto.setIcon(new ImageIcon(recipeSelected.getImage()));
+        }
+        else{
+          RecipePhoto.setIcon(new ImageIcon("src/Assets/no-images.png"));
+          RecipePhoto.setToolTipText("No image found");
+        }
+        RecipePhoto.setVisible(true);
+        deleteRecipeButton.setVisible(true);
+        editRecipeButton.setVisible(true);
+        makeRecipeButton.setVisible(true);
+        RecipePanel.repaint();
+      }
+    });
 
     //Save Button --> Complete: Done
     saveButton.addActionListener(e -> {
@@ -301,7 +342,81 @@ public class MainView extends JFrame{
           RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
 
         }
+    });
 
+    //add recipe on make-able recipe tab
+    addRecipeButtonMakeable.addActionListener(e -> {
+      JTextField recipeName = new JTextField();
+      JTextField recipeInstructions = new JTextField();
+      JTextField recipeIngredients = new JTextField();
+      JTextField cookTime = new JTextField();
+      String possibleUnits[] = {
+              "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
+              "TABLESPOON", "TEASPOON", "FLUID OUNCE"
+      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
+
+      JComboBox<String> unit = new JComboBox<>(possibleUnits);
+      unit.setSelectedIndex(2);
+      SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
+      JSpinner ingredientSize = new JSpinner(model);
+      Recipe recipe = new Recipe();
+      JButton uploadPhoto = new JButton("Add Photo");
+      JButton addIngredientButton = new JButton("Add Ingredient");
+      Object[] message = {
+              "Recipe Name:", recipeName,
+              "Recipe Instructions:", recipeInstructions,
+              "Recipe Ingredient:", recipeIngredients,
+              "Ingredient Quantity:", ingredientSize, unit,
+              addIngredientButton,
+              "Cook Time:", cookTime,
+              "Upload Photo:", uploadPhoto
+      };
+      List<FoodItem> ingredients = new ArrayList<>();
+
+      addIngredientButton.addActionListener(e1 -> {
+        ingredients.add(new FoodItem(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
+        recipeIngredients.setText("");
+        ingredientSize.setValue(1);
+        unit.setSelectedIndex(2);
+      });
+
+      Recipe finalRecipe = new Recipe();
+      finalRecipe.setName(recipeName.getText());
+      uploadPhoto.addActionListener(e1 -> {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        int result = fileChooser.showOpenDialog(getParent());
+        if (result == JFileChooser.APPROVE_OPTION) {
+          try {
+            File file = fileChooser.getSelectedFile();
+            Toolkit toolkit = Toolkit.getDefaultToolkit();
+            String stringFile = file.toString();
+            Image image = toolkit.getImage(stringFile);
+            Path path = Paths.get(stringFile);
+            String imagePath = path.toAbsolutePath().toString();
+            String newStr = imagePath.toString();
+            BufferedImage picture = ImageIO.read(new File(newStr));
+            String extension = newStr.substring(newStr.lastIndexOf(".") + 1);
+            String newPath = "src/Recipe/Photos/" + user.getUsername() + "-" + recipeName.getText() + "." + extension;
+            finalRecipe.setImage(newPath);
+            jsonConverter.addPhotoToFile(imagePath, newPath);
+          } catch(IOException ex){
+            System.out.println("Error uploading photo: " + ex);
+          }
+        }
+      });
+
+      int option = JOptionPane.showConfirmDialog(null, message, "Add Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
+      if (option == JOptionPane.OK_OPTION) {
+        finalRecipe.setIngredients(ingredients);
+        finalRecipe.setName(recipeName.getText());
+        finalRecipe.setInstructions(recipeInstructions.getText());
+        finalRecipe.setTime(cookTime.getText());
+        finalRecipe.setIngredients(ingredients);
+        user.getRecipeBook().addRecipe(finalRecipe);
+        RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
+
+      }
     });
 
     //Delete Recipe Button --> Complete: Done
@@ -374,9 +489,9 @@ public class MainView extends JFrame{
         editRecipeButton.setVisible(false);
       }
     });
+    //Create logo
   }
 
-  //Create logo
   private Image getImage(String iconPath) {
     BufferedImage img = null;
     try {

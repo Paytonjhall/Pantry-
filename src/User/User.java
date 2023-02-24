@@ -98,6 +98,15 @@ public class User {
       return recipes;
   }
 
+  public List<String> getStringsUserCanMake(){
+        List<Recipe> recipes = getRecipesUserCanMake();
+        List<String> strings = new ArrayList<String>();
+        for(Recipe recipe : recipes) {
+            strings.add(recipe.getName());
+        }
+        return strings;
+  }
+
   public void addRecipe(Recipe recipe) {
       if(recipeBook == null) {
           recipeBook = new RecipeBook();

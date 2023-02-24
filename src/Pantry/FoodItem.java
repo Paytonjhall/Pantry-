@@ -17,7 +17,7 @@ public class FoodItem {
   }
 
   public FoodItem(String name, int numUnits) {
-    this(name, numUnits, 0, "Unknown");
+    this(name, numUnits, 1, "Unknown");
   }
 
   public FoodItem(String name, double unitSize, String unitType) {
