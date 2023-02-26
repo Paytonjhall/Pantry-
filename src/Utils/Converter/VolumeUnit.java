@@ -24,9 +24,22 @@ public enum VolumeUnit implements IBaseUnit {
         return Math.floor((quantity * unit.conversionFactor) * 100) / 100;
     }
 
-    public static double convertToDestinationUnit(VolumeUnit currentUnit, VolumeUnit destinationUnit, double unitSize) {
-        double ounceSize = convertToFlOz(currentUnit, unitSize);
-        return Math.floor((ounceSize / destinationUnit.conversionFactor) * 100) / 100;
+    public static double convertToDestinationUnit(VolumeUnit current, VolumeUnit dest, double currentQuantity) {
+        double ounceSize = convertToFlOz(current, currentQuantity);
+        return Math.floor((ounceSize / dest.conversionFactor) * 100) / 100;
+    }
+
+    /**
+     * Determines if one unit is larger than the other
+     * @param first
+     * @param second
+     * @return true if the first unit passed in is larger than the second
+     */
+    public static boolean isLarger(VolumeUnit first, VolumeUnit second) {
+        if (first.conversionFactor > second.conversionFactor) {
+            return true;
+        }
+        return false;
     }
 
     @Override

@@ -1,8 +1,9 @@
 package Pantry;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import Utils.Converter.IBaseUnit;
+import Utils.Converter.VolumeUnit;
+
+import java.util.*;
 
 public class Stock {
   //This class will be what we use to keep track of all the items in the pantry
@@ -15,6 +16,7 @@ public class Stock {
     }
     public Stock(List<FoodItem> foodList) {
         this.foodList = foodList;
+        alphabetizeList();
     }
 
   /**
@@ -23,16 +25,46 @@ public class Stock {
    */
   public void addItem(FoodItem newItem) {
       if (foodList == null) {
-          foodList = new ArrayList<FoodItem>();
+          foodList = new ArrayList<>();
       }
 
       int existingIndex = itemAlreadyInStock(newItem);
       if (existingIndex == -1) {
           foodList.add(newItem);
       } else {
-          foodList.get(existingIndex).addQuantity(newItem.getNumUnits());
+          updateUnits(existingIndex, newItem);
       }
 
+      alphabetizeList();
+
+  }
+
+    /**
+     * When adding a new pantry item, if the item is already in stock,
+     * it determines which has the larger unit and converts the other to
+     * that unit and unit size and adds the quantity
+     * @param indexOriginal index of the exising item in stock
+     * @param second the new item being added
+     */
+  private void updateUnits(int indexOriginal, FoodItem second) {
+      FoodItem first = foodList.get(indexOriginal);
+
+      if ((IBaseUnit.stringToUnit(first.getUnitType()) instanceof VolumeUnit) &&
+              (IBaseUnit.stringToUnit(first.getUnitType()) instanceof VolumeUnit)){
+          VolumeUnit firstUnit = (VolumeUnit) IBaseUnit.stringToUnit(first.getUnitType());
+          VolumeUnit secondUnit = (VolumeUnit) IBaseUnit.stringToUnit(second.getUnitType());
+
+          if (VolumeUnit.isLarger(firstUnit, secondUnit)) {
+              double secondQuantity = VolumeUnit.convertToDestinationUnit(secondUnit, firstUnit, second.getQuantity());
+              foodList.get(indexOriginal).addQuantity(secondQuantity);
+
+          } else {
+              double firstQuantity = VolumeUnit.convertToDestinationUnit(firstUnit, secondUnit, first.getQuantity());
+              second.addQuantity(firstQuantity);
+              foodList.set(indexOriginal, second);
+          }
+      }
+      // TODO:: ADD THE OPTION FOR WEIGHT HERE
   }
 
   /**
@@ -96,9 +128,9 @@ public class Stock {
     if(foodList == null) foodList = new ArrayList<FoodItem>();
     for (FoodItem item : foodList) {
         if (Objects.equals(item.getUnitType(), "") || Objects.equals(item.getUnitType(), "unknown")) {
-            foodNames.add(item.getName() + " (" + item.getNumUnits() + ")");
+            foodNames.add(item.getName() + " (" + item.getQuantity() + ")");
         } else {
-            foodNames.add(item.getName() + " (" + item.getNumUnits() + ")" + " - " + item.getUnitSize() + " " + item.getAbbreviation());
+            foodNames.add(item.getName() + " (" + item.getQuantity() + " " + item.getAbbreviation() + ")");
         }
     }
     return foodNames;
@@ -109,6 +141,7 @@ public class Stock {
       if (index >= 0) {
           foodList.set(index, newItem);
       }
+      alphabetizeList();
   }
 
   public FoodItem getFoodItem(String name) {
@@ -121,13 +154,17 @@ public class Stock {
   }
 
   private int itemAlreadyInStock(FoodItem newItem) {
+
       for (int i = 0; i < foodList.size(); i++) {
-          if (foodList.get(i).getName().equalsIgnoreCase(newItem.getName()) &&
-                  foodList.get(i).getUnitType().equalsIgnoreCase(newItem.getUnitType()) &&
-                  foodList.get(i).getUnitSize() == newItem.getUnitSize()) {
+          if (foodList.get(i).getName().equalsIgnoreCase(newItem.getName())) {
               return i;
           }
       }
       return -1;
   }
+
+  private void alphabetizeList() {
+      Collections.sort(foodList);
+  }
+
 }

@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 public class VolumeConverter {
 
-    public static double convert(VolumeUnit unit, double unitSize) {
-        return VolumeUnit.convertToFlOz(unit, unitSize);
+    public static double convert(VolumeUnit unit, double quantity) {
+        return VolumeUnit.convertToFlOz(unit, quantity);
     }
 
     public static double convert(String unit, double unitSize) {

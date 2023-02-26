@@ -70,7 +70,7 @@ class VolumeConverterTest {
         currentUnit = VolumeUnit.FLUID_OUNCE;
         destUnit = VolumeUnit.LITER;
         quantity = 33;
-        newQuantity = VolumeUnit.convertToDestinationUnit(currentUnit, destUnit, quantity);
+        newQuantity = VolumeUnit.convertToDestinationUnit(currentUnit, destUnit,  quantity);
         Assertions.assertEquals(0.97, newQuantity);
     }
 

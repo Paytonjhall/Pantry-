@@ -37,6 +37,7 @@ public class MainView extends JFrame{
   private JButton makeRecipeButton;
   private JPanel RecipesListPanel;
   private JPanel SaveLogoutPanel;
+  private JButton deleteStockButton;
   private JButton editStockButton;
   private JButton addToPantryButton;
   private JTabbedPane recipesTabPanel;
@@ -66,6 +67,7 @@ public class MainView extends JFrame{
     editRecipeButton.setVisible(false);
     makeRecipeButton.setVisible(false);
     editStockButton.setVisible(false);
+//    deleteStockButton.setVisible(false);
     setVisible(true);
     RecipeLabelInfo.setLineWrap(true);
 
@@ -96,9 +98,9 @@ public class MainView extends JFrame{
       unitField.setSelectedIndex(0);
       String foodName = item.getName();
       foodNameField.setText(foodName);
-      int foodQuantity = item.getNumUnits();
+      double foodQuantity = item.getQuantity();
       numUnitsField.setValue(foodQuantity);
-      double unitSize = item.getUnitSize();
+      double unitSize = 1; // Because we are converting all to one size, we forget what the unit size is, so set to 1
       sizeOneUnitField.setValue(unitSize);
 
       String unitType = item.getUnitType();
@@ -141,7 +143,7 @@ public class MainView extends JFrame{
       foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
       foodNameField.setPreferredSize(new Dimension(150, 20));
       JTextField foodQuantityField = new JTextField();
-      SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
+      SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 0.25);
       JSpinner numUnits = new JSpinner(model);
 
       SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
@@ -153,8 +155,6 @@ public class MainView extends JFrame{
       JComboBox<String> unit = new JComboBox<>(possibleUnits);
       unit.setSelectedIndex(0);
 
-      String foodName = "";
-      int foodQuantity = 0;
       // Add metric for food measurement here;
       Object[] message = {
               "Food Name:", foodNameField,
@@ -164,7 +164,7 @@ public class MainView extends JFrame{
       };
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
       if (output == JOptionPane.OK_OPTION) {
-            FoodItem foodItem = new FoodItem(foodNameField.getText(), (Integer) numUnits.getValue(),
+            FoodItem foodItem = new FoodItem(foodNameField.getText(), (Double) numUnits.getValue(),
                     (Double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
             user.addToStock(foodItem);
             PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
@@ -276,12 +276,12 @@ public class MainView extends JFrame{
         JTextField recipeIngredients = new JTextField();
         JTextField cookTime = new JTextField();
         String possibleUnits[] = {
-                "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
+                "", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
                 "TABLESPOON", "TEASPOON", "FLUID OUNCE"
         }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
 
         JComboBox<String> unit = new JComboBox<>(possibleUnits);
-        unit.setSelectedIndex(2);
+        unit.setSelectedIndex(3);
         SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
         JSpinner ingredientSize = new JSpinner(model);
         Recipe recipe = new Recipe();
@@ -302,7 +302,7 @@ public class MainView extends JFrame{
           ingredients.add(new FoodItem(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
           recipeIngredients.setText("");
           ingredientSize.setValue(1);
-          unit.setSelectedIndex(2);
+          unit.setSelectedIndex(3);
         });
 
       Recipe finalRecipe = new Recipe();
@@ -351,12 +351,12 @@ public class MainView extends JFrame{
       JTextField recipeIngredients = new JTextField();
       JTextField cookTime = new JTextField();
       String possibleUnits[] = {
-              "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
+              "", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
               "TABLESPOON", "TEASPOON", "FLUID OUNCE"
       }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
 
       JComboBox<String> unit = new JComboBox<>(possibleUnits);
-      unit.setSelectedIndex(2);
+      unit.setSelectedIndex(3);
       SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
       JSpinner ingredientSize = new JSpinner(model);
       Recipe recipe = new Recipe();
@@ -377,7 +377,7 @@ public class MainView extends JFrame{
         ingredients.add(new FoodItem(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
         recipeIngredients.setText("");
         ingredientSize.setValue(1);
-        unit.setSelectedIndex(2);
+        unit.setSelectedIndex(3);
       });
 
       Recipe finalRecipe = new Recipe();
@@ -446,11 +446,11 @@ public class MainView extends JFrame{
       JTextField recipeIngredients = new JTextField();
       JTextField cookTime = new JTextField(recipe.getTime());
       String possibleUnits[] = {
-              "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
+              "", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
               "TABLESPOON", "TEASPOON", "FLUID OUNCE"
       };
       JComboBox<String> unit = new JComboBox<>(possibleUnits);
-      unit.setSelectedIndex(2);
+      unit.setSelectedIndex(3);
       SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
       JSpinner ingredientSize = new JSpinner(model);
 
@@ -472,7 +472,7 @@ public class MainView extends JFrame{
         ingredients.add(new FoodItem(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
         recipeIngredients.setText("");
         ingredientSize.setValue(1);
-        unit.setSelectedIndex(2);
+        unit.setSelectedIndex(3);
       });
 
       int option = JOptionPane.showConfirmDialog(null, message, "Edit Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());

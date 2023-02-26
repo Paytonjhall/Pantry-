@@ -63,7 +63,7 @@ public class Recipe {
     public List<String> getIngredientsNames() {
         List<String> ingredientNames = new ArrayList<String>();
         for (FoodItem ingredient : ingredients) {
-            ingredientNames.add(ingredient.getName() + ": " + ingredient.getUnitSize());
+            ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity());
         }
         return ingredientNames;
     }
