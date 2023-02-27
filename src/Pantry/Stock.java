@@ -82,6 +82,20 @@ public class Stock {
     return -1;
   }
 
+    public void genterateShoppingList(){
+
+      ShoppingList list = new ShoppingList();
+
+        for (FoodItem item: foodList) {
+            if(item.getMinUnits() >= item.getNumUnits()){
+                list.addItems(item);
+            }
+        }
+
+
+    }
+
+
   public List<String> getFoodNames() {
     List<String> foodNames = new ArrayList<String>();
     if(foodList == null) foodList = new ArrayList<FoodItem>();

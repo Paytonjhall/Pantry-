@@ -10,6 +10,8 @@ public class FoodItem {
   private int numUnits = 0;
   private double unitSize = 0;
 
+  private int minUnits = 0;
+
   private String unitType;
 
   public FoodItem() {
@@ -55,6 +57,14 @@ public class FoodItem {
 
   public double getQuantity() {
     return unitSize * numUnits;
+  }
+
+  public int getMinUnits() {
+    return minUnits;
+  }
+
+  public void setMinUnits(int minUnits) {
+    this.minUnits = minUnits;
   }
 
   /**
