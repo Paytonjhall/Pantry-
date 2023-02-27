@@ -9,8 +9,7 @@ public enum VolumeUnit implements IBaseUnit {
     FLUID_OUNCE (1, "fl oz"),
     TABLESPOON (0.5, "tbsp"),
     TEASPOON (0.16667, "tsp"),
-    MILLILITER (0.033814, "ml"),
-    UNKNOWN(8.0, "");
+    MILLILITER (0.033814, "ml");
 
     private final double conversionFactor; // conversion to fl. oz.
     private final String abbreviation;

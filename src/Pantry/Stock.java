@@ -1,7 +1,9 @@
 package Pantry;
 
 import Utils.Converter.IBaseUnit;
+import Utils.Converter.UnitConverter;
 import Utils.Converter.VolumeUnit;
+import Utils.Converter.WholeUnit;
 
 import java.util.*;
 
@@ -49,20 +51,27 @@ public class Stock {
   private void updateUnits(int indexOriginal, FoodItem second) {
       FoodItem first = foodList.get(indexOriginal);
 
-      if ((IBaseUnit.stringToUnit(first.getUnitType()) instanceof VolumeUnit) &&
-              (IBaseUnit.stringToUnit(first.getUnitType()) instanceof VolumeUnit)){
-          VolumeUnit firstUnit = (VolumeUnit) IBaseUnit.stringToUnit(first.getUnitType());
-          VolumeUnit secondUnit = (VolumeUnit) IBaseUnit.stringToUnit(second.getUnitType());
+      IBaseUnit firstUnit = UnitConverter.stringToUnit(first.getUnitType());
+      IBaseUnit secondUnit = UnitConverter.stringToUnit(second.getUnitType());
 
-          if (VolumeUnit.isLarger(firstUnit, secondUnit)) {
-              double secondQuantity = VolumeUnit.convertToDestinationUnit(secondUnit, firstUnit, second.getQuantity());
+      if ((firstUnit instanceof VolumeUnit) &&
+              (secondUnit instanceof VolumeUnit)){
+          VolumeUnit firstVolumeUnit = (VolumeUnit) firstUnit;
+          VolumeUnit secondVolumeUnit = (VolumeUnit) secondUnit;
+
+          if (VolumeUnit.isLarger(firstVolumeUnit, secondVolumeUnit)) {
+              double secondQuantity = VolumeUnit.convertToDestinationUnit(secondVolumeUnit, firstVolumeUnit, second.getQuantity());
               foodList.get(indexOriginal).addQuantity(secondQuantity);
 
           } else {
-              double firstQuantity = VolumeUnit.convertToDestinationUnit(firstUnit, secondUnit, first.getQuantity());
+              double firstQuantity = VolumeUnit.convertToDestinationUnit(firstVolumeUnit, secondVolumeUnit, first.getQuantity());
               second.addQuantity(firstQuantity);
               foodList.set(indexOriginal, second);
           }
+      } else if ((firstUnit instanceof WholeUnit) && (secondUnit instanceof WholeUnit)) {
+          foodList.get(indexOriginal).addQuantity(second.getQuantity());
+      } else {
+          foodList.add(second);
       }
       // TODO:: ADD THE OPTION FOR WEIGHT HERE
   }
@@ -127,7 +136,8 @@ public class Stock {
     List<String> foodNames = new ArrayList<String>();
     if(foodList == null) foodList = new ArrayList<FoodItem>();
     for (FoodItem item : foodList) {
-        if (Objects.equals(item.getUnitType(), "") || Objects.equals(item.getUnitType(), "unknown")) {
+        if (Objects.equals(item.getUnitType(), "") || Objects.equals(item.getUnitType(), "unknown") ||
+            Objects.equals(item.getUnitType(), "whole item")) {
             foodNames.add(item.getName() + " (" + item.getQuantity() + ")");
         } else {
             foodNames.add(item.getName() + " (" + item.getQuantity() + " " + item.getAbbreviation() + ")");

@@ -1,6 +1,7 @@
 package Pantry;
 
 import Utils.Converter.IBaseUnit;
+import Utils.Converter.UnitConverter;
 
 public class FoodItem implements Comparable<FoodItem> {
   //Basic FoodItem Class
@@ -62,11 +63,11 @@ public class FoodItem implements Comparable<FoodItem> {
    * For volume, the quantity returned is in fluid ounces.
    */
   public double getBaseUnitQuantity() {
-    return IBaseUnit.convertUnits(IBaseUnit.stringToUnit(unitType), quantity);
+    return IBaseUnit.convertUnits(UnitConverter.stringToUnit(unitType), quantity);
   }
 
   public String getAbbreviation() {
-    return IBaseUnit.stringToUnit(unitType).getUnitString();
+    return UnitConverter.stringToUnit(unitType).getUnitString();
   }
 
   /**

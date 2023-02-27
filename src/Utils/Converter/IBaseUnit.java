@@ -10,7 +10,9 @@ public interface IBaseUnit {
      */
     static double convertUnits(IBaseUnit unit, double unitSize) {
         if (unit instanceof VolumeUnit) {
-            return VolumeConverter.convert((VolumeUnit) unit, unitSize);
+            return VolumeUnit.convertToFlOz((VolumeUnit) unit, unitSize);
+        } else if (unit instanceof WholeUnit) {
+            return unitSize;
         }
         // TODO:
         // We can add weight conversion here too so the ingredient doesn't need
@@ -19,12 +21,14 @@ public interface IBaseUnit {
         return -1;
     }
 
-    static IBaseUnit stringToUnit(String unit) {
-        IBaseUnit baseUnit = VolumeConverter.stringToUnit(unit);
-        return baseUnit;
-
-        // TODO: update weight conversions here too so it can convert from string to unit
-    }
+//    static IBaseUnit stringToUnit(String unit) {
+//        IBaseUnit baseUnit = UnitConverter.stringToUnit(unit);
+//        if (baseUnit.equals(VolumeUnit.UNKNOWN));
+//
+//        return baseUnit;
+//
+//        // TODO: update weight conversions here too so it can convert from string to unit
+//    }
 
     String getUnitString();
 }
