@@ -1,6 +1,6 @@
 package User;
 
-import Pantry.FoodItem;
+import Pantry.Ingredient;
 import Recipe.Recipe;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,12 +28,12 @@ public class JsonConverter {
         return gson.fromJson(json, User.class);
     }
 
-    public String convertFoodItemToJson(FoodItem foodItem) {
+    public String convertFoodItemToJson(Ingredient foodItem) {
         return gson.toJson(foodItem);
     }
 
-    public FoodItem convertJsonToFoodItem(String json) {
-        return gson.fromJson(json, FoodItem.class);
+    public Ingredient convertJsonToFoodItem(String json) {
+        return gson.fromJson(json, Ingredient.class);
     }
 
     public User checkUserFile(String username, String password) {

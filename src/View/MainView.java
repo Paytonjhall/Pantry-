@@ -1,5 +1,5 @@
 package View;
-import Pantry.FoodItem;
+import Pantry.Ingredient;
 import Recipe.Recipe;
 import User.*;
 
@@ -82,7 +82,7 @@ public class MainView extends JFrame{
     // edit button for pantry
     editStockButton.addActionListener(e -> {
       // add dialogue box for editing food items
-      FoodItem item = user.getStock().getStock().get(PantryList.getSelectedIndex());
+      Ingredient item = user.getStock().getStock().get(PantryList.getSelectedIndex());
       JTextField foodNameField = new JTextField();
       foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
       foodNameField.setPreferredSize(new Dimension(150, 20));
@@ -129,7 +129,7 @@ public class MainView extends JFrame{
         foodName = foodNameField.getText();
         foodQuantity = (Integer) numUnitsField.getValue();
         unitSize = (Double) sizeOneUnitField.getValue();
-        FoodItem newItem = new FoodItem(foodName, foodQuantity, unitSize, unitField.getItemAt(unitField.getSelectedIndex()));
+        Ingredient newItem = new Ingredient(foodName, foodQuantity, unitSize, unitField.getItemAt(unitField.getSelectedIndex()));
         user.getStock().editFoodItem(item, newItem);
         PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
         editStockButton.setVisible(false);
@@ -167,7 +167,7 @@ public class MainView extends JFrame{
       };
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
       if (output == JOptionPane.OK_OPTION) {
-            FoodItem foodItem = new FoodItem(foodNameField.getText(), (Integer) numUnits.getValue(),
+            Ingredient foodItem = new Ingredient(foodNameField.getText(), (Integer) numUnits.getValue(),
                     (Double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
             user.addToStock(foodItem);
             PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
@@ -299,10 +299,10 @@ public class MainView extends JFrame{
             "Cook Time:", cookTime,
             "Upload Photo:", uploadPhoto
         };
-        List<FoodItem> ingredients = new ArrayList<>();
+        List<Ingredient> ingredients = new ArrayList<>();
 
         addIngredientButton.addActionListener(e1 -> {
-          ingredients.add(new FoodItem(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
+          ingredients.add(new Ingredient(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
           recipeIngredients.setText("");
           ingredientSize.setValue(1);
           unit.setSelectedIndex(2);
@@ -374,10 +374,10 @@ public class MainView extends JFrame{
               "Cook Time:", cookTime,
               "Upload Photo:", uploadPhoto
       };
-      List<FoodItem> ingredients = new ArrayList<>();
+      List<Ingredient> ingredients = new ArrayList<>();
 
       addIngredientButton.addActionListener(e1 -> {
-        ingredients.add(new FoodItem(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
+        ingredients.add(new Ingredient(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
         recipeIngredients.setText("");
         ingredientSize.setValue(1);
         unit.setSelectedIndex(2);
@@ -469,10 +469,10 @@ public class MainView extends JFrame{
 
       };
 
-      List<FoodItem> ingredients = new ArrayList<>();
+      List<Ingredient> ingredients = new ArrayList<>();
 
       addIngredientButton.addActionListener(e1 -> {
-        ingredients.add(new FoodItem(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
+        ingredients.add(new Ingredient(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
         recipeIngredients.setText("");
         ingredientSize.setValue(1);
         unit.setSelectedIndex(2);

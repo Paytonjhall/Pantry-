@@ -1,6 +1,6 @@
 package Test;
 
-import Pantry.FoodItem;
+import Pantry.Ingredient;
 import Pantry.Stock;
 import Recipe.Recipe;
 import User.User;
@@ -11,24 +11,22 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class StockTest {
 
-    FoodItem mockItem1 = new FoodItem("Eggs", 12);
-    FoodItem mockItem2 = new FoodItem("Bread", 1);
-    FoodItem mockItem3 = new FoodItem("Cheese", 2);
-    FoodItem mockItem4 = new FoodItem("Milk", 1);
-    FoodItem mockItem5 = new FoodItem("Butter", 1);
-    FoodItem mockItem6 = new FoodItem("Chicken", 1);
-    FoodItem mockItem7 = new FoodItem("Rice", 1);
-    FoodItem mockItem8 = new FoodItem("Beans", 1);
-    FoodItem mockItem9 = new FoodItem("Tomatoes", 1);
+    Ingredient mockItem1 = new Ingredient("Eggs", 12);
+    Ingredient mockItem2 = new Ingredient("Bread", 1);
+    Ingredient mockItem3 = new Ingredient("Cheese", 2);
+    Ingredient mockItem4 = new Ingredient("Milk", 1);
+    Ingredient mockItem5 = new Ingredient("Butter", 1);
+    Ingredient mockItem6 = new Ingredient("Chicken", 1);
+    Ingredient mockItem7 = new Ingredient("Rice", 1);
+    Ingredient mockItem8 = new Ingredient("Beans", 1);
+    Ingredient mockItem9 = new Ingredient("Tomatoes", 1);
 
 
-     Recipe mockRecipe1 = new Recipe("Egg in a hole", "Mix eggs and bread", "10 minutes", new ArrayList<FoodItem>());
-     Recipe mockRecipe2 = new Recipe("Egg Sandwich", "Mix eggs, bread, and cheese", "15 minutes", new ArrayList<FoodItem>());
-     Recipe mockRecipe3 = new Recipe("Eggnog", "Mix eggs, and milk", "20 minutes", new ArrayList<FoodItem>());
+     Recipe mockRecipe1 = new Recipe("Egg in a hole", "Mix eggs and bread", "10 minutes", new ArrayList<Ingredient>());
+     Recipe mockRecipe2 = new Recipe("Egg Sandwich", "Mix eggs, bread, and cheese", "15 minutes", new ArrayList<Ingredient>());
+     Recipe mockRecipe3 = new Recipe("Eggnog", "Mix eggs, and milk", "20 minutes", new ArrayList<Ingredient>());
 
     Stock mockStock;
     User mockUser;
@@ -36,7 +34,7 @@ class StockTest {
     @BeforeEach
     void setUp() {
 
-        List<FoodItem> items = new ArrayList<>();
+        List<Ingredient> items = new ArrayList<>();
         items.add(mockItem1);
         items.add(mockItem2);
         mockStock = new Stock(items);
