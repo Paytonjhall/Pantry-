@@ -16,7 +16,6 @@ import java.util.List;
 
 public class MainView extends JFrame{
   private JsonConverter jsonConverter = new JsonConverter();
-  private JLabel ProjectName;
   private JList RecipeList;
   private JPanel MainViewPanel;
   private JButton addRecipeButton;
@@ -44,6 +43,10 @@ public class MainView extends JFrame{
   private JLabel makeableRecipesText;
   private JList makeableRecipesList;
   private JButton addRecipeButtonMakeable;
+  private JLabel ShoppingListText;
+  private JList ShoppingListList;
+  private JButton editShoppingListButton;
+  private JButton addShoppingListItemButton;
   private JTextField SearchBox;
   //User user;
 
