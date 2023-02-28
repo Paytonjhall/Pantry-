@@ -1,6 +1,6 @@
 package Recipe;
 
-import Pantry.FoodItem;
+import Pantry.Ingredient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,18 +12,18 @@ public class Recipe {
     String name;
     String instructions;
     String time;
-    List<FoodItem> ingredients;
+    List<Ingredient> ingredients;
     String image;
     List<String> tags;
 
-    public Recipe(String name, String instructions, String time, List<FoodItem> ingredients) {
+    public Recipe(String name, String instructions, String time, List<Ingredient> ingredients) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.time = time;
     }
 
-    public Recipe(String name, String instructions, String time, List<FoodItem> ingredients, String image) {
+    public Recipe(String name, String instructions, String time, List<Ingredient> ingredients, String image) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
@@ -31,7 +31,7 @@ public class Recipe {
         this.image = image;
     }
 
-    public Recipe(String name, String instructions, String time, List<FoodItem> ingredients, String image, List<String> tags) {
+    public Recipe(String name, String instructions, String time, List<Ingredient> ingredients, String image, List<String> tags) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
@@ -56,19 +56,19 @@ public class Recipe {
         return time;
     }
 
-    public List<FoodItem> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
     public List<String> getIngredientsNames() {
         List<String> ingredientNames = new ArrayList<String>();
-        for (FoodItem ingredient : ingredients) {
+        for (Ingredient ingredient : ingredients) {
             ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity());
         }
         return ingredientNames;
     }
 
-    public void setIngredients(List<FoodItem> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
