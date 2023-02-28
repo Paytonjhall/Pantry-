@@ -1,14 +1,14 @@
 package Pantry;
 
 import Utils.Converter.IBaseUnit;
+import Utils.Converter.UnitConverter;
 
-public class Ingredient {
-  //Basic Ingredient Class
+public class Ingredient implements Comparable<Ingredient> {
+  //Basic FoodItem Class
 
   private String name;
 
-  private int numUnits = 0;
-  private double unitSize = 0;
+  private double quantity = 0;
 
   private String unitType;
 
@@ -20,16 +20,28 @@ public class Ingredient {
     this(name, numUnits, 1, "Unknown");
   }
 
-  public Ingredient(String name, double unitSize, String unitType) {
-    this(name, 1, unitSize, unitType);
+  public Ingredient(String name, double quantity, String unitType) {
+    this(name, 1, quantity, unitType);
+  }
+
+  public Ingredient(String name, double quantity, double unitSize, String unitType) {
+    this(name, 1, quantity * unitSize, unitType);
   }
 
   public Ingredient(String name, int numUnits, double unitSize, String unitType) {
     this.name = cleanupName(name);
-    this.unitSize = unitSize;
     this.unitType = unitType;
-    this.numUnits = numUnits;
+    this.quantity = numUnits * unitSize;
   }
+
+  public double getQuantity() {
+    return quantity;
+  }
+
+  public void addQuantity(double quantity) {
+    this.quantity += quantity;
+  }
+
 
   public String cleanupName(String name) {
     String cleanUp = name.strip();
@@ -41,48 +53,21 @@ public class Ingredient {
     this.name = cleanupName(name);
   }
 
-  public void setUnitSize(double unitSize) {
-    this.unitSize = unitSize;
-  }
-
-  public int getNumUnits() {
-    return numUnits;
-  }
-
   public String getUnitType() {
     return unitType;
   }
 
-  public double getQuantity() {
-    return unitSize * numUnits;
-  }
 
   /**
    * Get the total quantity of the food item in the standardized unit
    * For volume, the quantity returned is in fluid ounces.
    */
   public double getBaseUnitQuantity() {
-    return numUnits * IBaseUnit.convertUnits(IBaseUnit.stringToUnit(unitType), unitSize);
+    return IBaseUnit.convertUnits(UnitConverter.stringToUnit(unitType), quantity);
   }
 
   public String getAbbreviation() {
-    return IBaseUnit.stringToUnit(unitType).getUnitString();
-  }
-
-  /**
-   * Update the quantity of the food item
-   * @param newQuantity the additional quantity to add
-   */
-  public void addQuantity(int newQuantity) {
-      numUnits += newQuantity;
-  }
-
-  /**
-   * Increment the quantity of the food item
-   * by 1
-   */
-  public void addQuantity() {
-    numUnits += 1;
+    return UnitConverter.stringToUnit(unitType).getUnitString();
   }
 
   /**
@@ -90,32 +75,21 @@ public class Ingredient {
    * @param newQuantity - the quantity to remove
    */
   public void removeQuantity(int newQuantity) {
-      numUnits -= newQuantity;
-      if (numUnits < 0) {
-        numUnits = 0;
+      this.quantity -= newQuantity;
+      if (this.quantity < 0) {
+        this.quantity = 0;
       }
   }
 
-  /**
-   * Decrement the item quantity by 1
-   */
-  public void removeQuantity() {
-    numUnits -= 1;
-      if (numUnits < 0) {
-        numUnits = 0;
-      }
-  }
-
-  public double getUnitSize() {
-    if(unitSize < 0) {
-      unitSize = 0;
-    }
-    return unitSize;
-  }
 
   public String getName() {
     return name;
   }
+
+  public void setUnitType(String unitType) {
+    this.unitType = unitType;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -132,10 +106,15 @@ public class Ingredient {
     Ingredient item = (Ingredient) o;
 
     // Check if the members are the same
-    if ((item.name.equals(this.name)) && (item.unitSize == this.unitSize) && (item.unitType.equals(this.unitType))) {
+    if ((item.name.equals(this.name)) && (item.quantity == this.quantity) && (item.unitType.equals(this.unitType))) {
       return true;
     }
 
     return false;
+  }
+
+  @Override
+  public int compareTo(Ingredient o) {
+    return this.name.compareTo(o.getName());
   }
 }

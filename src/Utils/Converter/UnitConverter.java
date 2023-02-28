@@ -1,30 +1,24 @@
 package Utils.Converter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+public class UnitConverter {
 
-public class VolumeConverter {
-
-    public static double convert(VolumeUnit unit, double unitSize) {
-        return VolumeUnit.convertToFlOz(unit, unitSize);
+    public static double convert(VolumeUnit unit, double quantity) {
+        return VolumeUnit.convertToFlOz(unit, quantity);
     }
 
-    public static double convert(String unit, double unitSize) {
-        VolumeUnit normalUnit = stringToUnit(unit);
-        return convert(normalUnit, unitSize);
-    }
 
-    public static VolumeUnit stringToUnit(String unit) {
+    public static IBaseUnit stringToUnit(String unit) {
         if (unit == null|| unit.length() == 0) {
-            return VolumeUnit.UNKNOWN;
+            return WholeUnit.UNKNOWN;
         }
+
         String currentUnit = unit.toLowerCase();
         int stringEnd = currentUnit.length() - 1;
         if (currentUnit.charAt(stringEnd) == 's') {
             currentUnit = currentUnit.substring(0, stringEnd);
         }
 
-        VolumeUnit type = null;
+        IBaseUnit type = null;
 
         // most units can have multiple abbreviations, so this tests
         // for the most common ones
@@ -71,9 +65,15 @@ public class VolumeConverter {
             case "ounce":
                 type = VolumeUnit.FLUID_OUNCE;
                 break;
-            default:
-                type = VolumeUnit.UNKNOWN;
+            case "single":
+            case "whole":
+                type = WholeUnit.WHOLE_UNIT;
                 break;
+            default:
+                type = WholeUnit.UNKNOWN;
+                break;
+
+            // TODO: ADD WEIGHT CASES HERE
 
         }
 

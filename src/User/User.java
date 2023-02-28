@@ -118,16 +118,16 @@ public class User {
         List<String> ingredientNames = new ArrayList<String>();
         if(recipe.getIngredients()!=null) {
             for (Ingredient ingredient : recipe.getIngredients()) {
-            if (haveIngredient(ingredient)) {
-                String itemName = ingredient.getName();
-                Ingredient itemInStock = stock.getFoodItem(itemName);
-                ingredientNames.add(itemName + ": " + ingredient.getUnitSize() + " " + ingredient.getAbbreviation() +
-                        " (in stock : " + itemInStock.getQuantity() + " " + itemInStock.getAbbreviation() + ")");
-            }
-            else {
-                ingredientNames.add(ingredient.getName() + ": " + ingredient.getUnitSize() + " " + ingredient.getAbbreviation() +
-                        " (not in stock)");
-            }
+                if (haveIngredient(ingredient)) {
+                    String itemName = ingredient.getName();
+                    Ingredient itemInStock = stock.getFoodItem(itemName);
+                    ingredientNames.add(itemName + ": " + ingredient.getQuantity() + " " + ingredient.getAbbreviation() +
+                            " (in stock: " + itemInStock.getQuantity() + " " + itemInStock.getAbbreviation() + ")");
+                }
+                else {
+                    ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity() + " " + ingredient.getAbbreviation() +
+                            " (not in stock)");
+                }
 
             }
         }
@@ -150,7 +150,7 @@ public class User {
           stock = new Stock();
       }
       if(stock.inStock(ingredient))
-            return stock.getFoodItem(ingredient.getName()).getUnitSize();
+            return stock.getFoodItem(ingredient.getName()).getQuantity();
       return 0;
   }
 }

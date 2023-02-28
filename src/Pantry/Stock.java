@@ -1,8 +1,11 @@
 package Pantry;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import Utils.Converter.IBaseUnit;
+import Utils.Converter.UnitConverter;
+import Utils.Converter.VolumeUnit;
+import Utils.Converter.WholeUnit;
+
+import java.util.*;
 
 public class Stock {
   //This class will be what we use to keep track of all the items in the pantry
@@ -15,6 +18,7 @@ public class Stock {
     }
     public Stock(List<Ingredient> foodList) {
         this.foodList = foodList;
+        alphabetizeList();
     }
 
   /**
@@ -30,9 +34,46 @@ public class Stock {
       if (existingIndex == -1) {
           foodList.add(newItem);
       } else {
-          foodList.get(existingIndex).addQuantity(newItem.getNumUnits());
+          updateUnits(existingIndex, newItem);
       }
 
+      alphabetizeList();
+
+  }
+
+    /**
+     * When adding a new pantry item, if the item is already in stock,
+     * it determines which has the larger unit and converts the other to
+     * that unit and unit size and adds the quantity
+     * @param indexOriginal index of the exising item in stock
+     * @param second the new item being added
+     */
+  private void updateUnits(int indexOriginal, Ingredient second) {
+      Ingredient first = foodList.get(indexOriginal);
+
+      IBaseUnit firstUnit = UnitConverter.stringToUnit(first.getUnitType());
+      IBaseUnit secondUnit = UnitConverter.stringToUnit(second.getUnitType());
+
+      if ((firstUnit instanceof VolumeUnit) &&
+              (secondUnit instanceof VolumeUnit)){
+          VolumeUnit firstVolumeUnit = (VolumeUnit) firstUnit;
+          VolumeUnit secondVolumeUnit = (VolumeUnit) secondUnit;
+
+          if (VolumeUnit.isLarger(firstVolumeUnit, secondVolumeUnit)) {
+              double secondQuantity = VolumeUnit.convertToDestinationUnit(secondVolumeUnit, firstVolumeUnit, second.getQuantity());
+              foodList.get(indexOriginal).addQuantity(secondQuantity);
+
+          } else {
+              double firstQuantity = VolumeUnit.convertToDestinationUnit(firstVolumeUnit, secondVolumeUnit, first.getQuantity());
+              second.addQuantity(firstQuantity);
+              foodList.set(indexOriginal, second);
+          }
+      } else if ((firstUnit instanceof WholeUnit) && (secondUnit instanceof WholeUnit)) {
+          foodList.get(indexOriginal).addQuantity(second.getQuantity());
+      } else {
+          foodList.add(second);
+      }
+      // TODO:: ADD THE OPTION FOR WEIGHT HERE
   }
 
   /**
@@ -95,10 +136,11 @@ public class Stock {
     List<String> foodNames = new ArrayList<String>();
     if(foodList == null) foodList = new ArrayList<Ingredient>();
     for (Ingredient item : foodList) {
-        if (Objects.equals(item.getUnitType(), "") || Objects.equals(item.getUnitType(), "unknown")) {
-            foodNames.add(item.getName() + " (" + item.getNumUnits() + ")");
+        if (Objects.equals(item.getUnitType(), "") || Objects.equals(item.getUnitType(), "unknown") ||
+            Objects.equals(item.getUnitType(), "whole item")) {
+            foodNames.add(item.getName() + " (" + item.getQuantity() + ")");
         } else {
-            foodNames.add(item.getName() + " (" + item.getNumUnits() + ")" + " - " + item.getUnitSize() + " " + item.getAbbreviation());
+            foodNames.add(item.getName() + " (" + item.getQuantity() + " " + item.getAbbreviation() + ")");
         }
     }
     return foodNames;
@@ -109,6 +151,7 @@ public class Stock {
       if (index >= 0) {
           foodList.set(index, newItem);
       }
+      alphabetizeList();
   }
 
   public Ingredient getFoodItem(String name) {
@@ -122,12 +165,15 @@ public class Stock {
 
   private int itemAlreadyInStock(Ingredient newItem) {
       for (int i = 0; i < foodList.size(); i++) {
-          if (foodList.get(i).getName().equalsIgnoreCase(newItem.getName()) &&
-                  foodList.get(i).getUnitType().equalsIgnoreCase(newItem.getUnitType()) &&
-                  foodList.get(i).getUnitSize() == newItem.getUnitSize()) {
+          if (foodList.get(i).getName().equalsIgnoreCase(newItem.getName())) {
               return i;
           }
       }
       return -1;
   }
+
+  private void alphabetizeList() {
+      Collections.sort(foodList);
+  }
+
 }
