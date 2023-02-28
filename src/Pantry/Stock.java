@@ -12,12 +12,18 @@ public class Stock {
   //We will be saving it out using json and loading back into it the same way.
 
     private List<Ingredient> foodList;
+    private ShoppingList shoppingList;
 
-    public Stock() {
+    public Stock() {}
 
-    }
     public Stock(List<Ingredient> foodList) {
         this.foodList = foodList;
+        alphabetizeList();
+    }
+
+    public Stock(List<Ingredient> foodList, ShoppingList shoppingList) {
+        this.foodList = foodList;
+        this.shoppingList = shoppingList;
         alphabetizeList();
     }
 
@@ -81,7 +87,6 @@ public class Stock {
    * is not part of the stock
    * @param item - food item to remove
    */
-
   public void removeItem(Ingredient item) {
       int index = findItem(item);
       if (index >= 0) {
@@ -122,6 +127,15 @@ public class Stock {
     }
     return -1;
   }
+
+  public void genterateShoppingList(){
+      ShoppingList list = new ShoppingList();
+        for (Ingredient item: foodList) {
+            if(item.getMinUnits() >= item.getQuantity()){
+                list.addItem(item);
+            }
+        }
+    }
 
   public List<String> getFoodNames() {
     List<String> foodNames = new ArrayList<String>();
@@ -175,5 +189,63 @@ public class Stock {
   private void alphabetizeList() {
       Collections.sort(foodList);
   }
+
+    public ShoppingList getShoppingList() {
+      if (shoppingList == null) {
+          shoppingList = new ShoppingList();
+      }
+        return shoppingList;
+    }
+
+    public void setShoppingList(ShoppingList shoppingList) {
+      if(shoppingList == null) shoppingList = new ShoppingList();
+      this.shoppingList = shoppingList;
+    }
+
+    public void addShoppingListItem(Ingredient item) {
+        if(shoppingList == null) shoppingList = new ShoppingList();
+        this.shoppingList.addItem(item);
+    }
+
+    public void removeShoppingListItem(Ingredient item) {
+
+      if(shoppingList == null) shoppingList = new ShoppingList();
+      shoppingList.removeItem(item);
+    }
+
+    public void clearShoppingList() {
+        if(shoppingList == null) shoppingList = new ShoppingList();
+        shoppingList.clearList();
+    }
+
+    public List<Ingredient> getShoppingListItems() {
+        if(shoppingList == null) shoppingList = new ShoppingList();
+        return shoppingList.getItems();
+    }
+
+    public List<String> getShoppingListNames() {
+        if(shoppingList == null) shoppingList = new ShoppingList();
+        return shoppingList.getNames();
+    }
+
+    public List<String> getShoppingListNamesWithQuantity() {
+        if(shoppingList == null) shoppingList = new ShoppingList();
+        return shoppingList.getNamesWithQuantity();
+    }
+
+    public void setShoppingListItems(List<Ingredient> items) {
+        if(shoppingList == null) shoppingList = new ShoppingList();
+        shoppingList.setItems(items);
+    }
+
+    public void addShoppingListItems(List<Ingredient> items) {
+        if(shoppingList == null) shoppingList = new ShoppingList();
+        shoppingList.addItems(items);
+    }
+
+    public void editShoppingListItem(Ingredient item, Ingredient newItem) {
+        if(shoppingList == null) shoppingList = new ShoppingList();
+        shoppingList.editItem(item, newItem);
+    }
 
 }

@@ -12,6 +12,8 @@ public class Ingredient implements Comparable<Ingredient> {
 
   private String unitType;
 
+  private int minUnits = 0;
+
   public Ingredient() {
 
   }
@@ -111,6 +113,18 @@ public class Ingredient implements Comparable<Ingredient> {
     }
 
     return false;
+  }
+
+  public int getMinUnits() {
+    return minUnits;
+  }
+
+  public void setMinUnits(int minUnits) {
+    this.minUnits = minUnits;
+  }
+
+  public void setQuantity(double quantity) {
+    this.quantity = quantity;
   }
 
   @Override

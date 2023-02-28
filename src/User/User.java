@@ -24,13 +24,6 @@ public class User {
     }
 
   //TODO: Functions to write
-    // add to stock
-    // remove from stock
-    // edit from stock
-    // search from stock
-    // add to recipe list
-    // remove from recipe list
-    // edit from recipe list
     // search from recipe list
 
 
@@ -134,7 +127,6 @@ public class User {
         return ingredientNames;
     }
 
-
   public boolean haveIngredient(Ingredient ingredient) {
       if(stock == null) {
           stock = new Stock();
@@ -153,4 +145,6 @@ public class User {
             return stock.getFoodItem(ingredient.getName()).getQuantity();
       return 0;
   }
+
+
 }
