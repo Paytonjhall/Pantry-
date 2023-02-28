@@ -70,7 +70,6 @@ public class MainView extends JFrame{
     editRecipeButton.setVisible(false);
     makeRecipeButton.setVisible(false);
     editStockButton.setVisible(false);
-//    deleteStockButton.setVisible(false);
     setVisible(true);
     RecipeLabelInfo.setLineWrap(true);
 
