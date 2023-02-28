@@ -68,7 +68,7 @@ public class MainView extends JFrame{
     //Set buttons to invisible, only visible when a recipe is selected
     RecipePhoto.setIcon(new ImageIcon("src/Assets/no-images.png"));
     RecipePhoto.setVisible(false);
-    addShoppingListItemButton.setVisible(false);
+    editShoppingListButton.setVisible(false);
     deleteRecipeButton.setVisible(false);
     editRecipeButton.setVisible(false);
     makeRecipeButton.setVisible(false);
@@ -105,7 +105,7 @@ public class MainView extends JFrame{
       JTextField foodQuantityField = new JTextField();
       SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
       JSpinner numUnitsField = new JSpinner(model);
-      SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
+      SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
       JSpinner sizeOneUnitField = new JSpinner(sizeModel);
       String possibleUnits[] = {
               "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
@@ -143,8 +143,12 @@ public class MainView extends JFrame{
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
       if (output == JOptionPane.OK_OPTION) {
         foodName = foodNameField.getText();
-        foodQuantity = (Double) numUnitsField.getValue();
-        unitSize = (Double) sizeOneUnitField.getValue();
+        Object numUnits = numUnitsField.getValue();
+        Object sizeOneUnit = sizeOneUnitField.getValue();
+        foodQuantity = Double.parseDouble(numUnits.toString());
+        unitSize = Double.parseDouble(sizeOneUnit.toString());
+        //foodQuantity = (double) (int)numUnitsField.getValue();
+        //unitSize = (double) (int)sizeOneUnitField.getValue();
         Ingredient newItem = new Ingredient(foodName, foodQuantity, unitSize, unitField.getItemAt(unitField.getSelectedIndex()));
         user.getStock().editFoodItem(item, newItem);
         PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
@@ -163,7 +167,7 @@ public class MainView extends JFrame{
               JTextField foodQuantityField = new JTextField();
               SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
               JSpinner numUnitsField = new JSpinner(model);
-              SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
+              SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
               JSpinner sizeOneUnitField = new JSpinner(sizeModel);
               String possibleUnits[] = {
         "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
@@ -200,12 +204,14 @@ public class MainView extends JFrame{
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
       if (output == JOptionPane.OK_OPTION) {
         foodName = foodNameField.getText();
-        foodQuantity = (Double) numUnitsField.getValue();
-        unitSize = (Double) sizeOneUnitField.getValue();
+        Object numUnits = numUnitsField.getValue();
+        Object sizeOneUnit = sizeOneUnitField.getValue();
+        foodQuantity = Double.parseDouble(numUnits.toString());
+        unitSize = Double.parseDouble(sizeOneUnit.toString());
         Ingredient newItem = new Ingredient(foodName, foodQuantity, unitSize, unitField.getItemAt(unitField.getSelectedIndex()));
         user.getStock().editShoppingListItem(item, newItem);
-        ShoppingListList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
-        editStockButton.setVisible(false);
+        ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
+        editShoppingListButton.setVisible(false);
       }
       });
 
@@ -216,10 +222,10 @@ public class MainView extends JFrame{
       foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
       foodNameField.setPreferredSize(new Dimension(150, 20));
       JTextField foodQuantityField = new JTextField();
-      SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 0.25);
+      SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
       JSpinner numUnits = new JSpinner(model);
 
-      SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
+      SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
       JSpinner sizeOneUnit = new JSpinner(sizeModel);
       String possibleUnits[] = {
               "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
@@ -252,10 +258,10 @@ public class MainView extends JFrame{
               foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
               foodNameField.setPreferredSize(new Dimension(150, 20));
               JTextField foodQuantityField = new JTextField();
-              SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 0.25);
+              SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
               JSpinner numUnits = new JSpinner(model);
 
-              SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
+              SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
               JSpinner sizeOneUnit = new JSpinner(sizeModel);
               String possibleUnits[] = {
                       "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
@@ -271,10 +277,10 @@ public class MainView extends JFrame{
               };
               int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
               if (output == JOptionPane.OK_OPTION) {
-                Ingredient foodItem = new Ingredient(foodNameField.getText(), (Double) numUnits.getValue(),
-                        (Double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
+                Ingredient foodItem = new Ingredient(foodNameField.getText(), (double) numUnits.getValue(),
+                        (double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
                 user.getStock().addShoppingListItem(foodItem);
-                ShoppingListList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
+                ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
               }
             });
 

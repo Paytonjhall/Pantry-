@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ShoppingList {
 
-    private List<Ingredient> items;
+    private List<Ingredient> items = new ArrayList<>();
 
     public ShoppingList() {}
 
