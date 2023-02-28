@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="View.MainView">
-  <grid id="27dc6" binding="MainViewPanel" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="MainViewPanel" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="1635" height="703"/>
@@ -11,19 +11,10 @@
     </clientProperties>
     <border type="none"/>
     <children>
-      <component id="a2f3c" class="javax.swing.JLabel" binding="ProjectName">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font name="Droid Sans Mono Slashed" size="28"/>
-          <text value="Pantry++"/>
-        </properties>
-      </component>
       <grid id="7ebcb" binding="RecipePanel" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="1" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="1" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="1" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -68,14 +59,6 @@
               <text value="Make"/>
             </properties>
           </component>
-          <component id="e0ab6" class="javax.swing.JLabel" binding="RecipePhoto">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value=""/>
-            </properties>
-          </component>
           <component id="6def" class="javax.swing.JList" binding="RecipeIngredientList">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -99,7 +82,7 @@
           </component>
           <component id="5bc8e" class="javax.swing.JTextArea" binding="RecipeLabelInfo">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false">
+              <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
               </grid>
             </constraints>
@@ -108,49 +91,12 @@
               <wrapStyleWord value="true"/>
             </properties>
           </component>
-        </children>
-      </grid>
-      <grid id="b490e" binding="FoodPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints>
-          <grid row="1" column="2" row-span="3" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="fc898" class="javax.swing.JLabel" binding="PantryListText">
+          <component id="e0ab6" class="javax.swing.JLabel" binding="RecipePhoto">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <font name="Droid Sans Mono Slashed" size="18"/>
-              <text value="Pantry"/>
-            </properties>
-          </component>
-          <component id="2992f" class="javax.swing.JList" binding="PantryList">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="50"/>
-              </grid>
-            </constraints>
-            <properties>
-              <font name="Droid Sans Mono Slashed" size="16"/>
-            </properties>
-          </component>
-          <component id="94980" class="javax.swing.JButton" binding="editStockButton">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Edit"/>
-            </properties>
-          </component>
-          <component id="81ce6" class="javax.swing.JButton" binding="addToPantryButton">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Add"/>
+              <text value=""/>
             </properties>
           </component>
         </children>
@@ -158,7 +104,7 @@
       <grid id="6c31b" binding="SaveLogoutPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="true"/>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="true"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -189,7 +135,7 @@
       </grid>
       <tabbedpane id="f68d0" binding="recipesTabPanel">
         <constraints>
-          <grid row="1" column="0" row-span="3" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="0" column="0" row-span="3" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="200" height="200"/>
           </grid>
         </constraints>
@@ -271,6 +217,125 @@
                 <properties>
                   <font name="Droid Sans Mono Slashed" size="20"/>
                   <text value="addRecipe"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
+      <tabbedpane id="d5fd5">
+        <constraints>
+          <grid row="0" column="2" row-span="3" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="200" height="200"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="2720c" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Pantry"/>
+            </constraints>
+            <properties>
+              <font name="Droid Sans Mono Slashed" size="18"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="b490e" binding="FoodPanel" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="fc898" class="javax.swing.JLabel" binding="PantryListText">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <font name="Droid Sans Mono Slashed" size="18"/>
+                      <text value="Pantry"/>
+                    </properties>
+                  </component>
+                  <component id="2992f" class="javax.swing.JList" binding="PantryList">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="50"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <font name="Droid Sans Mono Slashed" size="16"/>
+                    </properties>
+                  </component>
+                  <component id="94980" class="javax.swing.JButton" binding="editStockButton">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Edit"/>
+                    </properties>
+                  </component>
+                  <component id="81ce6" class="javax.swing.JButton" binding="addToPantryButton">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Add"/>
+                    </properties>
+                  </component>
+                  <component id="7b8ca" class="javax.swing.JButton" binding="clearShoppingListButton">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Clear"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="d3177" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Shopping List"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="b7bf0" class="javax.swing.JLabel" binding="ShoppingListText">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Droid Sans Mono Slashed" size="18"/>
+                  <text value="Shopping List"/>
+                </properties>
+              </component>
+              <component id="81133" class="javax.swing.JList" binding="ShoppingListList">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="2" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="50"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="74c95" class="javax.swing.JButton" binding="editShoppingListButton">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Edit item"/>
+                </properties>
+              </component>
+              <component id="7f0b4" class="javax.swing.JButton" binding="addShoppingListItemButton">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Add item"/>
                 </properties>
               </component>
             </children>

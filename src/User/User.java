@@ -1,5 +1,5 @@
 package User;
-import Pantry.FoodItem;
+import Pantry.Ingredient;
 import Pantry.Stock;
 import Recipe.Recipe;
 import Recipe.RecipeBook;
@@ -24,13 +24,6 @@ public class User {
     }
 
   //TODO: Functions to write
-    // add to stock
-    // remove from stock
-    // edit from stock
-    // search from stock
-    // add to recipe list
-    // remove from recipe list
-    // edit from recipe list
     // search from recipe list
 
 
@@ -77,7 +70,7 @@ public class User {
     this.subscribed=subscribed;
   }
 
-  public void addToStock(FoodItem item) {
+  public void addToStock(Ingredient item) {
       if(stock == null) {
           stock = new Stock();
       }
@@ -88,7 +81,7 @@ public class User {
       List<Recipe> recipes = new ArrayList<Recipe>();
       for(Recipe recipe : recipeBook.getRecipeList()) {
           boolean makeable = true;
-            for(FoodItem ingredient : recipe.getIngredients()) {
+            for(Ingredient ingredient : recipe.getIngredients()) {
                 if(!stock.inStock(ingredient) || !(stock.getFoodItem(ingredient.getName()).getBaseUnitQuantity() >= ingredient.getBaseUnitQuantity())) {
                     makeable = false;
                 }
@@ -117,25 +110,24 @@ public class User {
   public List<String> getIngredientStringList(Recipe recipe){
         List<String> ingredientNames = new ArrayList<String>();
         if(recipe.getIngredients()!=null) {
-            for (FoodItem ingredient : recipe.getIngredients()) {
-            if (haveIngredient(ingredient)) {
-                String itemName = ingredient.getName();
-                FoodItem itemInStock = stock.getFoodItem(itemName);
-                ingredientNames.add(itemName + ": " + ingredient.getUnitSize() + " " + ingredient.getAbbreviation() +
-                        " (in stock : " + itemInStock.getQuantity() + " " + itemInStock.getAbbreviation() + ")");
-            }
-            else {
-                ingredientNames.add(ingredient.getName() + ": " + ingredient.getUnitSize() + " " + ingredient.getAbbreviation() +
-                        " (not in stock)");
-            }
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                if (haveIngredient(ingredient)) {
+                    String itemName = ingredient.getName();
+                    Ingredient itemInStock = stock.getFoodItem(itemName);
+                    ingredientNames.add(itemName + ": " + ingredient.getQuantity() + " " + ingredient.getAbbreviation() +
+                            " (in stock: " + itemInStock.getQuantity() + " " + itemInStock.getAbbreviation() + ")");
+                }
+                else {
+                    ingredientNames.add(ingredient.getName() + ": " + ingredient.getQuantity() + " " + ingredient.getAbbreviation() +
+                            " (not in stock)");
+                }
 
             }
         }
         return ingredientNames;
     }
 
-
-  public boolean haveIngredient(FoodItem ingredient) {
+  public boolean haveIngredient(Ingredient ingredient) {
       if(stock == null) {
           stock = new Stock();
       }
@@ -145,12 +137,14 @@ public class User {
       return false;
   }
 
-  public double haveIngredientQuantity(FoodItem ingredient) {
+  public double haveIngredientQuantity(Ingredient ingredient) {
       if(stock == null) {
           stock = new Stock();
       }
       if(stock.inStock(ingredient))
-            return stock.getFoodItem(ingredient.getName()).getUnitSize();
+            return stock.getFoodItem(ingredient.getName()).getQuantity();
       return 0;
   }
+
+
 }
