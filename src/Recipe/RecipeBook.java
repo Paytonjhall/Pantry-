@@ -1,6 +1,7 @@
 package Recipe;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RecipeBook {
@@ -14,6 +15,7 @@ public class RecipeBook {
 
   public void setRecipeList(ArrayList<Recipe> recipeList) {
     this.recipeList=recipeList;
+    alphabetizeRecipeBook();
   }
 
   public void addRecipe(Recipe recipe) {
@@ -22,6 +24,8 @@ public class RecipeBook {
       recipeList = new ArrayList<Recipe>();
       recipeList.add(recipe);
     }
+
+    alphabetizeRecipeBook();
   }
 
     public void removeRecipe(Recipe recipe) {
@@ -32,6 +36,10 @@ public class RecipeBook {
         if(recipeList!=null) {
             recipeList.remove(oldRecipe);
             recipeList.add(newRecipe);
+        }
+
+        if (!(oldRecipe.name.equals(newRecipe))) {
+          alphabetizeRecipeBook();
         }
     }
 
@@ -51,5 +59,9 @@ public class RecipeBook {
       if(recipe.getName().contains(search))recipeNames.add(recipe.getName());
     }
     return recipeNames;
+  }
+
+  private void alphabetizeRecipeBook() {
+    Collections.sort(recipeList);
   }
 }

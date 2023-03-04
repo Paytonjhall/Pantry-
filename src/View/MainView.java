@@ -51,6 +51,9 @@ public class MainView extends JFrame{
   private JButton clearShoppingListButton;
   private JTabbedPane pantryTabPanel;
   private JTextField SearchBox;
+
+  int ALL_RECIPES = 0;
+  int MAKEABLE_RECIPES = 1;
   //User user;
 
   //Load main view
@@ -106,8 +109,10 @@ public class MainView extends JFrame{
       JTextField foodQuantityField = new JTextField();
       SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
       JSpinner numUnitsField = new JSpinner(model);
-      SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
-      JSpinner sizeOneUnitField = new JSpinner(sizeModel);
+      SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
+      JSpinner servingSize = new JSpinner(sizeModel);
+      SpinnerModel spcModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
+      JSpinner servingsPerContainer = new JSpinner(spcModel);
       String possibleUnits[] = {
               "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
       }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
@@ -119,7 +124,7 @@ public class MainView extends JFrame{
       double foodQuantity = item.getQuantity();
       numUnitsField.setValue(foodQuantity);
       double unitSize = 1; // Because we are converting all to one size, we forget what the unit size is, so set to 1
-      sizeOneUnitField.setValue(unitSize);
+      servingSize.setValue(unitSize);
 
       String unitType = item.getUnitType();
       int indexOfUnit = -1;
@@ -138,19 +143,19 @@ public class MainView extends JFrame{
       Object[] message = {
               "Food Name:", foodNameField,
               "Number of units:", numUnitsField,
-              "Size of 1 unit:", sizeOneUnitField,
+              "Servings per container:", servingsPerContainer,
+              "Serving size:", servingSize,
               unitField
       };
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
       if (output == JOptionPane.OK_OPTION) {
         foodName = foodNameField.getText();
-        Object numUnits = numUnitsField.getValue();
-        Object sizeOneUnit = sizeOneUnitField.getValue();
-        foodQuantity = Double.parseDouble(numUnits.toString());
-        unitSize = Double.parseDouble(sizeOneUnit.toString());
-        //foodQuantity = (double) (int)numUnitsField.getValue();
-        //unitSize = (double) (int)sizeOneUnitField.getValue();
-        Ingredient newItem = new Ingredient(foodName, foodQuantity, unitSize, unitField.getItemAt(unitField.getSelectedIndex()));
+        foodQuantity = Double.parseDouble(numUnitsField.getValue().toString());
+        double itemServingSize = Double.parseDouble(servingSize.getValue().toString());
+        double servingsPC = Double.parseDouble(servingsPerContainer.getValue().toString());
+
+        Ingredient newItem = new Ingredient(foodName, foodQuantity, itemServingSize, servingsPC,
+                unitField.getItemAt(unitField.getSelectedIndex()));
         user.getStock().editFoodItem(item, newItem);
         PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
         editStockButton.setVisible(false);
@@ -226,8 +231,10 @@ public class MainView extends JFrame{
       SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
       JSpinner numUnits = new JSpinner(model);
 
-      SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
-      JSpinner sizeOneUnit = new JSpinner(sizeModel);
+      SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
+      JSpinner servingSize = new JSpinner(sizeModel);
+      SpinnerModel spcModel = new SpinnerNumberModel(1, 0, 2000, 0.01);
+      JSpinner servingsPerContainer = new JSpinner(spcModel);
       String possibleUnits[] = {
               "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
       }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
@@ -239,13 +246,18 @@ public class MainView extends JFrame{
       Object[] message = {
               "Food Name:", foodNameField,
               "Number of units:", numUnits,
-              "Size of 1 unit:", sizeOneUnit,
+              "Servings Per Container:", servingsPerContainer,
+              "Serving Size:", servingSize,
               unit
       };
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
       if (output == JOptionPane.OK_OPTION) {
-            Ingredient foodItem = new Ingredient(foodNameField.getText(), (Double) numUnits.getValue(),
-                    (Double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
+          Double numUnitsValue = Double.parseDouble(numUnits.getValue().toString());
+          Double servingSizeVal = Double.parseDouble(servingSize.getValue().toString());
+          Double spcVal = Double.parseDouble(servingsPerContainer.getValue().toString());
+
+            Ingredient foodItem = new Ingredient(foodNameField.getText(), numUnitsValue,
+                    servingSizeVal, spcVal, unit.getItemAt(unit.getSelectedIndex()));
             user.addToStock(foodItem);
             PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
 
@@ -278,7 +290,7 @@ public class MainView extends JFrame{
               };
               int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
               if (output == JOptionPane.OK_OPTION) {
-                Ingredient foodItem = new Ingredient(foodNameField.getText(), (double) numUnits.getValue(),
+                Ingredient foodItem = new Ingredient(foodNameField.getText(), (Integer) numUnits.getValue(),
                         (double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
                 user.getStock().addShoppingListItem(foodItem);
                 ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
@@ -287,12 +299,10 @@ public class MainView extends JFrame{
 
     recipesTabPanel.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
-        int allRecipes = 0;
-        int makeableRecipes = 1;
         System.out.println(recipesTabPanel.getSelectedIndex());
-        if(allRecipes == recipesTabPanel.getSelectedIndex()){
+        if(ALL_RECIPES == recipesTabPanel.getSelectedIndex()){
           RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
-        } else if(makeableRecipes == recipesTabPanel.getSelectedIndex()){
+        } else if(MAKEABLE_RECIPES == recipesTabPanel.getSelectedIndex()){
           makeableRecipesText.setText("Makeable Recipes");
           makeableRecipesList.setVisible(true);
           makeableRecipesList.setListData(user.getStringsUserCanMake().toArray());
@@ -412,7 +422,7 @@ public class MainView extends JFrame{
         List<Ingredient> ingredients = new ArrayList<>();
 
         addIngredientButton.addActionListener(e1 -> {
-          ingredients.add(new Ingredient(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
+          ingredients.add(new Ingredient(recipeIngredients.getText(), (double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
           recipeIngredients.setText("");
           ingredientSize.setValue(1);
           unit.setSelectedIndex(0);
@@ -553,7 +563,12 @@ public class MainView extends JFrame{
 
     //Edit recipe Button --> Complete: Done
     editRecipeButton.addActionListener(e -> {
-      Recipe recipe = user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex());
+      Recipe recipe;
+      if(MAKEABLE_RECIPES == recipesTabPanel.getSelectedIndex()) {
+        recipe = user.getRecipesUserCanMake().get(makeableRecipesList.getSelectedIndex());
+      } else {
+        recipe = user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex());
+      }
       JTextField recipeName = new JTextField(recipe.getName());
       JTextField recipeInstructions = new JTextField(recipe.getInstructions());
       JTextField recipeIngredients = new JTextField();
