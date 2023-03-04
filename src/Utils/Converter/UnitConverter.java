@@ -2,14 +2,8 @@ package Utils.Converter;
 
 public class UnitConverter {
 
-    public static double convert(IBaseUnit unit, double quantity) {
-        if (unit instanceof VolumeUnit) {
-            return VolumeUnit.convertToFlOz((VolumeUnit) unit, quantity);
-        } else if (unit instanceof WeightUnit) {
-            return WeightUnit.convertWeightToOz((WeightUnit) unit, quantity);
-        } else {
-            return quantity;
-        }
+    public static double convert(VolumeUnit unit, double quantity) {
+        return VolumeUnit.convertToFlOz(unit, quantity);
     }
 
 
@@ -66,37 +60,20 @@ public class UnitConverter {
             case "fluid ounce":
             case "fl. oz.":
             case "fl oz":
+            case "oz":
+            case "oz.":
+            case "ounce":
                 type = VolumeUnit.FLUID_OUNCE;
                 break;
             case "single":
             case "whole":
                 type = WholeUnit.WHOLE_UNIT;
                 break;
-            case "lb":
-            case "lbs":
-            case "lb.":
-            case "lbs.":
-            case "pound":
-                type = WeightUnit.POUND;
-                break;
-            case "oz":
-            case "oz.":
-            case "ounce":
-                type = WeightUnit.OUNCE;
-                break;
-            case "kilogram":
-            case "kg":
-            case "kilo":
-                type = WeightUnit.KILOGRAM;
-                break;
-            case "g":
-            case "gram":
-            case "gm":
-                type = WeightUnit.GRAM;
-                break;
             default:
                 type = WholeUnit.UNKNOWN;
                 break;
+
+            // TODO: ADD WEIGHT CASES HERE
 
         }
 

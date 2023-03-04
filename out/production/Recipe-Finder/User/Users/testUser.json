@@ -5,38 +5,25 @@
     "foodList": [
       {
         "name": "Apples",
-        "quantity": 3.0,
-        "unitType": "WHOLE ITEM",
-        "minUnits": 0
+        "quantity": 2.0,
+        "unitType": ""
       },
       {
         "name": "Eggs",
-        "quantity": 1.0,
-        "unitType": "WHOLE ITEM",
-        "minUnits": 0
+        "quantity": 2.0,
+        "unitType": ""
       },
       {
         "name": "Flour",
         "quantity": 2.5,
-        "unitType": "GALLON",
-        "minUnits": 0
-      },
-      {
-        "name": "Sugar",
-        "quantity": 2.0,
-        "unitType": "POUND",
-        "minUnits": 0
+        "unitType": "GALLON"
       },
       {
         "name": "Yeast",
         "quantity": 1.0,
-        "unitType": "MILLILITER",
-        "minUnits": 0
+        "unitType": "MILLILITER"
       }
-    ],
-    "shoppingList": {
-      "items": []
-    }
+    ]
   },
   "recipeBook": {
     "recipeList": [
@@ -48,8 +35,7 @@
           {
             "name": "Flour",
             "quantity": 4.0,
-            "unitType": "CUP",
-            "minUnits": 0
+            "unitType": "CUP"
           }
         ]
       },
@@ -61,14 +47,12 @@
           {
             "name": "Yeast",
             "quantity": 1.0,
-            "unitType": "TEASPOON",
-            "minUnits": 0
+            "unitType": "TEASPOON"
           },
           {
             "name": "Eggs",
             "quantity": 2.0,
-            "unitType": "",
-            "minUnits": 0
+            "unitType": ""
           }
         ]
       },
@@ -80,34 +64,7 @@
           {
             "name": "Eggs",
             "quantity": 2.0,
-            "unitType": "GALLON",
-            "minUnits": 0
-          }
-        ]
-      },
-      {
-        "name": "Grandma\u0027s Secret Cookie Recipe",
-        "instructions": "Mix all ingredients together. Cook at 350 degrees",
-        "time": "",
-        "ingredients": [
-          {
-            "name": "Sugar",
-            "quantity": 1.5,
-            "unitType": "CUP",
-            "minUnits": 0
-          }
-        ]
-      },
-      {
-        "name": "Sugary Sweetness",
-        "instructions": "",
-        "time": "",
-        "ingredients": [
-          {
-            "name": "Sugar",
-            "quantity": 1.0,
-            "unitType": "CUP",
-            "minUnits": 0
+            "unitType": "GALLON"
           }
         ]
       }

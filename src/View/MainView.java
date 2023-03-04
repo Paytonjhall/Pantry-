@@ -49,6 +49,7 @@ public class MainView extends JFrame{
   private JButton editShoppingListButton;
   private JButton addShoppingListItemButton;
   private JButton clearShoppingListButton;
+  private JTabbedPane pantryTabPanel;
   private JTextField SearchBox;
   //User user;
 
@@ -58,7 +59,7 @@ public class MainView extends JFrame{
     //Create frame
     setContentPane(MainViewPanel);
     setTitle("Pantry++");
-    setSize(1200, 550);
+    setSize(1300, 550);
     RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
     PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
     ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
@@ -108,9 +109,8 @@ public class MainView extends JFrame{
       SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
       JSpinner sizeOneUnitField = new JSpinner(sizeModel);
       String possibleUnits[] = {
-              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE",
-              "OUNCE", "POUND", "KILOGRAM", "GRAM"
-      };
+              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
+      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
 
       JComboBox<String> unitField = new JComboBox<>(possibleUnits);
       unitField.setSelectedIndex(0);
@@ -229,9 +229,8 @@ public class MainView extends JFrame{
       SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
       JSpinner sizeOneUnit = new JSpinner(sizeModel);
       String possibleUnits[] = {
-              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE",
-              "OUNCE", "POUND", "KILOGRAM", "GRAM"
-      };
+              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
+      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
 
       JComboBox<String> unit = new JComboBox<>(possibleUnits);
       unit.setSelectedIndex(0);
@@ -245,7 +244,7 @@ public class MainView extends JFrame{
       };
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
       if (output == JOptionPane.OK_OPTION) {
-            Ingredient foodItem = new Ingredient(foodNameField.getText(), (Integer) numUnits.getValue(),
+            Ingredient foodItem = new Ingredient(foodNameField.getText(), (Double) numUnits.getValue(),
                     (Double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
             user.addToStock(foodItem);
             PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
@@ -266,8 +265,7 @@ public class MainView extends JFrame{
               SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
               JSpinner sizeOneUnit = new JSpinner(sizeModel);
               String possibleUnits[] = {
-                      "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE",
-                      "OUNCE", "POUND", "KILOGRAM", "GRAM"
+                      "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
               };
               JComboBox<String> unit = new JComboBox<>(possibleUnits);
               unit.setSelectedIndex(0);
@@ -280,7 +278,7 @@ public class MainView extends JFrame{
               };
               int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
               if (output == JOptionPane.OK_OPTION) {
-                Ingredient foodItem = new Ingredient(foodNameField.getText(), (Integer) numUnits.getValue(),
+                Ingredient foodItem = new Ingredient(foodNameField.getText(), (double) numUnits.getValue(),
                         (double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
                 user.getStock().addShoppingListItem(foodItem);
                 ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
@@ -392,8 +390,8 @@ public class MainView extends JFrame{
         JTextField cookTime = new JTextField();
         String possibleUnits[] = {
                 "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
-                "TABLESPOON", "TEASPOON", "FLUID OUNCE", "OUNCE", "POUND", "KILOGRAM", "GRAM"
-        };
+                "TABLESPOON", "TEASPOON", "FLUID OUNCE"
+        }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
 
         JComboBox<String> unit = new JComboBox<>(possibleUnits);
         unit.setSelectedIndex(0);
@@ -467,8 +465,8 @@ public class MainView extends JFrame{
       JTextField cookTime = new JTextField();
       String possibleUnits[] = {
               "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
-              "TABLESPOON", "TEASPOON", "FLUID OUNCE", "OUNCE", "POUND", "KILOGRAM", "GRAM"
-      };
+              "TABLESPOON", "TEASPOON", "FLUID OUNCE"
+      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
 
       JComboBox<String> unit = new JComboBox<>(possibleUnits);
       unit.setSelectedIndex(0);
@@ -562,7 +560,7 @@ public class MainView extends JFrame{
       JTextField cookTime = new JTextField(recipe.getTime());
       String possibleUnits[] = {
               "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
-              "TABLESPOON", "TEASPOON", "FLUID OUNCE", "OUNCE", "POUND", "KILOGRAM", "GRAM"
+              "TABLESPOON", "TEASPOON", "FLUID OUNCE"
       };
       JComboBox<String> unit = new JComboBox<>(possibleUnits);
       unit.setSelectedIndex(0);
@@ -604,7 +602,47 @@ public class MainView extends JFrame{
         editRecipeButton.setVisible(false);
       }
     });
-    //Create logo
+
+    makeRecipeButton.addActionListener(e1 -> {
+      boolean type = true;
+      if(recipesTabPanel.getSelectedIndex() == 1){type = false;}
+      Recipe recipeBeingMade;
+      if (type) recipeBeingMade = user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex());
+      else recipeBeingMade = user.getRecipeBook().getRecipeList().get(makeableRecipesList.getSelectedIndex());
+      System.out.println(recipeBeingMade.toString());
+      if(user.isMakeable(recipeBeingMade)){
+        int option = JOptionPane.showConfirmDialog(null, "Make recipe?: " + recipeBeingMade.getName(), recipeBeingMade.getName(), JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
+        if(option == JOptionPane.OK_OPTION ) {
+          user.makeRecipe(recipeBeingMade);
+          if(type) {
+            RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
+            RecipeLabel.setText("Recipe: ");
+            RecipeLabelInfo.setText("Instructions: ");
+            RecipeCookTime.setText("Cook Time: ");
+            RecipeIngredientList.setListData(new String[0]);
+            deleteRecipeButton.setVisible(false);
+            editRecipeButton.setVisible(false);
+            RecipePhoto.setVisible(false);
+            makeRecipeButton.setVisible(false);
+          }
+          else{
+            makeableRecipesList.setListData(user.getStringsUserCanMake().toArray());
+            RecipeLabel.setText("Recipe: ");
+            RecipeLabelInfo.setText("Instructions: ");
+            RecipeCookTime.setText("Cook Time: ");
+            RecipeIngredientList.setListData(new String[0]);
+            deleteRecipeButton.setVisible(false);
+            editRecipeButton.setVisible(false);
+            RecipePhoto.setVisible(false);
+            makeRecipeButton.setVisible(false);
+          }
+        }
+      } else {
+        JOptionPane.showMessageDialog(null, "You do not have enough ingredients to make this recipe.", "Error", JOptionPane.ERROR_MESSAGE, getLogo());
+      }
+      PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
+      //makeableRecipesList.setListData(user.getStringsUserCanMake().toArray());
+    });
   }
 
   private Image getImage(String iconPath) {
