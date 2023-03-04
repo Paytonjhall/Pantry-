@@ -36,6 +36,12 @@ public class Ingredient implements Comparable<Ingredient> {
     this.quantity = numUnits * unitSize;
   }
 
+  public Ingredient(String name, double numUnits, double servingSize, double servingsPerContainer, String unitType) {
+    this.name = cleanupName(name);
+    this.quantity = numUnits * servingSize * servingsPerContainer;
+    this.unitType = unitType;
+  }
+
   public double getQuantity() {
     return quantity;
   }
@@ -47,6 +53,9 @@ public class Ingredient implements Comparable<Ingredient> {
 
   public String cleanupName(String name) {
     String cleanUp = name.strip();
+    if (cleanUp.length() < 1) {
+      return name;
+    }
     String fullyClean = cleanUp.substring(0, 1).toUpperCase() + cleanUp.substring(1);
     return fullyClean;
   }

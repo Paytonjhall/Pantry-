@@ -5,7 +5,7 @@ import Pantry.Ingredient;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Comparable<Recipe> {
     //This class will be what we use to keep track of all the recipes
     //We will be saving it out using json and loading back into it the same way.
 
@@ -106,5 +106,11 @@ public class Recipe {
             tags = new ArrayList<String>();
         }
         tags.add(tag);
+    }
+
+
+    @Override
+    public int compareTo(Recipe o) {
+        return this.name.compareTo(o.name);
     }
 }
