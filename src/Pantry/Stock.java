@@ -1,9 +1,6 @@
 package Pantry;
 
-import Utils.Converter.IBaseUnit;
-import Utils.Converter.UnitConverter;
-import Utils.Converter.VolumeUnit;
-import Utils.Converter.WholeUnit;
+import Utils.Converter.*;
 
 import java.util.*;
 
@@ -74,13 +71,33 @@ public class Stock {
               second.addQuantity(firstQuantity);
               foodList.set(indexOriginal, second);
           }
+
       } else if ((firstUnit instanceof WholeUnit) && (secondUnit instanceof WholeUnit)) {
           foodList.get(indexOriginal).addQuantity(second.getQuantity());
-      } else {
+
+      } else if ((firstUnit instanceof WeightUnit) && (secondUnit instanceof WeightUnit)) {
+          WeightUnit firstWeightUnit = (WeightUnit) firstUnit;
+          WeightUnit secondWeightUnit = (WeightUnit) secondUnit;
+
+          if (WeightUnit.isWeightLarger(firstWeightUnit, secondWeightUnit)) {
+              double secondQuantity = WeightUnit.convertWeightToDestinationUnit(secondWeightUnit, firstWeightUnit, second.getQuantity());
+              foodList.get(indexOriginal).addQuantity(secondQuantity);
+
+          } else {
+              double firstQuantity = WeightUnit.convertWeightToDestinationUnit(firstWeightUnit, secondWeightUnit, first.getQuantity());
+              second.addQuantity(firstQuantity);
+              foodList.set(indexOriginal, second);
+          }
+      }
+      else {
           foodList.add(second);
       }
-      // TODO:: ADD THE OPTION FOR WEIGHT HERE
   }
+
+  // TODO: REFACTOR TO AVOID SO MUCH REPETITION
+    // FIGURE OUT HOW TO CONVERT WEIGHT TO VOLUME EASILY
+    // ADD DELETE STOCK BUTTON
+    // ADD MASS ADD SHOPPING LIST TO STOCK BUTTON
 
   /**
    * Removes a food item from the stock or does nothing if the item

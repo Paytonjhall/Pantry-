@@ -109,8 +109,9 @@ public class MainView extends JFrame{
       SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
       JSpinner sizeOneUnitField = new JSpinner(sizeModel);
       String possibleUnits[] = {
-              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
-      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
+              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE",
+              "OUNCE", "POUND", "KILOGRAM", "GRAM"
+      };
 
       JComboBox<String> unitField = new JComboBox<>(possibleUnits);
       unitField.setSelectedIndex(0);
@@ -229,8 +230,9 @@ public class MainView extends JFrame{
       SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
       JSpinner sizeOneUnit = new JSpinner(sizeModel);
       String possibleUnits[] = {
-              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
-      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
+              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE",
+              "OUNCE", "POUND", "KILOGRAM", "GRAM"
+      };
 
       JComboBox<String> unit = new JComboBox<>(possibleUnits);
       unit.setSelectedIndex(0);
@@ -244,7 +246,7 @@ public class MainView extends JFrame{
       };
       int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
       if (output == JOptionPane.OK_OPTION) {
-            Ingredient foodItem = new Ingredient(foodNameField.getText(), (Double) numUnits.getValue(),
+            Ingredient foodItem = new Ingredient(foodNameField.getText(), (Integer) numUnits.getValue(),
                     (Double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
             user.addToStock(foodItem);
             PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
@@ -265,7 +267,8 @@ public class MainView extends JFrame{
               SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
               JSpinner sizeOneUnit = new JSpinner(sizeModel);
               String possibleUnits[] = {
-                      "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
+                      "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE",
+                      "OUNCE", "POUND", "KILOGRAM", "GRAM"
               };
               JComboBox<String> unit = new JComboBox<>(possibleUnits);
               unit.setSelectedIndex(0);
@@ -278,7 +281,7 @@ public class MainView extends JFrame{
               };
               int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
               if (output == JOptionPane.OK_OPTION) {
-                Ingredient foodItem = new Ingredient(foodNameField.getText(), (double) numUnits.getValue(),
+                Ingredient foodItem = new Ingredient(foodNameField.getText(), (Integer) numUnits.getValue(),
                         (double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
                 user.getStock().addShoppingListItem(foodItem);
                 ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
@@ -390,8 +393,8 @@ public class MainView extends JFrame{
         JTextField cookTime = new JTextField();
         String possibleUnits[] = {
                 "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
-                "TABLESPOON", "TEASPOON", "FLUID OUNCE"
-        }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
+                "TABLESPOON", "TEASPOON", "FLUID OUNCE", "OUNCE", "POUND", "KILOGRAM", "GRAM"
+        };
 
         JComboBox<String> unit = new JComboBox<>(possibleUnits);
         unit.setSelectedIndex(0);
@@ -465,8 +468,8 @@ public class MainView extends JFrame{
       JTextField cookTime = new JTextField();
       String possibleUnits[] = {
               "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
-              "TABLESPOON", "TEASPOON", "FLUID OUNCE"
-      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
+              "TABLESPOON", "TEASPOON", "FLUID OUNCE", "OUNCE", "POUND", "KILOGRAM", "GRAM"
+      };
 
       JComboBox<String> unit = new JComboBox<>(possibleUnits);
       unit.setSelectedIndex(0);
@@ -560,7 +563,7 @@ public class MainView extends JFrame{
       JTextField cookTime = new JTextField(recipe.getTime());
       String possibleUnits[] = {
               "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
-              "TABLESPOON", "TEASPOON", "FLUID OUNCE"
+              "TABLESPOON", "TEASPOON", "FLUID OUNCE", "OUNCE", "POUND", "KILOGRAM", "GRAM"
       };
       JComboBox<String> unit = new JComboBox<>(possibleUnits);
       unit.setSelectedIndex(0);

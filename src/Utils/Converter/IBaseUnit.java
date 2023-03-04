@@ -13,22 +13,12 @@ public interface IBaseUnit {
             return VolumeUnit.convertToFlOz((VolumeUnit) unit, unitSize);
         } else if (unit instanceof WholeUnit) {
             return unitSize;
+        } else if (unit instanceof WeightUnit) {
+            return WeightUnit.convertWeightToOz((WeightUnit) unit, unitSize);
         }
-        // TODO:
-        // We can add weight conversion here too so the ingredient doesn't need
-        // to track if it is a weight unit or volume unit
 
         return -1;
     }
-
-//    static IBaseUnit stringToUnit(String unit) {
-//        IBaseUnit baseUnit = UnitConverter.stringToUnit(unit);
-//        if (baseUnit.equals(VolumeUnit.UNKNOWN));
-//
-//        return baseUnit;
-//
-//        // TODO: update weight conversions here too so it can convert from string to unit
-//    }
 
     String getUnitString();
 }
