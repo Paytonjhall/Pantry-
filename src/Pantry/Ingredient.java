@@ -83,12 +83,6 @@ public class Ingredient implements Comparable<Ingredient> {
       }
   }
 
-  public void removeQuantity(double newQuantity) {
-    this.quantity -= newQuantity;
-    if (this.quantity < 0) {
-      this.quantity = 0;
-    }
-  }
 
   public String getName() {
     return name;

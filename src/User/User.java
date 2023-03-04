@@ -91,26 +91,6 @@ public class User {
       return recipes;
   }
 
-  public boolean isMakeable(Recipe recipe) {
-      boolean makeable = true;
-      for(Ingredient ingredient : recipe.getIngredients()) {
-          if(!stock.inStock(ingredient) || !(stock.getFoodItem(ingredient.getName()).getQuantity() >= ingredient.getQuantity())) {
-              makeable = false;
-          }
-      }
-      return makeable;
-  }
-
-  public boolean makeRecipe(Recipe recipe) {
-      if(isMakeable(recipe)) {
-          for(Ingredient ingredient : recipe.getIngredients()) {
-              stock.removeAmountFromStock(ingredient, ingredient.getQuantity());
-          }
-          return true;
-      }
-      return false;
-  }
-
   public List<String> getStringsUserCanMake(){
         List<Recipe> recipes = getRecipesUserCanMake();
         List<String> strings = new ArrayList<String>();

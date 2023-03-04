@@ -154,13 +154,6 @@ public class Stock {
         }
     }
 
-    public void removeAmountFromStock(Ingredient item, double amount) {
-        int index = findItem(item);
-        if (index >= 0) {
-            foodList.get(index).removeQuantity(amount);
-        }
-    }
-
   public List<String> getFoodNames() {
     List<String> foodNames = new ArrayList<String>();
     if(foodList == null) foodList = new ArrayList<Ingredient>();
