@@ -543,6 +543,7 @@ public class MainView extends JFrame{
     });
 
     //Delete Recipe Button --> Complete: Done
+    // TODO: Make sure this handles deleting recipes when the user is on the makeable recipes tab
     deleteRecipeButton.addActionListener(e -> {
       if (user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getImage() != null) {
         File file=new File(user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getImage());
