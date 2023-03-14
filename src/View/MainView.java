@@ -80,6 +80,24 @@ public class MainView extends JFrame{
     setVisible(true);
     RecipeLabelInfo.setLineWrap(true);
 
+    // Set button colors:
+    addShoppingListItemButton.setBackground(new Color(200, 200, 200));
+    clearShoppingListButton.setBackground(new Color(200, 200, 200));
+    addRecipeButton.setBackground(new Color(200, 200, 200));
+    logoutButton.setBackground(new Color(200, 200, 200));
+    saveButton.setBackground(new Color(200, 200, 200));
+    editStockButton.setBackground(new Color(200, 200, 200));
+    addToPantryButton.setBackground(new Color(200, 200, 200));
+    deleteRecipeButton.setBackground(new Color(200, 200, 200));
+    editRecipeButton.setBackground(new Color(200, 200, 200));
+    makeRecipeButton.setBackground(new Color(200, 200, 200));
+    addRecipeButtonMakeable.setBackground(new Color(200, 200, 200));
+    editShoppingListButton.setBackground(new Color(200, 200, 200));
+    addToPantryButton.setBackground(new Color(200, 200, 200));
+    addRecipeButtonMakeable.setBackground(new Color(200, 200, 200));
+
+
+
     // When you click on an item in your pantry, the edit stock button should show up
     PantryList.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -265,37 +283,49 @@ public class MainView extends JFrame{
     });
 
     // add button for shopping list
-    addShoppingListItemButton.addActionListener(e -> {
-              // add dialogue box for adding food items
-              JTextField foodNameField = new JTextField();
-              foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
-              foodNameField.setPreferredSize(new Dimension(150, 20));
-              JTextField foodQuantityField = new JTextField();
-              SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
-              JSpinner numUnits = new JSpinner(model);
+    addShoppingListItemButton.addMouseListener(new java.awt.event.MouseAdapter() {
+                                                 public void mouseClicked(java.awt.event.MouseEvent evt) {
+                                                   // add dialogue box for adding food items
+                                                   JTextField foodNameField = new JTextField();
+                                                   foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
+                                                   foodNameField.setPreferredSize(new Dimension(150, 20));
+                                                   JTextField foodQuantityField = new JTextField();
+                                                   SpinnerModel model = new SpinnerNumberModel(1, 1, 1000, 1);
+                                                   JSpinner numUnits = new JSpinner(model);
 
-              SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
-              JSpinner sizeOneUnit = new JSpinner(sizeModel);
-              String possibleUnits[] = {
-                      "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
-              };
-              JComboBox<String> unit = new JComboBox<>(possibleUnits);
-              unit.setSelectedIndex(0);
-              // Add metric for food measurement here;
-              Object[] message = {
-                      "Food Name:", foodNameField,
-                      "Number of units:", numUnits,
-                      "Size of 1 unit:", sizeOneUnit,
-                      unit
-              };
-              int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
-              if (output == JOptionPane.OK_OPTION) {
-                Ingredient foodItem = new Ingredient(foodNameField.getText(), (Integer) numUnits.getValue(),
-                        (double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
-                user.getStock().addShoppingListItem(foodItem);
-                ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
-              }
-            });
+                                                   SpinnerModel sizeModel = new SpinnerNumberModel(1, 0, 2000, 0.25);
+                                                   JSpinner sizeOneUnit = new JSpinner(sizeModel);
+                                                   String possibleUnits[] = {
+                                                           "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
+                                                   };
+                                                   JComboBox<String> unit = new JComboBox<>(possibleUnits);
+                                                   unit.setSelectedIndex(0);
+                                                   // Add metric for food measurement here;
+                                                   Object[] message = {
+                                                           "Food Name:", foodNameField,
+                                                           "Number of units:", numUnits,
+                                                           "Size of 1 unit:", sizeOneUnit,
+                                                           unit
+                                                   };
+                                                   int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
+                                                   if (output == JOptionPane.OK_OPTION) {
+                                                     Ingredient foodItem = new Ingredient(foodNameField.getText(), (Integer) numUnits.getValue(),
+                                                             (double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
+                                                     user.getStock().addShoppingListItem(foodItem);
+                                                     ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
+                                                   }
+                                                 }
+
+                                                 public void mouseEntered(java.awt.event.MouseEvent evt) {
+                                                   addShoppingListItemButton.setBackground(new Color(133, 204, 160));
+                                                 }
+
+                                                 public void mouseExited(java.awt.event.MouseEvent evt) {
+                                                   addShoppingListItemButton.setBackground(new Color(200, 200, 200));
+                                                 }
+                                               });
+
+
 
     recipesTabPanel.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
