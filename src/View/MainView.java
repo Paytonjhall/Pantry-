@@ -114,53 +114,11 @@ public class MainView extends JFrame{
 
 
     // TODO: ADD A DELETE PANTRY ITEM BUTTON
+    // WHEN ADDING A SHOPPING LIST ITEM, IF IT'S THE SAME MAKE SURE IT ADDS IT AS SUCH
 
     // add button for pantry
     addToPantryButton.addActionListener(new AddToPantryAction());
 
-
-    class AddShoppingListItemAction implements ActionListener {
-
-      void createBox() {
-        JTextField foodNameField = new JTextField();
-        foodNameField.setSize(150, 20); //Increasing one of the field sizes makes the dialog box bigger
-        foodNameField.setPreferredSize(new Dimension(150, 20));
-        JTextField foodQuantityField = new JTextField();
-
-        JSpinner numUnits = new JSpinner(new SpinnerNumberModel(1, 1, 1000, 1));
-        JSpinner sizeOneUnit = new JSpinner(new SpinnerNumberModel(1, 0, 2000, 0.25));
-        String possibleUnits[] = {
-                "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
-        };
-        JComboBox<String> unit = new JComboBox<>(possibleUnits);
-        unit.setSelectedIndex(0);
-
-        Object[] message = {
-                "Food Name:", foodNameField,
-                "Number of units:", numUnits,
-                "Size of 1 unit:", sizeOneUnit,
-                unit
-        };
-
-        handleOutput(message, foodNameField, numUnits, sizeOneUnit, unit);
-      }
-
-      void handleOutput(Object[] message, JTextField foodNameField, JSpinner numUnits, JSpinner sizeOneUnit,
-                        JComboBox<String> unit) {
-        int output = JOptionPane.showConfirmDialog(null, message, "Add Food Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
-        if (output == JOptionPane.OK_OPTION) {
-          Ingredient foodItem = new Ingredient(foodNameField.getText(), (Integer) numUnits.getValue(),
-                  (double) sizeOneUnit.getValue(), unit.getItemAt(unit.getSelectedIndex()));
-          user.getStock().addShoppingListItem(foodItem);
-          ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
-        }
-      }
-
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        createBox();
-      }
-    }
 
     // add button for shopping list
     addShoppingListItemButton.addActionListener(new AddShoppingListItemAction());
@@ -722,6 +680,46 @@ public class MainView extends JFrame{
       user.getStock().editFoodItem(item, newItem);
       PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
       editStockButton.setVisible(false);
+    }
+  }
+
+  private class AddShoppingListItemAction extends FoodItemAction {
+
+    JSpinner sizeOneUnit;
+
+    @Override
+    protected void createAdditionalFields() {
+      sizeOneUnit = new JSpinner(new SpinnerNumberModel(1, 0, 2000, 0.25));
+
+    }
+
+    @Override
+    protected void initializeFields() {
+      unitField.setSelectedIndex(0);
+    }
+
+    @Override
+    protected Object[] getMessage() {
+      Object[] message = {
+              "Food Name:", foodNameField,
+              "Number of units:", numUnitsField,
+              "Size of 1 unit:", sizeOneUnit,
+              unitField
+      };
+      return message;
+    }
+
+    @Override
+    protected String getTitle() {
+      return "Add Food Item";
+    }
+
+    @Override
+    protected void processOutput() {
+      Ingredient foodItem = new Ingredient(foodNameField.getText(), (Integer) numUnitsField.getValue(),
+              (double) sizeOneUnit.getValue(), unitField.getItemAt(unitField.getSelectedIndex()));
+      user.getStock().addShoppingListItem(foodItem);
+      ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
     }
   }
 }
