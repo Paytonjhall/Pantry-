@@ -522,7 +522,9 @@ public class MainView extends JFrame{
                       "Ingredient Quantity:", ingredientSize, unit,
                       addIngredientButton,
                       "Cook Time:", cookTime,
-                      "Upload Photo:", uploadPhoto
+                      "Upload Photo:", uploadPhoto,
+                      "Tags:", breakfastTag, lunchTag, dinnerTag, mainCourseTag, sideDishTag, snackTag, dessertTag, vegetarianTag,
+                      glutenFreeTag, meatTag
               };
               List<Ingredient> ingredients = new ArrayList<>();
 
@@ -615,9 +617,7 @@ public class MainView extends JFrame{
                 "Ingredient Quantity:", ingredientSize, unit,
                     addIngredientButton,
                 "Cook Time:", cookTime,
-                "Upload Photo:", uploadPhoto,
-                "Tags:", breakfastTag, lunchTag, dinnerTag, mainCourseTag, sideDishTag, snackTag, dessertTag, vegetarianTag,
-                    glutenFreeTag, meatTag
+                "Upload Photo:", uploadPhoto
         };
         List<Ingredient> ingredients = new ArrayList<>();
 
