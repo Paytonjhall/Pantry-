@@ -216,7 +216,7 @@
                 </constraints>
                 <properties>
                   <font name="Droid Sans Mono Slashed" size="20"/>
-                  <text value="addRecipe"/>
+                  <text value="Add Recipe"/>
                 </properties>
               </component>
             </children>
