@@ -312,7 +312,9 @@
                     <preferred-size width="150" height="50"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <font name="Droid Sans Mono Slashed" size="16"/>
+                </properties>
               </component>
               <component id="74c95" class="javax.swing.JButton" binding="editShoppingListButton">
                 <constraints>
