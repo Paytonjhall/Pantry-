@@ -50,10 +50,13 @@ public class MainView extends JFrame{
   private JButton addShoppingListItemButton;
   private JButton clearShoppingListButton;
   private JTabbedPane pantryTabPanel;
+  private JPanel BreakfastRecipesPanel;
+  private JList BreakfastList;
   private JTextField SearchBox;
 
   int ALL_RECIPES = 0;
   int MAKEABLE_RECIPES = 1;
+  int BREAKFAST_TAB = 2;
   //User user;
 
   Color green = new Color(133, 204, 160);
@@ -378,6 +381,9 @@ public class MainView extends JFrame{
           makeableRecipesList.setVisible(true);
           makeableRecipesList.setListData(user.getStringsUserCanMake().toArray());
           makeRecipeButton.setVisible(true);
+        } else if (BREAKFAST_TAB == recipesTabPanel.getSelectedIndex()) {
+          BreakfastList.setListData(user.getRecipeBook().getBreakfastRecipes().toArray());
+          //TODO: add logic to make recipes clickable
         }
       }
     });
@@ -498,6 +504,17 @@ public class MainView extends JFrame{
               Recipe recipe = new Recipe();
               JButton uploadPhoto = new JButton("Add Photo");
               JButton addIngredientButton = new JButton("Add Ingredient");
+              JCheckBox breakfastTag = new JCheckBox("Breakfast");
+              JCheckBox lunchTag = new JCheckBox("Lunch");
+              JCheckBox dinnerTag = new JCheckBox("Dinner");
+              JCheckBox mainCourseTag = new JCheckBox("Main Course");
+              JCheckBox sideDishTag = new JCheckBox("SIde Dish");
+              JCheckBox snackTag = new JCheckBox("Snack");
+              JCheckBox dessertTag = new JCheckBox("Dessert");
+              JCheckBox vegetarianTag = new JCheckBox("Vegetarian");
+              JCheckBox glutenFreeTag = new JCheckBox("Gluten Free");
+              JCheckBox meatTag = new JCheckBox("Meat");
+              
               Object[] message = {
                       "Recipe Name:", recipeName,
                       "Recipe Instructions:", recipeInstructions,
@@ -549,9 +566,19 @@ public class MainView extends JFrame{
                 finalRecipe.setInstructions(recipeInstructions.getText());
                 finalRecipe.setTime(cookTime.getText());
                 finalRecipe.setIngredients(ingredients);
+                finalRecipe.setBreakfastTag(breakfastTag.isSelected());
+                finalRecipe.setLunchTag(lunchTag.isSelected());
+                finalRecipe.setDinnerTag(dinnerTag.isSelected());
+                finalRecipe.setMainCourseTag(mainCourseTag.isSelected());
+                finalRecipe.setSideDishTag(sideDishTag.isSelected());
+                finalRecipe.setSnackTag(snackTag.isSelected());
+                finalRecipe.setDessertTag(dessertTag.isSelected());
+                finalRecipe.setVegetarianTag(vegetarianTag.isSelected());
+                finalRecipe.setGlutenFreeTag(glutenFreeTag.isSelected());
+                finalRecipe.setMeatTag(meatTag.isSelected());
+
                 user.getRecipeBook().addRecipe(finalRecipe);
                 RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
-
               }
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -586,9 +613,11 @@ public class MainView extends JFrame{
                 "Recipe Instructions:", recipeInstructions,
                 "Recipe Ingredient:", recipeIngredients,
                 "Ingredient Quantity:", ingredientSize, unit,
-                addIngredientButton,
+                    addIngredientButton,
                 "Cook Time:", cookTime,
-                "Upload Photo:", uploadPhoto
+                "Upload Photo:", uploadPhoto,
+                "Tags:", breakfastTag, lunchTag, dinnerTag, mainCourseTag, sideDishTag, snackTag, dessertTag, vegetarianTag,
+                    glutenFreeTag, meatTag
         };
         List<Ingredient> ingredients = new ArrayList<>();
 
@@ -805,7 +834,7 @@ public class MainView extends JFrame{
   }
 
   private ImageIcon getLogo() {
-    Image dimg = getImage("images/pantryLogoNoBackground.png").getScaledInstance(135, 135, Image.SCALE_SMOOTH);
+    Image dimg = getImage("Pantry-/images/pantryLogoNoBackground.png").getScaledInstance(135, 135, Image.SCALE_SMOOTH);
     return new ImageIcon(dimg);
   }
 }
