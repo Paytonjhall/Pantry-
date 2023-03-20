@@ -36,12 +36,12 @@ public class LoginView extends JFrame{
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     //Make leaf icon
-    Image dimg = getImage("src/Assets/leaf.png").getScaledInstance(75, 75, Image.SCALE_SMOOTH);
+    Image dimg = getImage("src/Assets/pantryLogoNoBackground.png").getScaledInstance(75, 75, Image.SCALE_SMOOTH);
     ImageIcon imageIcon = new ImageIcon(dimg);
-    setIconImage(Toolkit.getDefaultToolkit().getImage("src/Assets/leaf.png"));
+    //setIconImage(Toolkit.getDefaultToolkit().getImage("src/Assets/pantryLogoNoBackground.png"));
     leafLabel.setIcon(imageIcon);
     //mainframe.setIconImage(Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icon.jpg")));
-
+    setIconImage(imageIcon.getImage());
     //Make panel visible
     setVisible(true);
 
