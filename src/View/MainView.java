@@ -50,10 +50,13 @@ public class MainView extends JFrame{
   private JButton addShoppingListItemButton;
   private JButton clearShoppingListButton;
   private JTabbedPane pantryTabPanel;
+  private JPanel BreakfastRecipesPanel;
+  private JList BreakfastList;
   private JTextField SearchBox;
 
   int ALL_RECIPES = 0;
   int MAKEABLE_RECIPES = 1;
+  int BREAKFAST_TAB = 2;
   //User user;
 
   //Load main view
@@ -307,6 +310,9 @@ public class MainView extends JFrame{
           makeableRecipesList.setVisible(true);
           makeableRecipesList.setListData(user.getStringsUserCanMake().toArray());
           makeRecipeButton.setVisible(true);
+        } else if (BREAKFAST_TAB == recipesTabPanel.getSelectedIndex()) {
+          BreakfastList.setListData(user.getRecipeBook().getBreakfastRecipes().toArray());
+          //TODO: add logic to make recipes clickable
         }
       }
     });
@@ -394,39 +400,52 @@ public class MainView extends JFrame{
 
     //add recipe button --> Complete: Done
     addRecipeButton.addActionListener(e -> {
-        JTextField recipeName = new JTextField();
-        JTextField recipeInstructions = new JTextField();
-        JTextField recipeIngredients = new JTextField();
-        JTextField cookTime = new JTextField();
-        String possibleUnits[] = {
-                "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
-                "TABLESPOON", "TEASPOON", "FLUID OUNCE"
-        }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
+      JTextField recipeName = new JTextField();
+      JTextField recipeInstructions = new JTextField();
+      JTextField recipeIngredients = new JTextField();
+      JTextField cookTime = new JTextField();
+      String possibleUnits[] = {
+              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
+              "TABLESPOON", "TEASPOON", "FLUID OUNCE"
+      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
 
-        JComboBox<String> unit = new JComboBox<>(possibleUnits);
+      JComboBox<String> unit = new JComboBox<>(possibleUnits);
+      unit.setSelectedIndex(0);
+      SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
+      JSpinner ingredientSize = new JSpinner(model);
+      Recipe recipe = new Recipe();
+      JButton uploadPhoto = new JButton("Add Photo");
+      JButton addIngredientButton = new JButton("Add Ingredient");
+      JCheckBox breakfastTag = new JCheckBox("Breakfast");
+      JCheckBox lunchTag = new JCheckBox("Lunch");
+      JCheckBox dinnerTag = new JCheckBox("Dinner");
+      JCheckBox mainCourseTag = new JCheckBox("Main Course");
+      JCheckBox sideDishTag = new JCheckBox("SIde Dish");
+      JCheckBox snackTag = new JCheckBox("Snack");
+      JCheckBox dessertTag = new JCheckBox("Dessert");
+      JCheckBox vegetarianTag = new JCheckBox("Vegetarian");
+      JCheckBox glutenFreeTag = new JCheckBox("Gluten Free");
+      JCheckBox meatTag = new JCheckBox("Meat");
+
+      Object[] message = {
+          "Recipe Name:", recipeName,
+          "Recipe Instructions:", recipeInstructions,
+          "Recipe Ingredient:", recipeIngredients,
+          "Ingredient Quantity:", ingredientSize, unit,
+              addIngredientButton,
+          "Cook Time:", cookTime,
+          "Upload Photo:", uploadPhoto,
+          "Tags:", breakfastTag, lunchTag, dinnerTag, mainCourseTag, sideDishTag, snackTag, dessertTag, vegetarianTag,
+              glutenFreeTag, meatTag
+      };
+      List<Ingredient> ingredients = new ArrayList<>();
+
+      addIngredientButton.addActionListener(e1 -> {
+        ingredients.add(new Ingredient(recipeIngredients.getText(), (double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
+        recipeIngredients.setText("");
+        ingredientSize.setValue(1);
         unit.setSelectedIndex(0);
-        SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
-        JSpinner ingredientSize = new JSpinner(model);
-        Recipe recipe = new Recipe();
-        JButton uploadPhoto = new JButton("Add Photo");
-        JButton addIngredientButton = new JButton("Add Ingredient");
-        Object[] message = {
-            "Recipe Name:", recipeName,
-            "Recipe Instructions:", recipeInstructions,
-            "Recipe Ingredient:", recipeIngredients,
-            "Ingredient Quantity:", ingredientSize, unit,
-                addIngredientButton,
-            "Cook Time:", cookTime,
-            "Upload Photo:", uploadPhoto
-        };
-        List<Ingredient> ingredients = new ArrayList<>();
-
-        addIngredientButton.addActionListener(e1 -> {
-          ingredients.add(new Ingredient(recipeIngredients.getText(), (double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
-          recipeIngredients.setText("");
-          ingredientSize.setValue(1);
-          unit.setSelectedIndex(0);
-        });
+      });
 
       Recipe finalRecipe = new Recipe();
       finalRecipe.setName(recipeName.getText());
@@ -461,9 +480,19 @@ public class MainView extends JFrame{
           finalRecipe.setInstructions(recipeInstructions.getText());
           finalRecipe.setTime(cookTime.getText());
           finalRecipe.setIngredients(ingredients);
+          finalRecipe.setBreakfastTag(breakfastTag.isSelected());
+          finalRecipe.setLunchTag(lunchTag.isSelected());
+          finalRecipe.setDinnerTag(dinnerTag.isSelected());
+          finalRecipe.setMainCourseTag(mainCourseTag.isSelected());
+          finalRecipe.setSideDishTag(sideDishTag.isSelected());
+          finalRecipe.setSnackTag(snackTag.isSelected());
+          finalRecipe.setDessertTag(dessertTag.isSelected());
+          finalRecipe.setVegetarianTag(vegetarianTag.isSelected());
+          finalRecipe.setGlutenFreeTag(glutenFreeTag.isSelected());
+          finalRecipe.setMeatTag(meatTag.isSelected());
+
           user.getRecipeBook().addRecipe(finalRecipe);
           RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
-
         }
     });
 
@@ -672,7 +701,7 @@ public class MainView extends JFrame{
   }
 
   private ImageIcon getLogo() {
-    Image dimg = getImage("images/pantryLogoNoBackground.png").getScaledInstance(135, 135, Image.SCALE_SMOOTH);
+    Image dimg = getImage("Pantry-/images/pantryLogoNoBackground.png").getScaledInstance(135, 135, Image.SCALE_SMOOTH);
     return new ImageIcon(dimg);
   }
 }
