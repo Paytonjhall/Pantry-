@@ -39,6 +39,16 @@ public abstract class RecipeAction implements MouseListener {
     protected JButton uploadPhoto;
     protected JButton addIngredientButton;
     protected List<Ingredient> ingredients;
+    JCheckBox breakfastTag;
+    JCheckBox lunchTag;
+    JCheckBox dinnerTag;
+    JCheckBox mainCourseTag;
+    JCheckBox sideDishTag;
+    JCheckBox snackTag;
+    JCheckBox dessertTag;
+    JCheckBox vegetarianTag;
+    JCheckBox glutenFreeTag;
+    JCheckBox meatTag;
     User user;
 
     public RecipeAction(User user) {
@@ -89,7 +99,20 @@ public abstract class RecipeAction implements MouseListener {
         addIngredientButton = new JButton("Add Ingredient");
         ingredients = new ArrayList<>();
 
+        createCheckBoxFields();
+    }
 
+    protected void createCheckBoxFields() {
+        breakfastTag = new JCheckBox("Breakfast");
+        lunchTag = new JCheckBox("Lunch");
+        dinnerTag = new JCheckBox("Dinner");
+        mainCourseTag = new JCheckBox("Main Course");
+        sideDishTag = new JCheckBox("SIde Dish");
+        snackTag = new JCheckBox("Snack");
+        dessertTag = new JCheckBox("Dessert");
+        vegetarianTag = new JCheckBox("Vegetarian");
+        glutenFreeTag = new JCheckBox("Gluten Free");
+        meatTag = new JCheckBox("Meat");
     }
 
     protected void initializeFields() {
@@ -105,7 +128,9 @@ public abstract class RecipeAction implements MouseListener {
                 "Ingredient Quantity:", ingredientSize, unitField,
                 addIngredientButton,
                 "Cook Time:", cookTime,
-                "Upload Photo:", uploadPhoto
+                "Upload Photo:", uploadPhoto,
+                "Tags:", breakfastTag, lunchTag, dinnerTag, mainCourseTag, sideDishTag, snackTag, dessertTag, vegetarianTag,
+                glutenFreeTag, meatTag
         };
         return message;
     }
@@ -127,6 +152,17 @@ public abstract class RecipeAction implements MouseListener {
             finalRecipe.setName(recipeName.getText());
             finalRecipe.setInstructions(recipeInstructions.getText());
             finalRecipe.setTime(cookTime.getText());
+
+            finalRecipe.setBreakfastTag(breakfastTag.isSelected());
+            finalRecipe.setLunchTag(lunchTag.isSelected());
+            finalRecipe.setDinnerTag(dinnerTag.isSelected());
+            finalRecipe.setMainCourseTag(mainCourseTag.isSelected());
+            finalRecipe.setSideDishTag(sideDishTag.isSelected());
+            finalRecipe.setSnackTag(snackTag.isSelected());
+            finalRecipe.setDessertTag(dessertTag.isSelected());
+            finalRecipe.setVegetarianTag(vegetarianTag.isSelected());
+            finalRecipe.setGlutenFreeTag(glutenFreeTag.isSelected());
+            finalRecipe.setMeatTag(meatTag.isSelected());
 
             user.getRecipeBook().addRecipe(finalRecipe);
             updateInterfaceList();
@@ -172,14 +208,14 @@ public abstract class RecipeAction implements MouseListener {
 
         private void saveFile() throws IOException {
             File file = fileChooser.getSelectedFile();
-            Toolkit toolkit = Toolkit.getDefaultToolkit();
+//            Toolkit toolkit = Toolkit.getDefaultToolkit();
             String stringFile = file.toString();
-            Image image = toolkit.getImage(stringFile);
+//            Image image = toolkit.getImage(stringFile);
             Path path = Paths.get(stringFile);
             String imagePath = path.toAbsolutePath().toString();
-            String newStr = imagePath.toString();
-            BufferedImage picture = ImageIO.read(new File(newStr));
-            String extension = newStr.substring(newStr.lastIndexOf(".") + 1);
+//            String newStr = imagePath.toString();
+//            BufferedImage picture = ImageIO.read(new File(newStr));
+            String extension = imagePath.substring(imagePath.lastIndexOf(".") + 1);
             String newPath = "src/Recipe/Photos/" + user.getUsername() + "-" + recipeName.getText() + "." + extension;
             finalRecipe.setImage(newPath);
             (new JsonConverter()).addPhotoToFile(imagePath, newPath);

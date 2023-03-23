@@ -77,53 +77,7 @@
       }
     ],
     "shoppingList": {
-      "items": [
-        {
-          "name": "Chocolate chips",
-          "quantity": 3.0,
-          "unitType": "cups",
-          "minUnits": 0
-        },
-        {
-          "name": "Vanilla extract",
-          "quantity": 1.0,
-          "unitType": "teaspoon",
-          "minUnits": 0
-        },
-        {
-          "name": "Baking soda",
-          "quantity": 1.0,
-          "unitType": "teaspoon",
-          "minUnits": 0
-        },
-        {
-          "name": "Baking powder",
-          "quantity": 1.0,
-          "unitType": "teaspoon",
-          "minUnits": 0
-        },
-        {
-          "name": "Cinnamon",
-          "quantity": 1.0,
-          "unitType": "teaspoon",
-          "minUnits": 0
-<<<<<<< HEAD
-        },
-        {
-          "name": "Almond Milk",
-          "quantity": 5.0,
-          "unitType": "GALLON",
-          "minUnits": 0
-        },
-        {
-          "name": "Almond Milk",
-          "quantity": 1.0,
-          "unitType": "GALLON",
-          "minUnits": 0
-=======
->>>>>>> main
-        }
-      ]
+      "items": []
     }
   },
   "recipeBook": {
@@ -142,8 +96,6 @@
         ]
       },
       {
-<<<<<<< HEAD
-=======
         "name": "Chicken with rice and beans",
         "instructions": "Cook each item individually and mix together with any spices you desire. Good for bulking. I\u0027m making this instruction super long to test it\u0027s length.",
         "time": "25 minutes",
@@ -214,7 +166,6 @@
         "image": "src/Recipe/Photos/leaf.png"
       },
       {
->>>>>>> main
         "name": "Cinnamon Rolls",
         "instructions": "Mix all ingredients together and bake at 350 degrees for 10 minutes.",
         "time": "25 minutes",
@@ -328,22 +279,6 @@
         ]
       },
       {
-<<<<<<< HEAD
-        "name": "My recipe",
-        "instructions": "do some stuff",
-        "time": "",
-        "ingredients": [
-          {
-            "name": "Milk",
-            "quantity": 1.0,
-            "unitType": "CUP",
-            "minUnits": 0
-          }
-        ]
-      },
-      {
-=======
->>>>>>> main
         "name": "Spaghetti",
         "instructions": "Shape beef into balls. Cook noodles and add sauce, add meatballs after cooking.",
         "time": "25 minutes",
@@ -368,8 +303,6 @@
           }
         ],
         "image": "src/Recipe/Photos/leaf.png"
-<<<<<<< HEAD
-=======
       },
       {
         "name": "Sugar Cookies",
@@ -408,7 +341,6 @@
           }
         ],
         "image": "src/Recipe/Photos/leaf.png"
->>>>>>> main
       }
     ]
   },
