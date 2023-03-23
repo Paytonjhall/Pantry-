@@ -216,9 +216,43 @@
                 </constraints>
                 <properties>
                   <font name="Droid Sans Mono Slashed" size="20"/>
-                  <text value="addRecipe"/>
+                  <text value="Add Recipe"/>
                 </properties>
               </component>
+            </children>
+          </grid>
+          <grid id="2edc7" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <tabbedpane title="Breakfast"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="fe802" binding="BreakfastRecipesPanel" layout-manager="BorderLayout" hgap="-1" vgap="-1">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="29f8e" class="javax.swing.JLabel">
+                    <constraints border-constraint="North"/>
+                    <properties>
+                      <font name="Droid Sans Mono Slashed" size="18"/>
+                      <text value="Recipes"/>
+                    </properties>
+                  </component>
+                  <component id="78a47" class="javax.swing.JList" binding="BreakfastList">
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <font name="Droid Sans Mono Slashed" size="16"/>
+                      <layoutOrientation value="0"/>
+                      <selectionMode value="2"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
             </children>
           </grid>
         </children>

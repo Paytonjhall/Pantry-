@@ -61,6 +61,16 @@ public class RecipeBook {
     return recipeNames;
   }
 
+  public List<String> getBreakfastRecipes() {
+    List<String> recipeNames = new ArrayList<String>();
+    for(Recipe recipe: recipeList) {
+      if (recipe.getBreakfastTag()) {
+        recipeNames.add(recipe.getName());
+      }
+    }
+    return recipeNames;
+  }
+
   private void alphabetizeRecipeBook() {
     Collections.sort(recipeList);
   }

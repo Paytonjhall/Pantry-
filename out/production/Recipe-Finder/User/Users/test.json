@@ -107,6 +107,7 @@
           "quantity": 1.0,
           "unitType": "teaspoon",
           "minUnits": 0
+<<<<<<< HEAD
         },
         {
           "name": "Almond Milk",
@@ -119,6 +120,8 @@
           "quantity": 1.0,
           "unitType": "GALLON",
           "minUnits": 0
+=======
+>>>>>>> main
         }
       ]
     }
@@ -139,6 +142,79 @@
         ]
       },
       {
+<<<<<<< HEAD
+=======
+        "name": "Chicken with rice and beans",
+        "instructions": "Cook each item individually and mix together with any spices you desire. Good for bulking. I\u0027m making this instruction super long to test it\u0027s length.",
+        "time": "25 minutes",
+        "ingredients": [
+          {
+            "name": "Chicken",
+            "quantity": 1.0,
+            "unitType": "pound",
+            "minUnits": 0
+          },
+          {
+            "name": "Rice",
+            "quantity": 2.0,
+            "unitType": "cups",
+            "minUnits": 0
+          },
+          {
+            "name": "Beans",
+            "quantity": 1.0,
+            "unitType": "cups",
+            "minUnits": 0
+          }
+        ],
+        "image": "src/Recipe/Photos/leaf.png"
+      },
+      {
+        "name": "Chocolate Chip Cookies",
+        "instructions": "Mix all ingredients together and bake at 350 degrees for 10 minutes.",
+        "time": "25 minutes",
+        "ingredients": [
+          {
+            "name": "Flour",
+            "quantity": 1.0,
+            "unitType": "cups",
+            "minUnits": 0
+          },
+          {
+            "name": "Sugar",
+            "quantity": 1.0,
+            "unitType": "cups",
+            "minUnits": 0
+          },
+          {
+            "name": "Chocolate chips",
+            "quantity": 1.0,
+            "unitType": "cups",
+            "minUnits": 0
+          },
+          {
+            "name": "Butter",
+            "quantity": 1.0,
+            "unitType": "cups",
+            "minUnits": 0
+          },
+          {
+            "name": "Water",
+            "quantity": 1.0,
+            "unitType": "cups",
+            "minUnits": 0
+          },
+          {
+            "name": "Salt",
+            "quantity": 1.0,
+            "unitType": "tsp",
+            "minUnits": 0
+          }
+        ],
+        "image": "src/Recipe/Photos/leaf.png"
+      },
+      {
+>>>>>>> main
         "name": "Cinnamon Rolls",
         "instructions": "Mix all ingredients together and bake at 350 degrees for 10 minutes.",
         "time": "25 minutes",
@@ -252,6 +328,7 @@
         ]
       },
       {
+<<<<<<< HEAD
         "name": "My recipe",
         "instructions": "do some stuff",
         "time": "",
@@ -265,6 +342,8 @@
         ]
       },
       {
+=======
+>>>>>>> main
         "name": "Spaghetti",
         "instructions": "Shape beef into balls. Cook noodles and add sauce, add meatballs after cooking.",
         "time": "25 minutes",
@@ -289,6 +368,47 @@
           }
         ],
         "image": "src/Recipe/Photos/leaf.png"
+<<<<<<< HEAD
+=======
+      },
+      {
+        "name": "Sugar Cookies",
+        "instructions": "Mix all ingredients together and bake at 350 degrees for 10 minutes.",
+        "time": "25 minutes",
+        "ingredients": [
+          {
+            "name": "Flour",
+            "quantity": 1.0,
+            "unitType": "cups",
+            "minUnits": 0
+          },
+          {
+            "name": "Sugar",
+            "quantity": 1.0,
+            "unitType": "cups",
+            "minUnits": 0
+          },
+          {
+            "name": "Butter",
+            "quantity": 1.0,
+            "unitType": "cups",
+            "minUnits": 0
+          },
+          {
+            "name": "Water",
+            "quantity": 1.0,
+            "unitType": "cups",
+            "minUnits": 0
+          },
+          {
+            "name": "Salt",
+            "quantity": 1.0,
+            "unitType": "tsp",
+            "minUnits": 0
+          }
+        ],
+        "image": "src/Recipe/Photos/leaf.png"
+>>>>>>> main
       }
     ]
   },

@@ -105,7 +105,7 @@ public static void main(String[] args) {
     ingredients3.add(new Ingredient("chicken", 1, 1, "pound"));
     ingredients3.add(new Ingredient("rice", 2, 1, "cups"));
     ingredients3.add(new Ingredient("beans", 1, 1, "cups"));
-    Recipe recipe3 = new Recipe("Chicken with rice and beans", "Cook each item individually and mix together with any spices you desire. Good for bulking. I'm making this instruction super long to test it's length.", "25 minutes", ingredients3, "src/Recipe/Photos/leaf.png");
+    Recipe recipe3 = new Recipe("Chicken with rice and beans", "Cook each item individually and mix together with any spices you desire. Good for bulking. I'm making this instruction super long to test it's length.", "25 minutes", ingredients3, "src/Assets/leaf.png");
 
     ingredients4.add(new Ingredient("tomatoes", 2, 1, "cups"));
     ingredients4.add(new Ingredient("rice", 2, 1, "cups"));
@@ -114,7 +114,7 @@ public static void main(String[] args) {
     ingredients4.add(new Ingredient("pepper", 1, 1, "tsp"));
     ingredients4.add(new Ingredient("salt", 1, 1, "tsp"));
     ingredients4.add(new Ingredient("tortilla", 2, 1, "tsp"));
-    Recipe recipe4 = new Recipe("Enchilada", "Cook each item and place in tortilla, wrap and cook in oven.", "25 minutes", ingredients4, "src/Recipe/Photos/leaf.png");
+    Recipe recipe4 = new Recipe("Enchilada", "Cook each item and place in tortilla, wrap and cook in oven.", "25 minutes", ingredients4, "src/Assets/leaf.png");
 
     ingredients5.add(new Ingredient("flour", 1, 1, "cups"));
     ingredients5.add(new Ingredient("sugar", 1, 1, "cups"));
@@ -122,14 +122,14 @@ public static void main(String[] args) {
     ingredients5.add(new Ingredient("butter", 1, 1, "cups"));
     ingredients5.add(new Ingredient("water", 1, 1, "cups"));
     ingredients5.add(new Ingredient("salt", 1, 1, "tsp"));
-    Recipe recipe5 = new Recipe("Chocolate Chip Cookies", "Mix all ingredients together and bake at 350 degrees for 10 minutes.", "25 minutes", ingredients5, "src/Recipe/Photos/leaf.png");
+    Recipe recipe5 = new Recipe("Chocolate Chip Cookies", "Mix all ingredients together and bake at 350 degrees for 10 minutes.", "25 minutes", ingredients5);
 
     ingredients6.add(new Ingredient("flour", 1, 1, "cups"));
     ingredients6.add(new Ingredient("sugar", 1, 1, "cups"));
     ingredients6.add(new Ingredient("butter", 1, 1, "cups"));
     ingredients6.add(new Ingredient("water", 1, 1, "cups"));
     ingredients6.add(new Ingredient("salt", 1, 1, "tsp"));
-    Recipe recipe6 = new Recipe("Sugar Cookies", "Mix all ingredients together and bake at 350 degrees for 10 minutes.", "25 minutes", ingredients6, "src/Recipe/Photos/leaf.png");
+    Recipe recipe6 = new Recipe("Sugar Cookies", "Mix all ingredients together and bake at 350 degrees for 10 minutes.", "25 minutes", ingredients6);
 
     ingredients7.add(new Ingredient("flour", 1, 1, "cups"));
     ingredients7.add(new Ingredient("sugar", 1, 1, "cups"));
@@ -137,11 +137,12 @@ public static void main(String[] args) {
     ingredients7.add(new Ingredient("water", 1, 1, "cups"));
     ingredients7.add(new Ingredient("cinnamon", 1, 1, "tsp"));
     Recipe recipe7 = new Recipe("Cinnamon Rolls", "Mix all ingredients together and bake at 350 degrees for 10 minutes.", "25 minutes", ingredients7, "src/Recipe/Photos/leaf.png");
+    recipe7.setBreakfastTag(true);
 
     ingredients8.add(new Ingredient("beef", 1, 1, "pound"));
     ingredients8.add(new Ingredient("noodles", 2, 1, "cups"));
     ingredients8.add(new Ingredient("tomato sauce", 1, 1, "cups"));
-    Recipe recipe8 = new Recipe("Spaghetti", "Shape beef into balls. Cook noodles and add sauce, add meatballs after cooking.", "25 minutes", ingredients8, "src/Recipe/Photos/leaf.png");
+    Recipe recipe8 = new Recipe("Spaghetti", "Shape beef into balls. Cook noodles and add sauce, add meatballs after cooking.", "25 minutes", ingredients8, "src/Assets/leaf.png");
 
     RecipeBook recipeBook = new RecipeBook();
     recipeBook.addRecipe(recipe);

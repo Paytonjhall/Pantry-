@@ -14,13 +14,32 @@ public class Recipe implements Comparable<Recipe> {
     String time;
     List<Ingredient> ingredients;
     String image;
-    List<String> tags;
+    Boolean breakfastTag;
+    Boolean lunchTag;
+    Boolean dinnerTag;
+    Boolean mainCourseTag;
+    Boolean sideDishTag;
+    Boolean snackTag;
+    Boolean dessertTag;
+    Boolean vegetarianTag;
+    Boolean glutenFreeTag;
+    Boolean meatTag;
 
     public Recipe(String name, String instructions, String time, List<Ingredient> ingredients) {
         this.name = name;
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.time = time;
+        this.breakfastTag = false;
+        this.lunchTag = false;
+        this.dinnerTag = false;
+        this.mainCourseTag = false;
+        this.sideDishTag = false;
+        this.snackTag = false;
+        this.dessertTag = false;
+        this.vegetarianTag = false;
+        this.glutenFreeTag = false;
+        this.meatTag = false;
     }
 
     public Recipe(String name, String instructions, String time, List<Ingredient> ingredients, String image) {
@@ -29,15 +48,34 @@ public class Recipe implements Comparable<Recipe> {
         this.ingredients = ingredients;
         this.time = time;
         this.image = image;
+        this.breakfastTag = false;
+        this.lunchTag = false;
+        this.dinnerTag = false;
+        this.mainCourseTag = false;
+        this.sideDishTag = false;
+        this.snackTag = false;
+        this.dessertTag = false;
+        this.vegetarianTag = false;
+        this.glutenFreeTag = false;
+        this.meatTag = false;
     }
 
-    public Recipe(String name, String instructions, String time, List<Ingredient> ingredients, String image, List<String> tags) {
+    public Recipe(String name, String instructions, String time, List<Ingredient> ingredients, String image, Boolean breakfastTag, Boolean lunchTag, Boolean dinnerTag, Boolean mainCourseTag, Boolean sideDishTag, Boolean snackTag, Boolean dessertTag, Boolean vegetarianTag, Boolean glutenFreeTag, Boolean meatTag) {
         this.name = name;
         this.instructions = instructions;
-        this.ingredients = ingredients;
         this.time = time;
+        this.ingredients = ingredients;
         this.image = image;
-        this.tags = tags;
+        this.breakfastTag = breakfastTag;
+        this.lunchTag = lunchTag;
+        this.dinnerTag = dinnerTag;
+        this.mainCourseTag = mainCourseTag;
+        this.sideDishTag = sideDishTag;
+        this.snackTag = snackTag;
+        this.dessertTag = dessertTag;
+        this.vegetarianTag = vegetarianTag;
+        this.glutenFreeTag = glutenFreeTag;
+        this.meatTag = meatTag;
     }
 
     public Recipe(){
@@ -92,22 +130,86 @@ public class Recipe implements Comparable<Recipe> {
         this.image = image;
     }
 
-    public List<String> getTags() {
-        if (tags == null) {
-            tags = new ArrayList<String>();
-        }
-        return tags;
+
+    public Boolean getBreakfastTag() {
+        return breakfastTag;
     }
 
-    public void setTags(List<String> tags) { this.tags = tags; }
-
-    public void addTag(String tag) {
-        if (tags == null) {
-            tags = new ArrayList<String>();
-        }
-        tags.add(tag);
+    public void setBreakfastTag(Boolean breakfastTag) {
+        this.breakfastTag = breakfastTag;
     }
 
+    public Boolean getLunchTag() {
+        return lunchTag;
+    }
+
+    public void setLunchTag(Boolean lunchTag) {
+        this.lunchTag = lunchTag;
+    }
+
+    public Boolean getDinnerTag() {
+        return dinnerTag;
+    }
+
+    public void setDinnerTag(Boolean dinnerTag) {
+        this.dinnerTag = dinnerTag;
+    }
+
+    public Boolean getMainCourseTag() {
+        return mainCourseTag;
+    }
+
+    public void setMainCourseTag(Boolean mainCourseTag) {
+        this.mainCourseTag = mainCourseTag;
+    }
+
+    public Boolean getSideDishTag() {
+        return sideDishTag;
+    }
+
+    public void setSideDishTag(Boolean sideDishTag) {
+        this.sideDishTag = sideDishTag;
+    }
+
+    public Boolean getSnackTag() {
+        return snackTag;
+    }
+
+    public void setSnackTag(Boolean snackTag) {
+        this.snackTag = snackTag;
+    }
+
+    public Boolean getDessertTag() {
+        return dessertTag;
+    }
+
+    public void setDessertTag(Boolean dessertTag) {
+        this.dessertTag = dessertTag;
+    }
+
+    public Boolean getVegetarianTag() {
+        return vegetarianTag;
+    }
+
+    public void setVegetarianTag(Boolean vegetarianTag) {
+        this.vegetarianTag = vegetarianTag;
+    }
+
+    public Boolean getGlutenFreeTag() {
+        return glutenFreeTag;
+    }
+
+    public void setGlutenFreeTag(Boolean glutenFreeTag) {
+        this.glutenFreeTag = glutenFreeTag;
+    }
+
+    public Boolean getMeatTag() {
+        return meatTag;
+    }
+
+    public void setMeatTag(Boolean meatTag) {
+        this.meatTag = meatTag;
+    }
 
     @Override
     public int compareTo(Recipe o) {
