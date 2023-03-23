@@ -6,8 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public abstract class FoodItemAction implements ActionListener {
+public abstract class FoodItemAction implements MouseListener {
+
+    public Color green = new Color(	203, 235, 187);
+    public Color red = new Color(195, 53, 76);
+    public Color yellow = new Color(209, 195, 126);
+    public Color gray = new Color(200, 200, 200);
 
     protected JTextField foodNameField;
     protected JTextField foodQuantityField;
@@ -19,13 +26,34 @@ public abstract class FoodItemAction implements ActionListener {
 
     protected Object[] message;
 
+
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void mouseClicked(MouseEvent e) {
         createEntryBoxFields();
         createAdditionalFields();
         initializeFields();
         message = getMessage();
         handleOutput();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        setButtonColor(green);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        setButtonColor(gray);
     }
 
     public void createEntryBoxFields() {
@@ -49,6 +77,5 @@ public abstract class FoodItemAction implements ActionListener {
     protected abstract Object[] getMessage();
     protected abstract String getTitle();
     protected abstract void processOutput();
-
-
+    protected abstract void setButtonColor(Color color);
 }

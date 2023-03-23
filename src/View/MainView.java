@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -106,22 +107,22 @@ public class MainView extends JFrame{
 
 
     // Edit button for pantry
-    editStockButton.addActionListener(new EditStockAction());
+    editStockButton.addMouseListener(new EditStockAction());
 
 
     // edit button for shopping list
-    editShoppingListButton.addActionListener(new EditShoppingListAction());
+    editShoppingListButton.addMouseListener(new EditShoppingListAction());
 
 
     // TODO: ADD A DELETE PANTRY ITEM BUTTON
     // WHEN ADDING A SHOPPING LIST ITEM, IF IT'S THE SAME MAKE SURE IT ADDS IT AS SUCH
 
     // add button for pantry
-    addToPantryButton.addActionListener(new AddToPantryAction());
+    addToPantryButton.addMouseListener(new AddToPantryAction());
 
 
     // add button for shopping list
-    addShoppingListItemButton.addActionListener(new AddShoppingListItemAction());
+    addShoppingListItemButton.addMouseListener(new AddShoppingListItemAction());
 
     recipesTabPanel.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -504,6 +505,9 @@ public class MainView extends JFrame{
   }
 
 
+  /*
+  Inner classes that inherit from FoodItemAction to implement the mouseListener events
+   */
   private class EditShoppingListAction extends FoodItemAction {
 
     JSpinner sizeOneUnitField;
@@ -566,6 +570,12 @@ public class MainView extends JFrame{
       editShoppingListButton.setVisible(false);
     }
 
+    @Override
+    protected void setButtonColor(Color color) {
+      editShoppingListButton.setBackground(color);
+    }
+
+
   }
 
   private class AddToPantryAction extends FoodItemAction {
@@ -612,6 +622,13 @@ public class MainView extends JFrame{
       user.addToStock(foodItem);
       PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
     }
+
+    @Override
+    protected void setButtonColor(Color color) {
+      addToPantryButton.setBackground(color);
+    }
+
+
   }
 
   private class EditStockAction extends FoodItemAction {
@@ -681,6 +698,13 @@ public class MainView extends JFrame{
       PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
       editStockButton.setVisible(false);
     }
+
+    @Override
+    protected void setButtonColor(Color color) {
+      editStockButton.setBackground(color);
+    }
+
+
   }
 
   private class AddShoppingListItemAction extends FoodItemAction {
@@ -721,5 +745,12 @@ public class MainView extends JFrame{
       user.getStock().addShoppingListItem(foodItem);
       ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
     }
+
+    @Override
+    protected void setButtonColor(Color color) {
+      addShoppingListItemButton.setBackground(color);
+    }
+
+
   }
 }

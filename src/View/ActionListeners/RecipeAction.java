@@ -118,9 +118,8 @@ public class RecipeAction implements ActionListener {
             fileChooser.setCurrentDirectory(new File(System.getProperty(FILE_DIR)));
             int result = fileChooser.showOpenDialog(null);
             if (result == JFileChooser.APPROVE_OPTION) {
-                try {
-
-                }
+//                try {
+//                }
             }
         }
 
