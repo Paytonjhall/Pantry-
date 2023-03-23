@@ -77,38 +77,7 @@
       }
     ],
     "shoppingList": {
-      "items": [
-        {
-          "name": "Chocolate chips",
-          "quantity": 3.0,
-          "unitType": "cups",
-          "minUnits": 0
-        },
-        {
-          "name": "Vanilla extract",
-          "quantity": 1.0,
-          "unitType": "teaspoon",
-          "minUnits": 0
-        },
-        {
-          "name": "Baking soda",
-          "quantity": 1.0,
-          "unitType": "teaspoon",
-          "minUnits": 0
-        },
-        {
-          "name": "Baking powder",
-          "quantity": 1.0,
-          "unitType": "teaspoon",
-          "minUnits": 0
-        },
-        {
-          "name": "Cinnamon",
-          "quantity": 1.0,
-          "unitType": "teaspoon",
-          "minUnits": 0
-        }
-      ]
+      "items": []
     }
   },
   "recipeBook": {
@@ -372,12 +341,6 @@
           }
         ],
         "image": "src/Recipe/Photos/leaf.png"
-      },
-      {
-        "name": "test recipe",
-        "instructions": "",
-        "time": "",
-        "ingredients": []
       }
     ]
   },

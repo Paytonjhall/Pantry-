@@ -103,17 +103,31 @@ public class MainView extends JFrame{
     });
 
     // Clear shopping list button
-    clearShoppingListButton.addActionListener(e -> {
-      user.getStock().clearShoppingList();
-      ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
+    clearShoppingListButton.addMouseListener(new java.awt.event.MouseAdapter() {
+
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        user.getStock().clearShoppingList();
+        ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
+
+        saveFile();
+      }
+
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        clearShoppingListButton.setBackground(Colors.red);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        clearShoppingListButton.setBackground(Colors.gray);
+      }
     });
 
 
     // Edit button for pantry
+    editStockButton.setBackground(Colors.gray);
     editStockButton.addMouseListener(new EditStockAction());
 
 
     // edit button for shopping list
+    editShoppingListButton.setBackground(Colors.gray);
     editShoppingListButton.addMouseListener(new EditShoppingListAction());
 
 
@@ -217,86 +231,41 @@ public class MainView extends JFrame{
     });
 
     //Logout Button --> Complete: Done
-    logoutButton.addActionListener(e -> {
-      LoginView loginView = new LoginView();
-      dispose();
+    logoutButton.setBackground(Colors.gray);
+    logoutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        LoginView loginView = new LoginView();
+        dispose();
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        logoutButton.setBackground(Colors.green);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        logoutButton.setBackground(Colors.gray);
+      }
     });
+
 
     //add recipe button --> Complete: Done
     addRecipeButton.setBackground(Colors.gray);
     addRecipeButton.addMouseListener(new AddRecipeAction(addRecipeButton));
 
+
     //add recipe on make-able recipe tab
     addRecipeButtonMakeable.setBackground(Colors.gray);
     addRecipeButtonMakeable.addMouseListener(new AddRecipeAction(addRecipeButtonMakeable));
 
+
     //Delete Recipe Button --> Complete: Done
     // TODO: Make sure this handles deleting recipes when the user is on the makeable recipes tab
-    deleteRecipeButton.addActionListener(e -> {
-      if (user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getImage() != null) {
-        File file = new File(user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getImage());
-        file.delete();
-      }
-      user.getRecipeBook().removeRecipe(user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()));
-      RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
-      RecipeLabel.setText("Recipe: ");
-      RecipeLabelInfo.setText("Instructions: ");
-      RecipeCookTime.setText("Cook Time: ");
-      RecipeIngredientList.setListData(new String[0]);
-      deleteRecipeButton.setVisible(false);
-      editRecipeButton.setVisible(false);
-      RecipePhoto.setVisible(false);
-      makeRecipeButton.setVisible(false);
-
-    });
-
-    //Edit recipe Button --> Complete: Done
-    editRecipeButton.addActionListener(e -> {
-      Recipe recipe;
-      if (MAKEABLE_RECIPES == recipesTabPanel.getSelectedIndex()) {
-        recipe = user.getRecipesUserCanMake().get(makeableRecipesList.getSelectedIndex());
-      } else {
-        recipe = user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex());
-      }
-      JTextField recipeName = new JTextField(recipe.getName());
-      JTextField recipeInstructions = new JTextField(recipe.getInstructions());
-      JTextField recipeIngredients = new JTextField();
-      JTextField cookTime = new JTextField(recipe.getTime());
-      String possibleUnits[] = {
-              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
-              "TABLESPOON", "TEASPOON", "FLUID OUNCE"
-      };
-      JComboBox<String> unit = new JComboBox<>(possibleUnits);
-      unit.setSelectedIndex(0);
-      SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
-      JSpinner ingredientSize = new JSpinner(model);
-
-
-      JButton addIngredientButton = new JButton("Add Ingredient");
-      Object[] message = {
-              "Recipe Name:", recipeName,
-              "Recipe Instructions:", recipeInstructions,
-              "Recipe Ingredients: (please re-enter all ingredients) ", recipeIngredients,
-              "Ingredient Quantity:", ingredientSize, unit,
-              addIngredientButton,
-              "Cook Time:", cookTime
-
-      };
-
-      List<Ingredient> ingredients = new ArrayList<>();
-
-      addIngredientButton.addActionListener(e1 -> {
-        ingredients.add(new Ingredient(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
-        recipeIngredients.setText("");
-        ingredientSize.setValue(1);
-        unit.setSelectedIndex(0);
-      });
-
-      int option = JOptionPane.showConfirmDialog(null, message, "Edit Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
-
-      if (option == JOptionPane.OK_OPTION) {
-        Recipe newRecipe = new Recipe(recipeName.getText(), recipeInstructions.getText(), cookTime.getText(), ingredients);
-        user.getRecipeBook().editRecipe(recipe, newRecipe);
+    deleteRecipeButton.setBackground(Colors.gray);
+    deleteRecipeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        if (user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getImage() != null) {
+          File file=new File(user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()).getImage());
+          file.delete();
+        }
+        user.getRecipeBook().removeRecipe(user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex()));
         RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
         RecipeLabel.setText("Recipe: ");
         RecipeLabelInfo.setText("Instructions: ");
@@ -304,8 +273,24 @@ public class MainView extends JFrame{
         RecipeIngredientList.setListData(new String[0]);
         deleteRecipeButton.setVisible(false);
         editRecipeButton.setVisible(false);
+        RecipePhoto.setVisible(false);
+        makeRecipeButton.setVisible(false);
+
+        saveFile();
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        deleteRecipeButton.setBackground(Colors.red);
+      }
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        deleteRecipeButton.setBackground(Colors.gray);
       }
     });
+
+
+    //Edit recipe Button --> Complete: Done
+    editRecipeButton.setBackground(Colors.gray);
+    editRecipeButton.addMouseListener(new EditRecipeAction(editRecipeButton));
+
 
     makeRecipeButton.addActionListener(e1 -> {
       boolean type = true;
@@ -654,5 +639,75 @@ public class MainView extends JFrame{
       button.setBackground(color);
     }
 
+  }
+
+  private class EditRecipeAction extends RecipeAction {
+
+    JButton button;
+    Recipe recipe;
+
+    public EditRecipeAction(JButton button) {
+      super(user);
+      this.button = button;
+    }
+
+    @Override
+    protected void initializeFields() {
+      if(MAKEABLE_RECIPES == recipesTabPanel.getSelectedIndex()) {
+        recipe = user.getRecipesUserCanMake().get(makeableRecipesList.getSelectedIndex());
+      } else {
+        recipe = user.getRecipeBook().getRecipeList().get(RecipeList.getSelectedIndex());
+      }
+      unitField.setSelectedIndex(0);
+      recipeName.setText(recipe.getName());
+      recipeInstructions.setText(recipe.getInstructions());
+      cookTime.setText(recipe.getTime());
+
+      uploadPhoto.setVisible(false);
+    }
+
+    @Override
+    protected Object[] getMessage() {
+      Object[] message = {
+              "Recipe Name:", recipeName,
+              "Recipe Instructions:", recipeInstructions,
+              "Recipe Ingredients: (please re-enter all ingredients) ", recipeIngredients,
+              "Ingredient Quantity:", ingredientSize, unitField,
+              addIngredientButton,
+              "Cook Time:", cookTime
+
+      };
+      return message;
+    }
+
+    @Override
+    protected void handleOutput() {
+      int option = JOptionPane.showConfirmDialog(null, getMessage(), "Edit Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
+
+      if (option == JOptionPane.OK_OPTION) {
+        Recipe newRecipe = new Recipe(recipeName.getText(), recipeInstructions.getText(), cookTime.getText(), ingredients);
+        user.getRecipeBook().editRecipe(recipe, newRecipe);
+        RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
+        RecipeLabel.setText("Recipe: ");
+        RecipeLabelInfo.setText("Instructions: ");
+        RecipeCookTime.setText("Cook Time: ");
+
+        updateInterfaceList();
+
+        saveFile();
+      }
+    }
+
+    @Override
+    protected void updateInterfaceList() {
+      RecipeIngredientList.setListData(new String[0]);
+      deleteRecipeButton.setVisible(false);
+      editRecipeButton.setVisible(false);
+    }
+
+    @Override
+    protected void setButtonColor(Color color) {
+      button.setBackground(color);
+    }
   }
 }

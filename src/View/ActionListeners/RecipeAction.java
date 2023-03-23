@@ -24,21 +24,21 @@ import java.util.List;
 
 public abstract class RecipeAction implements MouseListener {
 
-    JTextField recipeName;
-    JTextField recipeInstructions;
-    JTextField recipeIngredients;
-    JTextField cookTime;
-    String[] possibleUnits = {
+    protected JTextField recipeName;
+    protected JTextField recipeInstructions;
+    protected JTextField recipeIngredients;
+    protected JTextField cookTime;
+    protected String[] possibleUnits = {
             "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
             "TABLESPOON", "TEASPOON", "FLUID OUNCE"
     }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
 
-    JComboBox<String> unitField;
-    JSpinner ingredientSize;
-    Recipe finalRecipe;
-    JButton uploadPhoto;
-    JButton addIngredientButton;
-    List<Ingredient> ingredients;
+    protected JComboBox<String> unitField;
+    protected JSpinner ingredientSize;
+    protected Recipe finalRecipe;
+    protected JButton uploadPhoto;
+    protected JButton addIngredientButton;
+    protected List<Ingredient> ingredients;
     User user;
 
     public RecipeAction(User user) {
