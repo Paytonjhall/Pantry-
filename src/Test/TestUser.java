@@ -6,6 +6,9 @@ import User.User;
 import View.LoginView;
 import View.MainView;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +21,14 @@ public static void main(String[] args) {
   }
 
   public static void testUserRecipe(){
+
+    File testFile = new File("../User/Users/test.json");
+    try {
+      Files.deleteIfExists(testFile.toPath());
+    } catch (IOException ex) {
+      System.out.println("Could not delete existing test user");
+    }
+
     User user = new User("test", "test");
 
 

@@ -1,5 +1,6 @@
 package View.ActionListeners;
 
+import Utils.Colors;
 import View.MainView;
 
 import javax.swing.*;
@@ -11,15 +12,10 @@ import java.awt.event.MouseListener;
 
 public abstract class FoodItemAction implements MouseListener {
 
-    public Color green = new Color(	203, 235, 187);
-    public Color red = new Color(195, 53, 76);
-    public Color yellow = new Color(209, 195, 126);
-    public Color gray = new Color(200, 200, 200);
-
     protected JTextField foodNameField;
     protected JTextField foodQuantityField;
     protected JSpinner numUnitsField;
-    protected String possibleUnits[] = {
+    protected String[] possibleUnits = {
             "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER", "FLUID OUNCE"
     }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
     protected JComboBox<String> unitField = new JComboBox<>(possibleUnits);
@@ -48,12 +44,12 @@ public abstract class FoodItemAction implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        setButtonColor(green);
+        setButtonColor(Colors.green);
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        setButtonColor(gray);
+        setButtonColor(Colors.gray);
     }
 
     public void createEntryBoxFields() {

@@ -2,7 +2,9 @@ package View;
 import Pantry.Ingredient;
 import Recipe.Recipe;
 import User.*;
+import Utils.Colors;
 import View.ActionListeners.FoodItemAction;
+import View.ActionListeners.RecipeAction;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainView extends JFrame{
-  private JsonConverter jsonConverter = new JsonConverter();
+  final private JsonConverter jsonConverter = new JsonConverter();
   User user;
   private JList RecipeList;
   private JPanel MainViewPanel;
@@ -90,6 +92,7 @@ public class MainView extends JFrame{
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         editStockButton.setVisible(true);
       }
+
     });
 
     // When you click on an item in your shopping list, the edit shopping list button should show up
@@ -115,13 +118,15 @@ public class MainView extends JFrame{
 
 
     // TODO: ADD A DELETE PANTRY ITEM BUTTON
-    // WHEN ADDING A SHOPPING LIST ITEM, IF IT'S THE SAME MAKE SURE IT ADDS IT AS SUCH
+    // TODO: WHEN ADDING A SHOPPING LIST ITEM, IF IT'S THE SAME MAKE SURE IT ADDS IT AS SUCH
 
     // add button for pantry
+    addToPantryButton.setBackground(Colors.gray);
     addToPantryButton.addMouseListener(new AddToPantryAction());
 
 
     // add button for shopping list
+    addShoppingListItemButton.setBackground(Colors.gray);
     addShoppingListItemButton.addMouseListener(new AddShoppingListItemAction());
 
     recipesTabPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -218,154 +223,12 @@ public class MainView extends JFrame{
     });
 
     //add recipe button --> Complete: Done
-    addRecipeButton.addActionListener(e -> {
-      JTextField recipeName = new JTextField();
-      JTextField recipeInstructions = new JTextField();
-      JTextField recipeIngredients = new JTextField();
-      JTextField cookTime = new JTextField();
-      String possibleUnits[] = {
-              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
-              "TABLESPOON", "TEASPOON", "FLUID OUNCE"
-      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
-
-      JComboBox<String> unit = new JComboBox<>(possibleUnits);
-      unit.setSelectedIndex(0);
-      SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
-      JSpinner ingredientSize = new JSpinner(model);
-      Recipe recipe = new Recipe();
-      JButton uploadPhoto = new JButton("Add Photo");
-      JButton addIngredientButton = new JButton("Add Ingredient");
-      Object[] message = {
-              "Recipe Name:", recipeName,
-              "Recipe Instructions:", recipeInstructions,
-              "Recipe Ingredient:", recipeIngredients,
-              "Ingredient Quantity:", ingredientSize, unit,
-              addIngredientButton,
-              "Cook Time:", cookTime,
-              "Upload Photo:", uploadPhoto
-      };
-      List<Ingredient> ingredients = new ArrayList<>();
-
-      addIngredientButton.addActionListener(e1 -> {
-        ingredients.add(new Ingredient(recipeIngredients.getText(), (double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
-        recipeIngredients.setText("");
-        ingredientSize.setValue(1);
-        unit.setSelectedIndex(0);
-      });
-
-      Recipe finalRecipe = new Recipe();
-      finalRecipe.setName(recipeName.getText());
-      uploadPhoto.addActionListener(e1 -> {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        int result = fileChooser.showOpenDialog(getParent());
-        if (result == JFileChooser.APPROVE_OPTION) {
-          try {
-            File file = fileChooser.getSelectedFile();
-            Toolkit toolkit = Toolkit.getDefaultToolkit();
-            String stringFile = file.toString();
-            Image image = toolkit.getImage(stringFile);
-            Path path = Paths.get(stringFile);
-            String imagePath = path.toAbsolutePath().toString();
-            String newStr = imagePath.toString();
-            BufferedImage picture = ImageIO.read(new File(newStr));
-            String extension = newStr.substring(newStr.lastIndexOf(".") + 1);
-            String newPath = "src/Recipe/Photos/" + user.getUsername() + "-" + recipeName.getText() + "." + extension;
-            finalRecipe.setImage(newPath);
-            jsonConverter.addPhotoToFile(imagePath, newPath);
-          } catch (IOException ex) {
-            System.out.println("Error uploading photo: " + ex);
-          }
-        }
-      });
-
-      int option = JOptionPane.showConfirmDialog(null, message, "Add Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
-      if (option == JOptionPane.OK_OPTION) {
-        finalRecipe.setIngredients(ingredients);
-        finalRecipe.setName(recipeName.getText());
-        finalRecipe.setInstructions(recipeInstructions.getText());
-        finalRecipe.setTime(cookTime.getText());
-        finalRecipe.setIngredients(ingredients);
-        user.getRecipeBook().addRecipe(finalRecipe);
-        RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
-
-      }
-    });
+    addRecipeButton.setBackground(Colors.gray);
+    addRecipeButton.addMouseListener(new AddRecipeAction(addRecipeButton));
 
     //add recipe on make-able recipe tab
-    addRecipeButtonMakeable.addActionListener(e -> {
-      JTextField recipeName = new JTextField();
-      JTextField recipeInstructions = new JTextField();
-      JTextField recipeIngredients = new JTextField();
-      JTextField cookTime = new JTextField();
-      String possibleUnits[] = {
-              "WHOLE ITEM", "GALLON", "LITER", "CUP", "QUART", "PINT", "MILLILITER",
-              "TABLESPOON", "TEASPOON", "FLUID OUNCE"
-      }; // TODO: ADD THE WEIGHT MEASUREMENTS TO THIS LIST
-
-      JComboBox<String> unit = new JComboBox<>(possibleUnits);
-      unit.setSelectedIndex(0);
-      SpinnerModel model = new SpinnerNumberModel(1, 0, 1000, 0.01);
-      JSpinner ingredientSize = new JSpinner(model);
-      Recipe recipe = new Recipe();
-      JButton uploadPhoto = new JButton("Add Photo");
-      JButton addIngredientButton = new JButton("Add Ingredient");
-      Object[] message = {
-              "Recipe Name:", recipeName,
-              "Recipe Instructions:", recipeInstructions,
-              "Recipe Ingredient:", recipeIngredients,
-              "Ingredient Quantity:", ingredientSize, unit,
-              addIngredientButton,
-              "Cook Time:", cookTime,
-              "Upload Photo:", uploadPhoto
-      };
-      List<Ingredient> ingredients = new ArrayList<>();
-
-      addIngredientButton.addActionListener(e1 -> {
-        ingredients.add(new Ingredient(recipeIngredients.getText(), (Double) ingredientSize.getValue(), unit.getItemAt(unit.getSelectedIndex())));
-        recipeIngredients.setText("");
-        ingredientSize.setValue(1);
-        unit.setSelectedIndex(0);
-      });
-
-      Recipe finalRecipe = new Recipe();
-      finalRecipe.setName(recipeName.getText());
-      uploadPhoto.addActionListener(e1 -> {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        int result = fileChooser.showOpenDialog(getParent());
-        if (result == JFileChooser.APPROVE_OPTION) {
-          try {
-            File file = fileChooser.getSelectedFile();
-            Toolkit toolkit = Toolkit.getDefaultToolkit();
-            String stringFile = file.toString();
-            Image image = toolkit.getImage(stringFile);
-            Path path = Paths.get(stringFile);
-            String imagePath = path.toAbsolutePath().toString();
-            String newStr = imagePath.toString();
-            BufferedImage picture = ImageIO.read(new File(newStr));
-            String extension = newStr.substring(newStr.lastIndexOf(".") + 1);
-            String newPath = "src/Recipe/Photos/" + user.getUsername() + "-" + recipeName.getText() + "." + extension;
-            finalRecipe.setImage(newPath);
-            jsonConverter.addPhotoToFile(imagePath, newPath);
-          } catch (IOException ex) {
-            System.out.println("Error uploading photo: " + ex);
-          }
-        }
-      });
-
-      int option = JOptionPane.showConfirmDialog(null, message, "Add Recipe", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, getLogo());
-      if (option == JOptionPane.OK_OPTION) {
-        finalRecipe.setIngredients(ingredients);
-        finalRecipe.setName(recipeName.getText());
-        finalRecipe.setInstructions(recipeInstructions.getText());
-        finalRecipe.setTime(cookTime.getText());
-        finalRecipe.setIngredients(ingredients);
-        user.getRecipeBook().addRecipe(finalRecipe);
-        RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
-
-      }
-    });
+    addRecipeButtonMakeable.setBackground(Colors.gray);
+    addRecipeButtonMakeable.addMouseListener(new AddRecipeAction(addRecipeButtonMakeable));
 
     //Delete Recipe Button --> Complete: Done
     // TODO: Make sure this handles deleting recipes when the user is on the makeable recipes tab
@@ -504,6 +367,14 @@ public class MainView extends JFrame{
     return new ImageIcon(dimg);
   }
 
+  public void saveFile() {
+    try {
+      jsonConverter.addUserToFile(user);
+    } catch (Exception ex) {
+      System.out.println("Error saving user: " + ex);
+    }
+  }
+
 
   /*
   Inner classes that inherit from FoodItemAction to implement the mouseListener events
@@ -568,6 +439,8 @@ public class MainView extends JFrame{
       user.getStock().editShoppingListItem(item, newItem);
       ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
       editShoppingListButton.setVisible(false);
+
+      saveFile();
     }
 
     @Override
@@ -621,6 +494,8 @@ public class MainView extends JFrame{
               servingSizeVal, spcVal, unitField.getItemAt(unitField.getSelectedIndex()));
       user.addToStock(foodItem);
       PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
+
+      saveFile();
     }
 
     @Override
@@ -697,6 +572,8 @@ public class MainView extends JFrame{
       user.getStock().editFoodItem(item, newItem);
       PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
       editStockButton.setVisible(false);
+
+      saveFile();
     }
 
     @Override
@@ -744,6 +621,8 @@ public class MainView extends JFrame{
               (double) sizeOneUnit.getValue(), unitField.getItemAt(unitField.getSelectedIndex()));
       user.getStock().addShoppingListItem(foodItem);
       ShoppingListList.setListData(user.getStock().getShoppingListNamesWithQuantity().toArray());
+
+      saveFile();
     }
 
     @Override
@@ -751,6 +630,29 @@ public class MainView extends JFrame{
       addShoppingListItemButton.setBackground(color);
     }
 
+
+  }
+
+  private class AddRecipeAction extends RecipeAction {
+
+    JButton button;
+
+    public AddRecipeAction(JButton button) {
+      super(user);
+      this.button = button;
+    }
+
+    @Override
+    protected void updateInterfaceList() {
+      RecipeList.setListData(user.getRecipeBook().getRecipeStringList().toArray());
+
+      saveFile();
+    }
+
+    @Override
+    protected void setButtonColor(Color color) {
+      button.setBackground(color);
+    }
 
   }
 }
