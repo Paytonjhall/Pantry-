@@ -77,7 +77,38 @@
       }
     ],
     "shoppingList": {
-      "items": []
+      "items": [
+        {
+          "name": "Chocolate chips",
+          "quantity": 3.0,
+          "unitType": "cups",
+          "minUnits": 0
+        },
+        {
+          "name": "Vanilla extract",
+          "quantity": 1.0,
+          "unitType": "teaspoon",
+          "minUnits": 0
+        },
+        {
+          "name": "Baking soda",
+          "quantity": 1.0,
+          "unitType": "teaspoon",
+          "minUnits": 0
+        },
+        {
+          "name": "Baking powder",
+          "quantity": 1.0,
+          "unitType": "teaspoon",
+          "minUnits": 0
+        },
+        {
+          "name": "Cinnamon",
+          "quantity": 1.0,
+          "unitType": "teaspoon",
+          "minUnits": 0
+        }
+      ]
     }
   },
   "recipeBook": {
@@ -93,7 +124,17 @@
             "unitType": "cups",
             "minUnits": 0
           }
-        ]
+        ],
+        "breakfastTag": false,
+        "lunchTag": false,
+        "dinnerTag": false,
+        "mainCourseTag": false,
+        "sideDishTag": false,
+        "snackTag": false,
+        "dessertTag": false,
+        "vegetarianTag": false,
+        "glutenFreeTag": false,
+        "meatTag": false
       },
       {
         "name": "Chicken with rice and beans",
@@ -119,7 +160,17 @@
             "minUnits": 0
           }
         ],
-        "image": "src/Recipe/Photos/leaf.png"
+        "image": "src/Assets/leaf.png",
+        "breakfastTag": false,
+        "lunchTag": false,
+        "dinnerTag": false,
+        "mainCourseTag": false,
+        "sideDishTag": false,
+        "snackTag": false,
+        "dessertTag": false,
+        "vegetarianTag": false,
+        "glutenFreeTag": false,
+        "meatTag": false
       },
       {
         "name": "Chocolate Chip Cookies",
@@ -163,7 +214,16 @@
             "minUnits": 0
           }
         ],
-        "image": "src/Recipe/Photos/leaf.png"
+        "breakfastTag": false,
+        "lunchTag": false,
+        "dinnerTag": false,
+        "mainCourseTag": false,
+        "sideDishTag": false,
+        "snackTag": false,
+        "dessertTag": false,
+        "vegetarianTag": false,
+        "glutenFreeTag": false,
+        "meatTag": false
       },
       {
         "name": "Cinnamon Rolls",
@@ -201,7 +261,17 @@
             "minUnits": 0
           }
         ],
-        "image": "src/Recipe/Photos/leaf.png"
+        "image": "src/Recipe/Photos/leaf.png",
+        "breakfastTag": true,
+        "lunchTag": false,
+        "dinnerTag": false,
+        "mainCourseTag": false,
+        "sideDishTag": false,
+        "snackTag": false,
+        "dessertTag": false,
+        "vegetarianTag": false,
+        "glutenFreeTag": false,
+        "meatTag": false
       },
       {
         "name": "Enchilada",
@@ -251,7 +321,17 @@
             "minUnits": 0
           }
         ],
-        "image": "src/Recipe/Photos/leaf.png"
+        "image": "src/Assets/leaf.png",
+        "breakfastTag": false,
+        "lunchTag": false,
+        "dinnerTag": false,
+        "mainCourseTag": false,
+        "sideDishTag": false,
+        "snackTag": false,
+        "dessertTag": false,
+        "vegetarianTag": false,
+        "glutenFreeTag": false,
+        "meatTag": false
       },
       {
         "name": "Grilled Cheese",
@@ -276,7 +356,17 @@
             "unitType": "tablespoon",
             "minUnits": 0
           }
-        ]
+        ],
+        "breakfastTag": false,
+        "lunchTag": false,
+        "dinnerTag": false,
+        "mainCourseTag": false,
+        "sideDishTag": false,
+        "snackTag": false,
+        "dessertTag": false,
+        "vegetarianTag": false,
+        "glutenFreeTag": false,
+        "meatTag": false
       },
       {
         "name": "Spaghetti",
@@ -302,7 +392,17 @@
             "minUnits": 0
           }
         ],
-        "image": "src/Recipe/Photos/leaf.png"
+        "image": "src/Assets/leaf.png",
+        "breakfastTag": false,
+        "lunchTag": false,
+        "dinnerTag": false,
+        "mainCourseTag": false,
+        "sideDishTag": false,
+        "snackTag": false,
+        "dessertTag": false,
+        "vegetarianTag": false,
+        "glutenFreeTag": false,
+        "meatTag": false
       },
       {
         "name": "Sugar Cookies",
@@ -340,7 +440,16 @@
             "minUnits": 0
           }
         ],
-        "image": "src/Recipe/Photos/leaf.png"
+        "breakfastTag": false,
+        "lunchTag": false,
+        "dinnerTag": false,
+        "mainCourseTag": false,
+        "sideDishTag": false,
+        "snackTag": false,
+        "dessertTag": false,
+        "vegetarianTag": false,
+        "glutenFreeTag": false,
+        "meatTag": false
       }
     ]
   },

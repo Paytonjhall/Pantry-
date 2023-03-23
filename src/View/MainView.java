@@ -349,7 +349,7 @@ public class MainView extends JFrame{
                 JOptionPane.showMessageDialog(null, "You do not have enough ingredients to make this recipe.", "Error", JOptionPane.ERROR_MESSAGE, getLogo());
               }
               PantryList.setListData(user.getStock().getFoodNamesWithQuantity().toArray());
-              //makeableRecipesList.setListData(user.getStringsUserCanMake().toArray());
+              makeableRecipesList.setListData(user.getStringsUserCanMake().toArray());
             }
 
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -375,7 +375,7 @@ public class MainView extends JFrame{
   }
 
   public static ImageIcon getLogo() {
-    Image dimg = getImage("Pantry-/images/pantryLogoNoBackground.png").getScaledInstance(135, 135, Image.SCALE_SMOOTH);
+    Image dimg = getImage("images/pantryLogoNoBackground.png").getScaledInstance(135, 135, Image.SCALE_SMOOTH);
     return new ImageIcon(dimg);
   }
 
