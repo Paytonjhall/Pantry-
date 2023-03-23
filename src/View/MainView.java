@@ -1,7 +1,9 @@
 package View;
+
 import Pantry.Ingredient;
 import Recipe.Recipe;
-import User.*;
+import User.JsonConverter;
+import User.User;
 import Utils.Colors;
 import View.ActionListeners.FoodItemAction;
 import View.ActionListeners.RecipeAction;
@@ -9,16 +11,9 @@ import View.ActionListeners.RecipeAction;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainView extends JFrame{
   final private JsonConverter jsonConverter = new JsonConverter();

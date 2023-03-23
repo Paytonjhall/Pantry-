@@ -1,7 +1,8 @@
 package Test;
 
 import Pantry.Ingredient;
-import Recipe.*;
+import Recipe.Recipe;
+import Recipe.RecipeBook;
 import User.User;
 import View.LoginView;
 import View.MainView;

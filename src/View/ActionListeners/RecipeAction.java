@@ -2,19 +2,17 @@ package View.ActionListeners;
 
 import Pantry.Ingredient;
 import Recipe.Recipe;
-import User.User;
 import User.JsonConverter;
+import User.User;
 import Utils.Colors;
 import View.MainView;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
