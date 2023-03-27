@@ -1,11 +1,15 @@
 package Test;
 
 import Pantry.Ingredient;
-import Recipe.*;
+import Recipe.Recipe;
+import Recipe.RecipeBook;
 import User.User;
 import View.LoginView;
 import View.MainView;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +22,14 @@ public static void main(String[] args) {
   }
 
   public static void testUserRecipe(){
+
+    File testFile = new File("../User/Users/test.json");
+    try {
+      Files.deleteIfExists(testFile.toPath());
+    } catch (IOException ex) {
+      System.out.println("Could not delete existing test user");
+    }
+
     User user = new User("test", "test");
 
 
@@ -125,7 +137,7 @@ public static void main(String[] args) {
     ingredients7.add(new Ingredient("butter", 1, 1, "cups"));
     ingredients7.add(new Ingredient("water", 1, 1, "cups"));
     ingredients7.add(new Ingredient("cinnamon", 1, 1, "tsp"));
-    Recipe recipe7 = new Recipe("Cinnamon Rolls", "Mix all ingredients together and bake at 350 degrees for 10 minutes.", "25 minutes", ingredients7, "src/Recipe/Photos/leaf.png");
+    Recipe recipe7 = new Recipe("Cinnamon Rolls", "Mix all ingredients together and bake at 350 degrees for 10 minutes.", "25 minutes", ingredients7, "src/Assets/leaf.png");
     recipe7.setBreakfastTag(true);
 
     ingredients8.add(new Ingredient("beef", 1, 1, "pound"));

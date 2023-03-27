@@ -261,7 +261,7 @@
             "minUnits": 0
           }
         ],
-        "image": "src/Recipe/Photos/leaf.png",
+        "image": "src/Assets/leaf.png",
         "breakfastTag": true,
         "lunchTag": false,
         "dinnerTag": false,
@@ -443,6 +443,29 @@
         "breakfastTag": false,
         "lunchTag": false,
         "dinnerTag": false,
+        "mainCourseTag": false,
+        "sideDishTag": false,
+        "snackTag": false,
+        "dessertTag": false,
+        "vegetarianTag": false,
+        "glutenFreeTag": false,
+        "meatTag": false
+      },
+      {
+        "name": "Test Recipe",
+        "instructions": "Do some stuff",
+        "time": "20 minutes",
+        "ingredients": [
+          {
+            "name": "Flour",
+            "quantity": 1.0,
+            "unitType": "CUP",
+            "minUnits": 0
+          }
+        ],
+        "breakfastTag": true,
+        "lunchTag": true,
+        "dinnerTag": true,
         "mainCourseTag": false,
         "sideDishTag": false,
         "snackTag": false,

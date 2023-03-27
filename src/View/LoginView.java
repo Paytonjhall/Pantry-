@@ -1,6 +1,8 @@
 package View;
 
-import User.*;
+import User.JsonConverter;
+import User.User;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
