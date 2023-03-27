@@ -137,7 +137,7 @@ public static void main(String[] args) {
     ingredients7.add(new Ingredient("butter", 1, 1, "cups"));
     ingredients7.add(new Ingredient("water", 1, 1, "cups"));
     ingredients7.add(new Ingredient("cinnamon", 1, 1, "tsp"));
-    Recipe recipe7 = new Recipe("Cinnamon Rolls", "Mix all ingredients together and bake at 350 degrees for 10 minutes.", "25 minutes", ingredients7, "src/Recipe/Photos/leaf.png");
+    Recipe recipe7 = new Recipe("Cinnamon Rolls", "Mix all ingredients together and bake at 350 degrees for 10 minutes.", "25 minutes", ingredients7, "src/Assets/leaf.png");
     recipe7.setBreakfastTag(true);
 
     ingredients8.add(new Ingredient("beef", 1, 1, "pound"));
